@@ -1,0 +1,88 @@
+.Login-card {
+  height: 100vh;
+  background-color: rgb(196 181 253);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .Card {
+    display: flex;
+    width: 50%;
+    background-color: white;
+    border-radius: 5px;
+    height: 30rem;
+    overflow: hidden;
+    .Left {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      background: linear-gradient(rgb(39, 11, 96, 0.5), rgb(39, 11, 96, 0.5)),
+        url("../../../public/image/photo.webp");
+      object-fit: cover;
+      background-size: cover;
+      padding: 50px;
+      color: white;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      h1 {
+        font-weight: 600;
+        font-size: 4rem;
+        line-height: 150px;
+      }
+      p {
+        padding-bottom: 1rem;
+        font-size: 1rem;
+      }
+      span {
+        color: rgb(255, 255, 255, 0.7);
+        padding-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+      button {
+        background-color: white;
+        border: none;
+        width: 9rem;
+        height: 2rem;
+        text-align: center;
+        border-radius: 5px;
+        color: rgb(196 181 253);
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+
+    .Right {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 50px;
+      gap: 50px;
+      h1 {
+        font-weight: 600;
+        font-size: 2rem;
+        line-height: 80px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      input {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border: none;
+        border-bottom: 1px solid lightgray;
+      }
+      button {
+        background-color: rgb(196 181 253);
+        border: none;
+        width: 9rem;
+        height: 2rem;
+        text-align: center;
+        border-radius: 5px;
+        color: black;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+  }
+}

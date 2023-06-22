@@ -1,0 +1,66 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@200;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100;0,200;0,300;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Condensed:wght@300;400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800&family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+$themes: (
+  light: (
+    textColor: rgb(0 0 0),
+    bg: rgb(255 255 255),
+    logo: rgb(161, 139, 251),
+    bgSoft: #f6f3f3,
+    textColorsoft: #555,
+    border: rgb(190, 185, 185),
+  ),
+  dark: (
+    textColor: rgb(245, 245, 245),
+    bg: rgb(2 2 2),
+    logo: rgb(255 255 255),
+    bgSoft: #333,
+    textColorsoft: rgb(190, 185, 185),
+    border: #444,
+  ),
+);
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
