@@ -1,8 +1,14 @@
+import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import UserResgister from "../RegisterPage/UserResgister";
 import "./Login.scss";
 import { NavLink } from "react-router-dom";
 
 const UserLogin = () => {
+  const { login } = useAuthenticationContext();
+
+  const handleLogin = () => {
+    login();
+  };
   return (
     <section className="Login-card">
       <article className="Card">
@@ -23,7 +29,7 @@ const UserLogin = () => {
           <form>
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />
-            <button>Login</button>
+            <button onClick={handleLogin}>Login</button>
           </form>
         </div>
       </article>

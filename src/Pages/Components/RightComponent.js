@@ -2,21 +2,38 @@ import React from "react";
 import data from "./data";
 
 const RightComponent = () => {
-  const suggestionFilter = data.filter((items) => items.id < 3);
+  const suggest = [
+    {
+      id: 1,
+      name: "Ada Uzor-Kalu",
+      imageUrl:
+        "https://images.unsplash.com/photo-1520943219761-6ca840e2e585?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQwfHxibGFjayUyMHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    },
+    {
+      id: 2,
+      name: "Ifenkili Adichie",
+      imageUrl:
+        "https://images.unsplash.com/photo-1583994010661-738aa9e96eb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ4fHxibGFjayUyMHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    },
+  ];
+  
   const latestFilter = data.filter((items) => items.id < 5);
-  const onlineFilter = data.filter((items) => items.id < 7);
+  const onlineFilter = data.filter((items) => items.id < 8);
   return (
     <section className="RightComponent">
       <div className="container">
         <div className="items">
           <span>Suggested For You</span>
-          {suggestionFilter.map((suggested) => {
+          {suggest.map((suggested) => {
             const { id, name, imageUrl } = suggested;
             return (
               <div className="user" key={id}>
-                <div className="userInfo">
-                  <img src={imageUrl} alt={name + " profile picture"} />
-                  <span>{name}</span>
+                <div className="suggestedUserInfo">
+                  <div className="info">
+                    <img src={imageUrl} alt={name + " profile picture"} />
+                    <span>{name}</span>
+                  </div>
+
                   <div className="buttons">
                     <button>Follow</button>
                     <button>Dismiss</button>
@@ -36,7 +53,7 @@ const RightComponent = () => {
                 <div className="userInfo">
                   <img src={imageUrl} alt={name + " profile picture"} />
                   <p>
-                    <span>{name}</span>  changed their cover picture
+                    <span>{name}</span> changed their cover picture
                   </p>
 
                   <div className="time">
@@ -56,7 +73,7 @@ const RightComponent = () => {
               <div className="user" key={id}>
                 <div className="userInfo">
                   <img src={imageUrl} alt={name + " profile picture"} />
-                  <div className="online"/>
+                  <div className="online" />
                   <span>{name}</span>
                 </div>
               </div>

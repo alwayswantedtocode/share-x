@@ -1,21 +1,27 @@
 import { useContext, createContext, useEffect, useState } from "react";
 
-export const GlobalContext = createContext();
+ const GlobalContext = createContext();
 
 export const AppProvider = ({ children }) => {
+
   const [isDarkMode, setIsModeDark] = useState(
-    JSON.parse(localStorage.getItem("darkMode")) || false
+    JSON.parse(localStorage.getItem("DarkMode")) || false
   );
+  
 
   useEffect(() => {
-    localStorage.getItem("darkMode", isDarkMode);
+    localStorage.setItem("DarkMode", isDarkMode);
   }, [isDarkMode]);
+
 
   const modeToggle = () => {
     setIsModeDark(!isDarkMode);
   };
+
   return (
-    <GlobalContext.Provider value={{ isDarkMode, modeToggle }}>
+    <GlobalContext.Provider
+      value={{ isDarkMode, modeToggle, }}
+    >
       {children}
     </GlobalContext.Provider>
   );

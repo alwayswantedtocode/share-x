@@ -13,18 +13,23 @@ import Videos from "../../Assets/Videos.svg";
 import Tutorials from "../../Assets/Tutorials.svg";
 import Courses from "../../Assets/Courses.svg";
 import Funds from "../../Assets/Funds.svg";
+import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 
 const LeftComponent = () => {
+  const { currentUser } = useAuthenticationContext();
+
   return (
     <section className="LeftComponent">
       <div className="container">
         <div className="menu">
           <div className="user">
             <img
-              src="https://images.unsplash.com/photo-1686287118358-2ac201c8cb0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80"
-              alt="Samuel-David profile picture"
+              src={
+                currentUser.profilePicture
+              }
+              alt=""
             />
-            <span>Samuel-David</span>
+            <span>{currentUser.name}</span>
           </div>
 
           <div className="MenuItems">

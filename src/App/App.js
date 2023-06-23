@@ -12,6 +12,7 @@ import Register from "../Pages/RegisterPage/UserResgister";
 import Home from "../Pages/HomePage/Home";
 import Layout from "../Pages/SharedLayout/Layout";
 import Profile from "../Pages/ProfilePage/UserProfile"
+import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
 
 
 
@@ -23,11 +24,12 @@ import Profile from "../Pages/ProfilePage/UserProfile"
  
 const App = () => {
 
-   const currentUser =true;
+   const{ currentUser} =useAuthenticationContext();
+  // const  currentUser  = true;
 
   const ProtectedRoute = ({children})=>{
-    if (!currentUser){
-      return <Navigate to="/login"/>
+    if (!currentUser) {
+      return <Navigate to="/login" />;
     }
     return children
   };

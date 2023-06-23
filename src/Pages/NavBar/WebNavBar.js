@@ -8,11 +8,12 @@ import {
   MdOutlineNotificationsNone,
   MdOutlinePerson,
 } from "react-icons/md";
-import { BsPerson } from "react-icons/";
-// import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 
 const WebNavBar = () => {
-//   const { isDarkMode, modeToggle } = useGlobalContext();
+  const { isDarkMode, modeToggle } = useGlobalContext();
+  const { currentUser } = useAuthenticationContext();
   return (
     <header className="header ">
       <nav className="nav">
@@ -22,8 +23,8 @@ const WebNavBar = () => {
             <AiOutlineHome />
           </button>
           {/* onClick={modeToggle} */}
-          <button>
-            {/* {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />} */}
+          <button onClick={modeToggle}>
+            {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
           </button>
           <button>
             <AiOutlineAppstore />
@@ -46,10 +47,10 @@ const WebNavBar = () => {
 
           <div className="user">
             <img
-              src="https://images.unsplash.com/photo-1686287118358-2ac201c8cb0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80"
-              alt="Samuel-David profile picture"
+              src={currentUser.profilePicture}
+              alt=""
             />
-            <span>Samuel-David</span>
+            <span>{currentUser.name}</span>
           </div>
         </div>
       </nav>
