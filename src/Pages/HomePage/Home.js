@@ -1,14 +1,16 @@
 import React from "react";
-import './home.scss';
+import "./home.scss";
 import ShareStories from "./ShareStories";
 import TimeLine from "./TimeLine";
+import SharePost from "./SharePost";
+
 
 const Home = () => {
   return (
     <div className="home">
-      <ShareStories/>
-
-      <TimeLine/>
+      <ShareStories />
+      <SharePost />
+      <TimeLine />
      
     </div>
   );

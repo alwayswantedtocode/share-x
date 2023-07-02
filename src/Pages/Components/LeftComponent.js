@@ -23,12 +23,10 @@ const LeftComponent = () => {
       <div className="container">
         <div className="menu">
           <div className="user">
-            <img
-              src={
-                currentUser.profilePicture
-              }
-              alt=""
-            />
+            <div className="image">
+              <img src={currentUser.profilePicture} alt="" />
+            </div>
+
             <span>{currentUser.name}</span>
           </div>
 
@@ -38,7 +36,7 @@ const LeftComponent = () => {
           </div>
           <div className="MenuItems">
             <img src={Groups} alt="Groups" />
-            <span>Groups</span>
+            <span>Community</span>
           </div>
           <div className="MenuItems">
             <img src={Market} alt="Market" />
@@ -52,48 +50,50 @@ const LeftComponent = () => {
             <img src={Memories} alt="Memories" />
             <span>Memories</span>
           </div>
-          <hr />
-          <div className="menu">
-            <span>Your Shortcuts</span>
-            <div className="MenuItems">
-              <img src={Event} alt="Event" />
-              <span>Event</span>
-            </div>
-            <div className="MenuItems">
-              <img src={Gaming} alt="Gaming" />
-              <span>Gaming</span>
-            </div>
-            <div className="MenuItems">
-              <img src={Gallery} alt="Gallery" />
-              <span>Gallery</span>
-            </div>
-            <div className="MenuItems">
-              <img src={Videos} alt="Videos" />
-              <span>Videos</span>
-            </div>{" "}
-            {/* <div className="MenuItems">
+        </div>{" "}
+        <hr />
+        <div className="menu">
+          <span>Your Shortcuts</span>
+          <div className="MenuItems">
+            <img src={Event} alt="Event" />
+            <span>Event</span>
+          </div>
+          <div className="MenuItems">
+            <img src={Gaming} alt="Gaming" />
+            <span>Gaming</span>
+          </div>
+          <div className="MenuItems">
+            <img src={Gallery} alt="Gallery" />
+            <span>Gallery</span>
+          </div>
+          <div className="MenuItems">
+            <img src={Videos} alt="Videos" />
+            <span>Videos</span>
+          </div>{" "}
+          {/* <div className="MenuItems">
             <img src={Message} alt="Message" />
             <span>Message</span>
           </div> */}
+        </div>
+        <hr />
+        <div className="menu">
+          <span>Others</span>
+          <div className="MenuItems">
+            <img src={Tutorials} alt="Tutorials" />
+            <span>Tutorials</span>
           </div>
-          <hr />
-          <div className="menu">
-            <span>Others</span>
-            <div className="MenuItems">
-              <img src={Tutorials} alt="Tutorials" />
-              <span>Tutorials</span>
-            </div>
-            <div className="MenuItems">
-              <img src={Courses} alt="Courses" />
-              <span>Courses</span>
-            </div>
-            <div className="MenuItems">
-              <img src={Funds} alt="Funds" />
-              <span>Funds</span>
-            </div>
+          <div className="MenuItems">
+            <img src={Courses} alt="Courses" />
+            <span>Courses</span>
+          </div>
+          <div className="MenuItems">
+            <img src={Funds} alt="Funds" />
+            <span>Funds</span>
           </div>
         </div>
+        <hr />
       </div>
+      {/* <p>&copy; 2023 ShowRoom. All rights reserved.</p> */}
     </section>
   );
 };

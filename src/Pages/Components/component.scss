@@ -2,6 +2,8 @@
 
 .LeftComponent {
   @include themify($themes) {
+    width: 100%;
+    display: none;
     flex: 2;
     position: sticky;
     top: 4rem;
@@ -11,16 +13,26 @@
     box-shadow: rgba(159, 159, 159, 0.3);
     -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
     -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+    padding: 0.625rem 0;
+
+    @include web {
+      display: flex;
+    }
+
+    @include web-small {
+      display: none;
+    }
 
     &::-webkit-scrollbar {
       display: none;
     }
 
     .container {
-      padding: 20px;
+      width: 100%;
+      padding: 0.625rem;
 
       hr {
-        margin: 10px 0px;
+        margin: 0.625rem 0;
         border: none;
         height: 0.5px;
         background-color: rgb(222, 218, 218);
@@ -29,7 +41,7 @@
       .menu {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 1.25rem;
 
         span {
           font-size: 12px;
@@ -39,11 +51,42 @@
         .user {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 0.625rem;
+          cursor: pointer;
+          padding: 0.625rem;
+
+          .image {
+            width: 2.7rem;
+            height: 2.7rem;
+            img {
+              width: 2.7rem;
+              height: 2.7rem;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+
+          span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: themed("textColor");
+          }
+        }
+        .user:hover {
+          background-color: themed("bgSoft");
+          border-radius: 0.625rem;
+        }
+
+        .MenuItems {
+          display: flex;
+          align-items: center;
+          gap: 0.625rem;
+          cursor: pointer;
+          padding: 0.625rem;
 
           img {
-            width: 2.2rem;
-            height: 2.2rem;
+            width: 2.7rem;
+            height: 2.7rem;
             border-radius: 50%;
             object-fit: cover;
           }
@@ -54,24 +97,9 @@
             color: themed("textColor");
           }
         }
-
-        .MenuItems {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          img {
-            width: 2.2rem;
-            // height: 2.2rem;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-
-          span {
-            font-size: 1rem;
-            font-weight: 500;
-            color: themed("textColor");
-          }
+        .MenuItems:hover {
+          background-color: themed("bgSoft");
+          border-radius: 0.625rem;
         }
       }
     }
@@ -80,22 +108,40 @@
 
 .RightComponent {
   @include themify($themes) {
-    flex: 3;
+    // width: 100%;
+    flex: 2.7;
     position: sticky;
     top: 4rem;
     height: calc(100vh - 4rem);
     overflow-y: scroll;
     background-color: themed("bgSoft");
+    display: none;
+    overflow-x: hidden;
+
+    @include surface-Pro {
+      display: flex;
+    }
+
+    @include web {
+      display: flex;
+    }
+    @include web-small {
+      display: flex;
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }
 
     .container {
+      width: 100%;
       background-color: themed("bgSoft");
-      padding: 20px;
+      margin: 0% 5%;
+      padding: 1.25rem 0.625rem;
+
       .items {
         padding: 0.5rem;
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
         border-radius: 0.5rem;
         background-color: themed("bg");
         box-shadow: rgba(159, 159, 159, 0.3);
@@ -111,39 +157,79 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 20px 0px;
+          margin: 0.625rem 0.325rem;
+          padding: 0.625rem 0.625rem;
+          cursor: pointer;
 
           .suggestedUserInfo {
+            width: 100%;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
+            flex-direction: column;
+            gap: 0.3rem;
+
             .info {
               display: flex;
               align-items: center;
-              justify-content: center;
-              gap: 10px;
-              img {
-                width: 2.2rem;
-                height: 2.2rem;
-                border-radius: 50%;
-                object-fit: cover;
+              gap: 0.625rem;
+              position: relative;
+              cursor: pointer;
+
+              .image {
+                width: 2.7rem;
+                height: 2.7rem;
+                img {
+                  width: 2.7rem;
+                  height: 2.7rem;
+                  border-radius: 50%;
+                  object-fit: cover;
+                }
               }
+
               span {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 font-weight: 500;
                 color: themed("textColor");
+                margin-left: 2.3%;
+              }
+            }
+            .buttons {
+              display: flex;
+              align-items: center;
+
+              justify-content: flex-end;
+              gap: 0.625rem;
+
+              button {
+                width: 37%;
+                height: 2rem;
+                font-size: 0.9rem;
+                font-weight: 500;
+                border: none;
+                border-radius: 0.3rem;
+                padding: 5px;
+                color: white;
+                cursor: pointer;
+
+                &:first-child {
+                  background-color: rgb(16, 83, 217);
+                }
+
+                &:last-child {
+                  background-color: rgb(165, 43, 43);
+                }
               }
             }
           }
           .userInfo {
+            width: 100%;
             display: flex;
             align-items: center;
             gap: 15px;
             position: relative;
+
             img {
-              width: 2.2rem;
-              height: 2.2rem;
+              width: 2.7rem;
+              height: 2.7rem;
               border-radius: 50%;
               object-fit: cover;
             }
@@ -167,34 +253,18 @@
               color: themed("textColor");
             }
             .time {
+              display: flex;
+              margin-right: 1.25rem;
               span {
                 font-size: 12px;
                 color: themed("textColorsoft");
               }
             }
           }
-          .buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            button {
-              width: 5rem;
-              border: none;
-              border-radius: 0.3rem;
-              padding: 5px;
-              color: white;
-              cursor: pointer;
-
-              &:first-child {
-                background-color: rgb(16, 83, 217);
-              }
-
-              &:last-child {
-                background-color: rgb(165, 43, 43);
-              }
-            }
-          }
+        }
+        .user:hover {
+          border-radius: 0.625rem;
+          background-color: themed("bgSoft");
         }
       }
     }

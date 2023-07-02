@@ -1,0 +1,120 @@
+@import "../../index.scss";
+
+.AsideProfile {
+  @include themify($themes) {
+    width: max-content;
+    height: max-content;
+    background-color: themed("bg");
+    border-radius: 0.5rem;
+    box-shadow: rgba(159, 159, 159, 0.6);
+    -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.6);
+    -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.6);
+
+    .container {
+      margin: 0 0.625rem;
+      background-color: themed("bg");
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .Account {
+        width: max-content;
+        padding: 0.625rem;
+        margin-bottom: 1.2rem;
+        border-radius: 0.5rem;
+        background-color: themed("bg");
+        box-shadow: rgba(159, 159, 159, 0.3);
+        -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+        -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+        .AccountName {
+          display: flex;
+          align-items: center;
+          padding:0.625rem 0.625rem;
+          gap: 0.625rem;
+          cursor: pointer;
+          border-radius: 0.625rem;
+
+          img {
+            width: 2.7rem;
+            height: 2.7rem;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          span {
+            font-family: "Rubik", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: themed("textColor");
+            // margin-left: 2.3%;
+            gap: 3rem;
+          }
+        }
+        .AccountName:hover {
+          background-color: themed("bgSoft");
+        }
+        hr {
+          margin: 0 0.625rem;
+        }
+        .AddAccount {
+          display: flex;
+          flex-direction: column;
+          padding: 0.625rem;
+          cursor: pointer;
+          border-radius: 0.625rem;
+
+          span {
+            font-family: "Rubik", sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: themed("textColor");
+            margin-left: 2.3%;
+          }
+        }
+        .AddAccount:hover {
+          background-color: themed("bgSoft");
+        }
+      }
+      .profileOptions {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin: 0.3rem 0;
+        justify-content: space-between;
+        border-radius: 0.625rem;
+        cursor: pointer;
+        gap: 5rem;
+
+        .option {
+          display: flex;
+          align-items: center;
+          padding: 0.625rem;
+          row-gap: 0.6rem;
+          div {
+            width: 2.3rem;
+            height: 2.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background-color: themed("bgSoft");
+            border-radius: 50%;
+            color: themed("textColor");
+          }
+          span {
+            font-family: "Rubik", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: themed("textColor");
+            // margin-left: 2.3%;
+          }
+        }
+        .right {
+          font-size: 1.5rem;
+          font-weight: 500;
+        }
+      }
+      .profileOptions:hover {
+        background-color: themed("bgSoft");
+      }
+    }
+  }
+}

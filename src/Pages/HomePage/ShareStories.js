@@ -4,7 +4,7 @@ import "./home.scss";
 
 const ShareStories = () => {
   const { currentUser } = useAuthenticationContext();
-  
+
   const storiesData = [
     {
       id: 1,
@@ -33,14 +33,13 @@ const ShareStories = () => {
   ];
   return (
     <div
-      className="stories
-    "
+      className="stories"
     >
       <div className="story">
         <img src={currentUser.profilePicture} alt="" />
         <span>{currentUser.name}</span>
         <button>
-          <BsFillPlusCircleFill />
+          +
         </button>
       </div>
       {storiesData.map((story) => {

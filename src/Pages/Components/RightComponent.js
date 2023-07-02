@@ -16,7 +16,7 @@ const RightComponent = () => {
         "https://images.unsplash.com/photo-1583994010661-738aa9e96eb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ4fHxibGFjayUyMHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
     },
   ];
-  
+
   const latestFilter = data.filter((items) => items.id < 5);
   const onlineFilter = data.filter((items) => items.id < 8);
   return (
@@ -30,7 +30,10 @@ const RightComponent = () => {
               <div className="user" key={id}>
                 <div className="suggestedUserInfo">
                   <div className="info">
-                    <img src={imageUrl} alt={name + " profile picture"} />
+                    <div className="image">
+                      <img src={imageUrl} alt="" />
+                    </div>
+
                     <span>{name}</span>
                   </div>
 
@@ -51,7 +54,10 @@ const RightComponent = () => {
             return (
               <div className="user" key={id}>
                 <div className="userInfo">
-                  <img src={imageUrl} alt={name + " profile picture"} />
+                  <div className="image">
+                    <img src={imageUrl} alt="" />
+                  </div>
+
                   <p>
                     <span>{name}</span> changed their cover picture
                   </p>
@@ -72,7 +78,7 @@ const RightComponent = () => {
             return (
               <div className="user" key={id}>
                 <div className="userInfo">
-                  <img src={imageUrl} alt={name + " profile picture"} />
+                  <img src={imageUrl} alt="" />
                   <div className="online" />
                   <span>{name}</span>
                 </div>
@@ -86,32 +92,3 @@ const RightComponent = () => {
 };
 
 export default RightComponent;
-
-{
-  /* <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://images.unsplash.com/photo-1686287118358-2ac201c8cb0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80"
-                alt="Samuel-David profile picture"
-              />
-              <span>Samuel-David</span>
-              <div className="buttons">
-                <button>Follow</button>
-                <button>Dismiss</button>
-              </div>
-            </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img
-                src="https://images.unsplash.com/photo-1686287118358-2ac201c8cb0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80"
-                alt="Samuel-David profile picture"
-              />
-              <span>Samuel-David</span>
-              <div className="buttons">
-                <button>Follow</button>
-                <button>Dismiss</button>
-              </div>
-            </div>
-          </div> */
-}

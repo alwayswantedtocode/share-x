@@ -12,21 +12,23 @@ const Layout = () => {
   // const {current}= useContext(GlobalContext);
   console.log(isDarkMode);
   return (
-    <section
-      className={`theme-${isDarkMode ? "dark" : "light"}`}
-      style={{ backgroundColor: " rgb(246, 246, 246)" }}
-    >
+    // <section
+    //   className={`page ${isDarkMode ? "theme-dark" : "theme-light"}`}
+    //   style={{ backgroundColor: "rgb(246, 246, 246)", width: "100%" }}
+    // >
+    <main className={`page ${isDarkMode ? "theme-dark" : "theme-light"}`}>
       <NavBar />
-      {/* <MobileNavBar/> */}
-      <div style={{ display: "flex" }}>
+      <div className="main" style={{ display: "flex" }}>
         <LeftComponent />
-        <div style={{ flex: 6 }}>
+        <div style={{ flex: 6, background: "red" }}>
           <Outlet />
         </div>
 
         <RightComponent />
       </div>
-    </section>
+    </main>
+
+    // </section>
   );
 };
 

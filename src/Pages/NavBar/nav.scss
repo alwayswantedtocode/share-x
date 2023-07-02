@@ -1,9 +1,13 @@
 @import "../../index.scss";
 
+$header-height: 4rem;
+$nav-height: 3rem;
+$nav-padding: 0.5rem;
+
 .header {
   @include themify($themes) {
     width: 100%;
-    height: 4rem;
+    height: #{$header-height};
     background-color: themed("bg");
     display: flex;
     align-items: center;
@@ -13,83 +17,204 @@
     top: 0;
     z-index: 99;
     color: themed("textColor");
+
     .nav {
-      width: 98%;
-      height: 3rem;
+      font-family: "Signika Negative", sans-serif;
+      width: 97%;
+      height: #{$nav-height};
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 0.5rem 0 0.5rem;
+      // justify-content: space-between;
+      padding: 0 $nav-padding 0 $nav-padding;
+
+      a {
+        text-decoration: none;
+        color: themed(logo);
+      }
+      a:active,
+      a:focus {
+        color: themed(logo);
+      }
+      span {
+        flex: 1;
+        font-size: 1.4rem;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        color: themed(logo);
+
+        @include tab {
+          font-size: 1.7rem;
+        }
+      }
 
       .Left-buttons {
+        flex: 3;
         display: flex;
-        gap: 15px;
+        gap: 0.9375rem;
+        padding: 0.3125rem;
 
-        span {
-          font-size: 1.7rem;
-          font-family: "Montserrat", sans-serif;
-          font-weight: 700;
-          color: themed(logo);
-        }
+        // @include mobile {
+        //   display: flex;
+        //   justify-content: space-between;
+        //   gap: 1.875rem;
+        // }
+
+        // @include tab {
+        //   gap: 0.3125rem;
+        // }
+
+        //  font-size: 1.7rem;
+        //   font-family: "Montserrat", sans-serif;
+        //   font-weight: 700;
+        //   color: themed(logo);
+
         button {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 4rem;
-          border-radius: 7px;
-          font-size: 1.7rem;
+          width: 2.5rem;
+          border-radius: 0.4375rem;
+          font-size: 1.5rem;
           border: none;
           background-color: transparent;
           cursor: pointer;
           color: themed("textColor");
+
+          @include surface-duo {
+            font-size: 1.7rem;
+            width: 3rem;
+          }
+          @include tab {
+            font-size: 1.7rem;
+            width: 3rem;
+          }
         }
+
         button:hover {
           background-color: rgb(187, 187, 187);
         }
+
         .search {
           display: flex;
           align-items: center;
-          border: 2px solid rgb(145, 143, 143);
-          gap: 10px;
-          border-radius: 7px;
-          padding: 0 5px;
-          // cursor: pointer;
+          border: 0.125rem solid rgb(145, 143, 143);
+          gap: 0.3125rem;
+          border-radius: 0.4375rem;
+          padding: 0 0.3125rem;
 
           input {
+            display: none;
             height: 1.9rem;
             border: none;
             width: 20rem;
             background-color: transparent;
+            color: themed("textColor");
+
+            @include web {
+              display: flex;
+            }
+          }
+
+          input:focus {
+            outline: none;
           }
         }
       }
+
       .Right-buttons {
-        display: flex;
-        gap: 15px;
-        button {
+        display: none;
+
+        @include web {
           display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.8rem;
-          border: none;
-          background-color: transparent;
-          cursor: pointer;
-          color: themed("textColor");
+          justify-content: flex-end;
+          flex: 2;
         }
-        .user {
+        @include tab {
           display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          img {
-            width: 2.2rem;
-            height: 2.2rem;
-            border-radius: 50%;
-            object-fit: cover;
+          flex: 1.5;
+          gap: 0.9375rem;
+        }
+        // @include web-large {
+        //   display: flex;
+        //   justify-content: flex-end;
+        // }
+        div {
+          display: flex;
+          flex-direction: column;
+          button {
+            width: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 0.4375rem;
+            background-color: transparent;
+            cursor: pointer;
+            color: themed("textColor");
           }
-          span {
-            font-weight: 500;
+
+          button:hover {
+            background-color: rgb(187, 187, 187);
           }
+
+          .Aside {
+            display: flex;
+            justify-content: flex-end;
+            width: 95%;
+            background-color: themed("bg");
+            position: absolute;
+            top: 4rem;
+            right: 0%;
+            left: 2.5%;
+            bottom: 0%;
+            border-radius: 0.5rem;
+            box-shadow: rgba(159, 159, 159, 0.3);
+            -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+            -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+            visibility: hidden;
+          }
+          .Aside.active {
+            visibility: visible;
+          }
+        }
+      }
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3125rem;
+        cursor: pointer;
+
+        .Aside {
+          display: flex;
+          justify-content: flex-end;
+          width: 95%;
+          // height: max-content;
+          background-color: themed("bg");
+          position: absolute;
+          top: 4rem;
+          right: 0;
+          left: 2.5%;
+          bottom: 0%;
+          visibility: hidden;
+          box-shadow: rgba(159, 159, 159, 0.6);
+          -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.6);
+          -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.6);
+        }
+        .Aside.active {
+          visibility: visible;
+        }
+
+        img {
+          width: 2.7rem;
+          height: 2.7rem;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        span {
+          font-weight: 500;
         }
       }
     }

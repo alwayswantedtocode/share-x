@@ -1,12 +1,12 @@
-import "./home.scss";
+import "../HomePage/home.scss";
 import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
 import { useState } from "react";
-import Replies from "./Replies";
+import Replies from "../HomePage/Replies";
 
-const Post = ({ feed }) => {
+const FriendPost = ({ myPost }) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
 
   const commentHandle = () => {
@@ -19,29 +19,23 @@ const Post = ({ feed }) => {
         {/* poster author and time */}
         <div className="user">
           <div className="userInfo">
-            <Link
-              to={`/profile/${feed.userId}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <img src={feed.profilePicture} alt="" />
-            </Link>
-
+            <img src={myPost.profilePicture} alt="" />
             <div className="details">
               <Link
-                to={`/profile/${feed.userId}`}
+                to={`/profile/${myPost.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <span className="name">{feed.name}</span>
+                <span className="name">{myPost.name}</span>
               </Link>
               <span className="date">1 min ago</span>
             </div>
           </div>
-          <MdOutlineMoreHoriz style={{ cursor: "pointer" }} />
+          <MdOutlineMoreHoriz />
         </div>
         {/* Post content text and picture or video */}
         <div className="content">
-          <p>{feed.description}</p>
-          <img src={feed.image} alt="" />
+          <p>{myPost.description}</p>
+          <img src={myPost.image} alt="" />
         </div>
         {/* Interact with post */}
         <div className="info">
@@ -68,4 +62,4 @@ const Post = ({ feed }) => {
   );
 };
 
-export default Post;
+export default FriendPost;
