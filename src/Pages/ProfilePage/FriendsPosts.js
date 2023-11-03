@@ -5,7 +5,7 @@ const FriendsPosts = () => {
     {
       id: 1,
       name: "Okoh Eseose",
-      userId: 1,
+      userId: 7,
       profilePicture:
         "https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGJsYWNrJTIwcGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       description:
@@ -16,7 +16,7 @@ const FriendsPosts = () => {
     {
       id: 2,
       name: "Okoh Eseose",
-      userId: 2,
+      userId: 7,
       profilePicture:
         "https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGJsYWNrJTIwcGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       description:
@@ -25,7 +25,7 @@ const FriendsPosts = () => {
     {
       id: 3,
       name: "Okoh Eseose",
-      userId: 3,
+      userId: 7,
       profilePicture:
         "https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGJsYWNrJTIwcGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       image:
@@ -34,7 +34,7 @@ const FriendsPosts = () => {
     {
       id: 4,
       name: "Okoh Eseose",
-      userId: 4,
+      userId: 7,
       profilePicture:
         "https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGJsYWNrJTIwcGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       description:
@@ -43,7 +43,7 @@ const FriendsPosts = () => {
     {
       id: 5,
       name: "Okoh Eseose",
-      userId: 5,
+      userId: 7,
       profilePicture:
         "https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGJsYWNrJTIwcGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       description:
@@ -54,7 +54,7 @@ const FriendsPosts = () => {
     {
       id: 6,
       name: "Okoh Eseose",
-      userId: 5,
+      userId: 7,
       profilePicture:
         "https://images.unsplash.com/photo-1512849934327-1cf5bf8a5ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODZ8fGJsYWNrJTIwcGVvcGxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
       image:

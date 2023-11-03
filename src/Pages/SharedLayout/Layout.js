@@ -10,7 +10,7 @@ const Layout = () => {
   const { isDarkMode, currentUser } = useGlobalContext();
 
   // const {current}= useContext(GlobalContext);
-  console.log(isDarkMode);
+  // console.log(isDarkMode);
   return (
     // <section
     //   className={`page ${isDarkMode ? "theme-dark" : "theme-light"}`}

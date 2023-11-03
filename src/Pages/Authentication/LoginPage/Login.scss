@@ -1,0 +1,194 @@
+@import "../../../index.scss";
+.Login-card {
+  height: 100vh;
+  background-color: rgb(196 181 253);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .Card {
+    display: flex;
+    width: 60%;
+    background-color: white;
+    border-radius: 5px;
+    height: max-content;
+    overflow: hidden;
+    @include fold {
+      width: 95%;
+      // flex-direction: column;
+    }
+    @include tab {
+      width: 90%;
+    }
+    .Left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      background: linear-gradient(rgb(39, 11, 96, 0.5), rgb(39, 11, 96, 0.5)),
+        url("../../../../public/image/photo.webp");
+      object-fit: cover;
+      background-size: cover;
+      padding: 50px;
+      color: white;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      @include fold {
+        display: none;
+      }
+      @include surface-duo {
+        display: none;
+      }
+      h1 {
+        font-weight: 600;
+        font-size: 4rem;
+        line-height: 150px;
+        @include tab {
+          font-size: 3.5rem;
+        }
+      }
+      p {
+        padding-bottom: 1rem;
+        font-size: 1rem;
+      }
+      span {
+        color: rgb(255, 255, 255, 0.7);
+        padding-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+      button {
+        background-color: white;
+        border: none;
+        width: 9rem;
+        height: 2rem;
+        text-align: center;
+        border-radius: 5px;
+        color: rgb(196 181 253);
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+
+    .Right {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 50px;
+      gap: 50px;
+      @include fold {
+        padding: 20px;
+        gap: 20px;
+      }
+      .sharexMobile {
+        display: none;
+        @include fold {
+          display: block;
+          text-align: center;
+          font-size: 1.7rem;
+          color: rgb(196 181 253);
+        }
+        @include surface-duo {
+          display: block;
+          text-align: center;
+          font-size: 1.7rem;
+          color: rgb(196 181 253);
+        }
+      }
+
+      h1 {
+        font-weight: 600;
+        font-size: 1.7rem;
+        // line-height: 80px;
+        @include fold {
+          font-size: 1.1rem;
+          line-height: 50px;
+        }
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        .input-container {
+          width: 20rem;
+          display: flex;
+          flex-direction: column;
+          border-bottom: 1px sold rgb(56, 54, 54);
+          input {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            border: none;
+            border-bottom: 1px solid lightgray;
+          }
+          input:focus {
+            outline: none;
+          }
+        }
+        button {
+          background-color: rgb(196 181 253);
+          border: none;
+          width: 9rem;
+          height: 2rem;
+          text-align: center;
+          border-radius: 5px;
+          color: black;
+          font-weight: 500;
+          cursor: pointer;
+        }
+        .checkMark {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        color: seagreen;
+      }
+      .xMark {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        color: firebrick;
+      }
+      .hide {
+        display: none;
+      }
+      .valid {
+        margin-left: 0.25rem;
+      }
+      .invalid {
+        margin-left: 0.25rem;
+      }
+       .popup-alert {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.25rem;
+        display: flex;
+        color: #3c3c3c;
+      }
+      .offscreen {
+        display: none;
+      }
+      .click-4-info {
+        margin-right: 0.2rem;
+        color: #3c3c3c;
+        font-size: 1.4rem;
+      }
+      }
+
+      .mobileView {
+        display: none;
+        @include fold {
+          display: block;
+        }
+        @include surface-duo {
+          display: block;
+        }
+        span {
+          color: rgb(75, 75, 75);
+        }
+        a:visited {
+          color: rgb(75, 75, 75);
+        }
+      }
+    }
+  }
+}

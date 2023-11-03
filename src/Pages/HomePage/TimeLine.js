@@ -55,7 +55,7 @@ const TimeLine = () => {
     {
       id: 6,
       name: "Orisha Segun",
-      userId: 5,
+      userId: 6,
       profilePicture:
         "https://images.unsplash.com/photo-1457367756802-2c6127b8ad11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTE2fHxibGFjayUyMHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
       image:

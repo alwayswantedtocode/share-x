@@ -27,7 +27,6 @@ code {
 body {
   font-family: "Rubik", sans-serif;
   background-color: rgb(222, 218, 218);
-  
 }
 
 $themes: (
@@ -81,7 +80,7 @@ $themes: (
   }
 }
 @mixin fold {
-  @media (min-width: 280px) and (max-width: 374px) {
+  @media (min-width: 280px) and (max-width: 539px) {
     @content;
   }
 }
@@ -99,7 +98,7 @@ $themes: (
 }
 
 @mixin tab {
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (max-width: 912px){
     @content;
   }
 }
@@ -108,7 +107,7 @@ $themes: (
     @content;
   }
 }
-@mixin web-small {
+@mixin web-medium {
   @media (min-width: 1024px) and (max-width: 1279px) {
     @content;
   }
