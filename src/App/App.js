@@ -22,12 +22,12 @@ import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
 const App = () => {
   const { currentUser } = useAuthenticationContext();
 
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
-    return children;
-  };
+  // const ProtectedRoute = ({ children }) => {
+  //   if (!currentUser) {
+  //     return <Navigate to="/login" />;
+  //   }
+  //   return children;
+  // };
 
   const router = createBrowserRouter(
     createRoutesFromElements(
