@@ -4,7 +4,7 @@
   @include themify($themes) {
     width: 100%;
     display: none;
-    flex: 2;
+    flex: 1.8;
     position: sticky;
     position: -webkit-sticky;
     top: 4rem;
@@ -43,7 +43,9 @@
         display: flex;
         flex-direction: column;
         gap: 1.25rem;
-
+        Link a {
+          text-decoration: none;
+        }
         span {
           font-size: 12px;
           color: themed("textColorsoft");
@@ -110,9 +112,9 @@
 .RightComponent {
   @include themify($themes) {
     // width: 100%;
-    flex: 2.7;
+    flex: 1.8;
     position: sticky;
-     position: -webkit-sticky;
+    position: -webkit-sticky;
     top: 4rem;
     height: calc(100vh - 4rem);
     overflow-y: scroll;
@@ -205,19 +207,25 @@
                 width: 37%;
                 height: 2rem;
                 font-size: 0.9rem;
-                font-weight: 500;
+                font-weight: 600;
                 border: none;
                 border-radius: 0.3rem;
                 padding: 5px;
-                color: white;
+                color: themed("textColor");
                 cursor: pointer;
 
                 &:first-child {
-                  background-color: rgb(16, 83, 217);
+                  background-color: themed("btnColor");
                 }
 
                 &:last-child {
-                  background-color: rgb(165, 43, 43);
+     
+                  border:2px solid themed("btnBorder") ;
+                  background-color:transparent;
+                   &:hover {
+                    background-color: rgb(165, 43, 43, 0.7);
+                    color: rgb(228, 22, 22);
+                  }
                 }
               }
             }

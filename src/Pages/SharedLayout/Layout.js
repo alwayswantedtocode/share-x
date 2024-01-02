@@ -20,11 +20,11 @@ const Layout = () => {
       <NavBar />
       <div className="main" style={{ display: "flex" }}>
         <LeftComponent />
-        <div style={{ flex: 6, background: "red" }}>
+        <div style={{ flex: 6 }}>
           <Outlet />
         </div>
 
-        <RightComponent />
+        {/* <RightComponent /> */}
       </div>
     </main>
 

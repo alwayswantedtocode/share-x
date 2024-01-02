@@ -38,7 +38,11 @@ $themes: (
     textColorsoft: #555,
     border: rgb(160, 136, 254),
     btnBg: rgb(0 0 0),
-    textBtnColor: rgb(255 255 255),
+    btnBgSoft: rgb(97, 97, 97),
+    btnColor: rgb(160, 136, 254),
+    btnBorder: #444,
+    textBtnColor: rgb(0, 0, 0),
+    trans-background: rgba(233, 233, 233, 0.9),
   ),
   dark: (
     textColor: rgb(245, 245, 245),
@@ -48,7 +52,10 @@ $themes: (
     textColorsoft: rgb(190, 185, 185),
     border: #444,
     btnBg: rgb(255 255 255),
+    btnColor: rgb(160, 136, 254),
+    btnBorder: #f3f3f3,
     textBtnColor: rgb(0 0 0),
+    trans-background: rgba(58, 57, 57, 0.5),
   ),
 );
 
@@ -98,7 +105,7 @@ $themes: (
 }
 
 @mixin tab {
-  @media (min-width: 768px) and (max-width: 912px){
+  @media (min-width: 768px) and (max-width: 912px) {
     @content;
   }
 }

@@ -7,20 +7,31 @@
   justify-content: center;
   .Card {
     display: flex;
-    width: 60%;
+    width: 95%;
     background-color: white;
     border-radius: 5px;
     height: max-content;
     overflow: hidden;
-    @include fold {
-      width: 95%;
-      // flex-direction: column;
+  @include surface-duo {
+      width: 80%;
     }
     @include tab {
       width: 90%;
     }
+    @include surface-Pro {
+      width: 90%;
+    }
+    @include web {
+      width: 70%;
+    }
+    @include web-medium {
+      width: 80%;
+    }
+    @include web-large {
+      width: 70%;
+    }
     .Left {
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       flex: 1;
@@ -32,11 +43,20 @@
       color: white;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-      @include fold {
-        display: none;
+       @include tab {
+        display: flex;
       }
-      @include surface-duo {
-        display: none;
+      @include surface-Pro {
+        display: flex;
+      }
+      @include web-medium {
+        display: flex;
+      }
+      @include web {
+        display: flex;
+      }
+      @include web-large {
+        display: flex;
       }
       h1 {
         font-weight: 600;
@@ -107,12 +127,17 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        
         gap: 30px;
         .input-container {
           width: 20rem;
           display: flex;
           flex-direction: column;
           border-bottom: 1px sold rgb(56, 54, 54);
+          padding: 0 10px;
+           @include tab {
+            width: 15rem;
+          }
           input {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
@@ -122,6 +147,7 @@
           input:focus {
             outline: none;
           }
+          
         }
         button {
           background-color: rgb(196 181 253);

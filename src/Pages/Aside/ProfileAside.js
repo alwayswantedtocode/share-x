@@ -1,5 +1,5 @@
 import React from "react";
-import "./Profile.scss"
+import "./Profile.scss";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 
 import {
@@ -12,17 +12,21 @@ import {
 } from "react-icons/md";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import { BsBagHeart } from "react-icons/bs";
+import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
+import { Link } from "react-router-dom";
 
 const ProfileAside = () => {
-  const { currentUser } = useAuthenticationContext();
+  const { user, SignOutUser } = useAuthenticationContext();
   return (
     <article className="AsideProfile">
       <div className="container">
         <div className="Account">
-          <div className="AccountName">
-            <img src={currentUser.profilePicture} alt="" />
-            <span className="Name">{currentUser.name}</span>
-          </div>
+          <Link to="/profile/:id">
+            <div className="AccountName">
+              <img src={user?.photoURL || UserIcon} alt="userIcon" />
+              <span className="Name">{user.displayName}</span>{" "}
+            </div>
+          </Link>
           <hr />
           <div className="AddAccount">
             <span className="Name">Add an existing acount</span>
@@ -75,7 +79,7 @@ const ProfileAside = () => {
           </div>
           <MdChevronRight className="right" />
         </div>
-        <div className="profileOptions">
+        <div className="profileOptions" onClick={SignOutUser}>
           <div className="option">
             <div>
               <MdLogout />

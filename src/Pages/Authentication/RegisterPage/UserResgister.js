@@ -1,11 +1,13 @@
 import "./Register.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { BiInfoCircle } from "react-icons/bi";
+import { onAuthStateChanged, auth } from "../Firebase";
+import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
 
 //USER NAMES AND PASSWORD RULES
-const NAME_REGX = /^[a-zA-Z-]{3,23}$/;
+const NAME_REGX = /^[a-zA-Z- ]{3,35}$/;
 const USER_REGX = /^[a-zA-Z][A-Za-z0-9-_]{3,23}$/;
 const PWD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{4,24}$/;
@@ -22,7 +24,11 @@ const UserResgister = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
-  const [passwordFocus, setPasswordFocus]=useState(false)
+  const [passwordFocus, setPasswordFocus]=useState(false);
+   const [loading, setLoading] = useState(true);
+  const { signUpHandleSubmit } = useAuthenticationContext()
+
+  const navigate =useNavigate()
 
   useEffect(() => {
     focusRef.current.focus();
@@ -47,13 +53,41 @@ const UserResgister = () => {
     const TestPassword = PWD_REGX.test(password);
     setValidEmail(TestPassword);
   }, [password]);
+
+  useEffect(() => {
+    setLoading(true);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/home");
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    });
+  }, [navigate]);
+
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     //if button enabled with JS hack
+     const v1 = NAME_REGX.test(fullname);
+     const v2 = USER_REGX.test(username);
+     const v3 = EMAIL_REGX.test(email);
+     const v4 = PWD_REGX.test(password);
+
+     if (v1 && v2 && v3 && v4) {
+       signUpHandleSubmit(fullname, username, email, password);
+       console.log("Account succesfully created");
+     } else {
+       alert("There is a missing field");
+     }
+   };
   return (
     <section className="Register-card">
       <article className="Card">
         <div className="Left">
           <h1 className="sharexMobile">Share X</h1>
           <h1>Signup for Share X</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="input-container">
               <input
                 type="text"

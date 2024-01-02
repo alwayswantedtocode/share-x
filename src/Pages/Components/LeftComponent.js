@@ -14,21 +14,24 @@ import Tutorials from "../../Assets/Tutorials.svg";
 import Courses from "../../Assets/Courses.svg";
 import Funds from "../../Assets/Funds.svg";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
+import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
+import { Link } from "react-router-dom";
 
 const LeftComponent = () => {
-  const { currentUser } = useAuthenticationContext();
+  const { currentUser, user } = useAuthenticationContext();
 
   return (
     <section className="LeftComponent">
       <div className="container">
         <div className="menu">
-          <div className="user">
-            <div className="image">
-              <img src={currentUser.profilePicture} alt="" />
+          <Link to="/profile/:id">
+            <div className="user">
+              <div className="image">
+                <img src={user?.photoURL || UserIcon} alt="userIcon" />
+              </div>
+              <span>{user.displayName}</span>
             </div>
-
-            <span>{currentUser.name}</span>
-          </div>
+          </Link>
 
           <div className="MenuItems">
             <img src={Friends} alt="Friends" />

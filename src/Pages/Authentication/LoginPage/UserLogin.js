@@ -1,12 +1,21 @@
 import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
 import UserResgister from "../RegisterPage/UserResgister";
 import "./Login.scss";
-import { NavLink } from "react-router-dom";
-import { useState, useRef } from "react";
+import { NavLink,useNavigate } from "react-router-dom";
+import { useState, useRef,useEffect } from "react";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { BiInfoCircle } from "react-icons/bi";
+import { onAuthStateChanged,auth } from "../Firebase";
+
+
+const PWD_REGX =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{4,24}$/;
+
+const EMAIL_REGX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 const UserLogin = () => {
-  const { login } = useAuthenticationContext();
+  const { login, SignInWithGoogle, signInHandleSubmit } =
+    useAuthenticationContext();
 
   const focusRef = useRef();
 
@@ -15,10 +24,52 @@ const UserLogin = () => {
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
+   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const handleLogin = () => {
     login();
   };
+
+ useEffect(() => {
+   focusRef.current.focus();
+ }, []);
+
+
+ useEffect(() => {
+   const TestEmail = EMAIL_REGX.test(email);
+   setValidEmail(TestEmail);
+ }, [email]);
+
+ useEffect(() => {
+   const TestPassword = PWD_REGX.test(password);
+   setValidEmail(TestPassword);
+ }, [password]);
+
+  useEffect(() => {
+    setLoading(true);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/home");
+        setLoading(false);
+      } else {
+        setLoading(false);
+        navigate("/login");
+      }
+    });
+  }, [navigate]);
+
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     const v1 = EMAIL_REGX.test(email);
+     const v2 = PWD_REGX.test(password);
+     if (v1 && v2) {
+           signInHandleSubmit(email, password);
+         console.log("Signed in Successfully");
+     } else {
+       alert("Invid Username/Email/Password");
+     }
+   };
 
   return (
     <section className="Login-card">
@@ -38,7 +89,7 @@ const UserLogin = () => {
         <div className="Right">
           <h1 className="sharexMobile">Share X</h1>
           <h1>Login into Share X</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="input-container">
               <input
                 type="text"
@@ -50,6 +101,7 @@ const UserLogin = () => {
                 aria-describedby="uidnote"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                ref={focusRef}
               />
               <span className={validEmail ? "valid" : "hide"}>
                 <HiCheckCircle className="checkMark" />
@@ -90,7 +142,7 @@ const UserLogin = () => {
                 <br /> Atleast a number and a special charater. <br />
               </p>
             </div>
-            <button onClick={handleLogin}>Login</button>
+            <button type="submit">Login</button>
           </form>
           <div className="mobileView">
             <span>Don't have an acount?</span>

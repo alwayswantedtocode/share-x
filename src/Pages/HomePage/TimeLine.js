@@ -1,7 +1,15 @@
 import Post from "./Post";
 import "./home.scss";
+import {
+  postReducer,
+  postActions,
+  initialPostState,
+} from "../../ContextApi/PostReducer";
+import { useReducer } from "react";
 
-const TimeLine = () => {
+const TimeLine = ({ uid, id, logo, name, email, text, image, timestamp }) => {
+  const [state, dispatch] = useReducer(postReducer, initialPostState);
+
   const feeds = [
     {
       id: 1,
@@ -75,9 +83,32 @@ const TimeLine = () => {
   ];
   return (
     <div className="TimeLine">
-      {feeds.map((feed) => {
+      {/* {feeds.map((feed) => {
         return <Post feed={feed} key={feed.id} />;
-      })}
+      })} */}
+
+      {/* {state?.error ? (
+        <div className="alert">
+          <div color="red">Something went wrong refresh and try again...</div>
+        </div>
+      ) : (
+        <div>
+          {state?.posts?.length > 0 &&
+            state?.posts?.map((post, index) => (
+              <Post
+                key={index}
+                logo={post?.logo}
+                id={post?.documentId}
+                uid={post?.uid}
+                name={post?.name}
+                email={post?.email}
+                image={post?.image}
+                text={post?.text}
+                timestamp={new Date(post?.timestamp?.toDate())?.toUTCString()}
+              />
+            ))}
+        </div>
+      )} */}
     </div>
   );
 };

@@ -19,10 +19,11 @@ import CommunityAside from "../Aside/CommunityAside";
 import MessageAside from "../Aside/MessageAside";
 import NotificationAside from "../Aside/NotificationAside";
 import ProfileAside from "../Aside/ProfileAside";
+import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
 
 const WebNavBar = () => {
   const { isDarkMode, modeToggle } = useGlobalContext();
-  const { currentUser } = useAuthenticationContext();
+  const { user, userData } = useAuthenticationContext();
 
   const closeAsideRef = useRef();
 
@@ -62,18 +63,18 @@ const WebNavBar = () => {
       setOnClickIcon(onClickIcon);
     }
   };
-  useEffect(()=>{
-  document.addEventListener("mousedown", handleAside);
-  return ()=>{
-    document.removeEventListener("mousedown", handleAside);
-  }
-  },[])
+  useEffect(() => {
+    document.addEventListener("mousedown", handleAside);
+    return () => {
+      document.removeEventListener("mousedown", handleAside);
+    };
+  }, []);
 
   return (
     <header className="header ">
       <nav className="nav">
         <span>
-          <NavLink>Sharex</NavLink>
+          <NavLink to="/home">Sharex</NavLink>
         </span>
         <div className="Left-buttons">
           <button>
@@ -169,7 +170,10 @@ const WebNavBar = () => {
           className="user right-btn"
           onClick={() => handleIcons(4)}
         >
-          <img src={currentUser.profilePicture} alt="" />
+          <img src={user?.photoURL || UserIcon} alt="" />
+
+          {/* <img src={currentUser.profilePicture} alt="" /> */}
+
           <aside
             id="Aside-4"
             className={`${onClickIcon[4] ? "Aside active " : "Aside"}`}
