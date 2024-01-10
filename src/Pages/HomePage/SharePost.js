@@ -76,8 +76,6 @@ const SharePost = () => {
   const postRef = doc(collection(db, "posts"));
   const document = postRef.id;
 
- 
-
   const handleSubmitPost = async (e) => {
     e.preventDefault();
     if (text.current.value !== "") {
@@ -122,10 +120,9 @@ const SharePost = () => {
     ],
   };
 
-  
- const handleUpload = (e) => {
-   setFile(e.target.files[0]);
- };
+  const handleUpload = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const handleImage = async () => {
     const fileType = metadata.contentType.includes(file["type"]);
@@ -173,7 +170,7 @@ const SharePost = () => {
       await onSnapshot(q, (doc) => {
         dispatch({
           type: SUBMIT_POST,
-          posts: doc?.docs?.map((item) => item?.data()),
+          posts: doc?.docs?.map((item) => ({ ...item?.data() })),
         });
         scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
         setImage(null);
@@ -183,9 +180,8 @@ const SharePost = () => {
     };
     return () => postData();
   }, [SUBMIT_POST]);
-console.log(state);
+  console.log(state);
 
-  
   //Emoji Mart use State
 
   const [openEmoji, setOpenEmoji] = useState(false);
