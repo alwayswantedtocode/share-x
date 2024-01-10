@@ -31,7 +31,6 @@ const ProfileInfo = () => {
   const [state, dispatch] = useReducer(postReducer, initialPostState);
   const { FETCH_POST } = postActions;
 
-
   useEffect(() => {
     const fetchPosts = async () => {
       const q = query(
@@ -56,7 +55,7 @@ const ProfileInfo = () => {
 
   return (
     <section className="profilePage">
-      <ProfileInfoForm/>
+      <ProfileInfoForm />
       <div className="profileDashboard">
         <div className="images">
           <img

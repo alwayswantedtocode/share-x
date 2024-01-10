@@ -183,7 +183,9 @@ const SharePost = () => {
     };
     return () => postData();
   }, [SUBMIT_POST]);
+console.log(state);
 
+  
   //Emoji Mart use State
 
   const [openEmoji, setOpenEmoji] = useState(false);

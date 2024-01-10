@@ -32,6 +32,8 @@ import {
 const Post = ({ uid, id, logo, name, email, text, image, timestamp }) => {
   const {user, userData, userId } = useAuthenticationContext();
 
+  console.log("items", logo, name, image, text, timestamp);
+
   // likes const
   const [state, dispatch] = useReducer(postReducer, initialPostState);
   const { ADD_LIKES, ADD_COMMENTS, HANDLE_ERROR } = postActions;
