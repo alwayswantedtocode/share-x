@@ -13,7 +13,6 @@ const firebaseConfig = {
   appId: "1:587116043734:web:c69f7e18d444963a865877",
   measurementId: "G-WNQ91L96MM",
 };
-
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_API_KEY,
 //   authDomain: process.env.REACT_APP_AUTH_DOMAIN,

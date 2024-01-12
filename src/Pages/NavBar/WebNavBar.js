@@ -94,7 +94,7 @@ const WebNavBar = () => {
         </div>
 
         <div className="Right-buttons">
-          <div>
+          {/* <div>
             <button
               ref={closeAsideRef}
               className="right-btn"
@@ -109,9 +109,9 @@ const WebNavBar = () => {
             >
               <AppAside />
             </aside>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <button
               ref={closeAsideRef}
               className="right-btn"
@@ -124,11 +124,9 @@ const WebNavBar = () => {
               id="Aside-1"
               className={`${onClickIcon[1] ? "Aside active " : "Aside"}`}
             >
-              {/* style={{ visibility: "hidden" }} */}
-
               <CommunityAside />
             </aside>
-          </div>
+          </div> */}
 
           <div>
             <button

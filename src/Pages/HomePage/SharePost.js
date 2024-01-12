@@ -33,6 +33,7 @@ import {
   postActions,
   initialPostState,
 } from "../../ContextApi/PostReducer";
+import { v4 } from "uuid";
 import { Picker } from "emoji-mart";
 import { Link } from "react-router-dom";
 
@@ -104,7 +105,7 @@ const SharePost = () => {
   // image handler
 
   const [file, setFile] = useState(null);
-  const [progressbar, setProgressbar] = useState(0);
+  // const [progressbar, setProgressbar] = useState(0);
   const storage = getStorage();
 
   // Create the file metadata
@@ -129,21 +130,21 @@ const SharePost = () => {
     if (!file) return;
     if (fileType) {
       try {
-        const storageRef = ref(storage, `images/${file.name}`);
+        const storageRef = ref(storage, `images/${file.name + v4()}`);
         const uploadTask = uploadBytesResumable(
           storageRef,
           file,
           metadata.contentType
         );
         await uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            console.log("Upload is" + progress + "% done");
-            setProgressbar(progress);
-          },
+          // "state_changed",
+          // (snapshot) => {
+          //   const progress = Math.round(
+          //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          //   );
+          //   console.log("Upload is" + progress + "% done");
+          //   setProgressbar(progress);
+          // },
           (error) => {
             alert(error);
           },
@@ -170,18 +171,18 @@ const SharePost = () => {
       await onSnapshot(q, (doc) => {
         dispatch({
           type: SUBMIT_POST,
-          posts: doc?.docs?.map((item) => ({ ...item?.data() })),
+          posts: doc?.docs?.map((item) => ({ id: item?.id, ...item?.data() })),
         });
         scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
         setImage(null);
         setFile(null);
-        setProgressbar(0);
+        // setProgressbar(0);
       });
     };
     return () => postData();
   }, [SUBMIT_POST]);
-  console.log(state);
 
+  // console.log(postData);
   //Emoji Mart use State
 
   const [openEmoji, setOpenEmoji] = useState(false);
@@ -242,10 +243,10 @@ const SharePost = () => {
                 Share
               </button>
             </form>
-            <span
+            {/* <span
               className="progressbar"
               style={{ width: `${progressbar}` }}
-            ></span>
+            ></span> */}
           </div>
 
           <hr />

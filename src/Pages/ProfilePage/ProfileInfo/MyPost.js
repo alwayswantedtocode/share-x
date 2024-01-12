@@ -6,6 +6,7 @@ import { BiMessageAlt } from "react-icons/bi";
 import { useState } from "react";
 import Replies from "../../HomePage/Replies";
 import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
+import UserIcon from "../../../Assets/user-circle-svgrepo-com.svg";
 
 const MyPost = ({ logo, name, image, text, timestamp }) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
@@ -30,7 +31,7 @@ const MyPost = ({ logo, name, image, text, timestamp }) => {
               // to={`/profile/${myPost.UserId}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <img src={logo} alt="" />
+              <img src={logo || UserIcon} alt="userIcon" />
             </Link>
 
             <div className="details">

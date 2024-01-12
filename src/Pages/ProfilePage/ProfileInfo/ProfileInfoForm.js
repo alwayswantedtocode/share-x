@@ -5,18 +5,27 @@ import { AiOutlineCamera } from "react-icons/ai";
 import PPI from "./PPI";
 import PPHI from "./PPHI";
 import defaultimage from "../../../Assets/istockphoto-1409329028-612x612.jpg";
+import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { v4 } from "uuid";
 
 const ProfileInfoForm = () => {
   const { closeEditInfo, editDetails } = useGlobalContext();
+  const { user } = useAuthenticationContext();
 
   const [infoForm, setInforForm] = useState({
     username: "",
     location: "",
     workplace: "",
-    dateofbirth: "",
-    number: "",
     gender: "select gender",
   });
+  const [dob, setDob] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleInfoFormChange = (e) => {
     const { name, value } = e.target;
@@ -26,26 +35,37 @@ const ProfileInfoForm = () => {
     }));
   };
 
+  const handleDobChange = (e) => {
+    // Allow only numbers, "/", and "-" in the dob input
+    const limitdobValue = e.target.value.replace(/[^0-9/-]/g, "");
+    setDob(limitdobValue);
+  };
+
+  const handleInputChange = (e) => {
+    // Allow only numbers in the input
+    const limitnumberValue = e.target.value.replace(/^\d{15}$/, "");
+    setPhoneNumber(limitnumberValue);
+  };
+
   //Image functions
+
+  // Create the file metadata
+  /** @type {any} */
+  const metadata = {
+    contentType: [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/svg+xml",
+      "image/jpg",
+      "image/gif",
+    ],
+  };
+
   const [previewImage, setPreviewImage] = useState(null);
   const [previewheaderImage, setPreviewheaderImage] = useState(null);
   const [iamge, setImage] = useState(null);
-
-  //   const handleImageUpload = (e) => {
-  //     const file = e.target.files[0];
-  //     if (file && reviewImage) {
-  //       const reader = new FileReader();
-  //       reader.onload = (event) => {
-  //         setPreviewImage(event.target.result);
-  //       };
-  //       reader.readAsDataURL(file);
-  //     } else if (file && reviewheaderImage) {
-  //          const reader = new FileReader();
-  //          reader.onload = (event) => {
-  //            setreviewheaderImage(event.target.result);
-  //          };
-  //     }
-  //   };
+  const storage =getStorage()
 
   const SelectProfileImage = (e) => {
     const file = e.target.files[0];
@@ -69,22 +89,44 @@ const ProfileInfoForm = () => {
     }
   };
 
-  // Handle Preview Image for both profile and header image
-  // const handleImageUpload = (e) => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
 
-  //   reader.onload = (event) => {
-  //     const isPreviewImageInput = e.target.id === "previewImageInput"; // Assuming you have input IDs
-  //     if (isPreviewImageInput) {
-  //       setPreviewImage(event.target.result);
-  //     } else {
-  //       setPreviewheaderImage(event.target.result);
-  //     }
-  //   };
+ const handleImage = async () => {
+   const fileType = metadata.contentType.includes(previewImage["type"]);
+   if (!previewImage) return;
+   if (fileType) {
+     try {
+       const storageRef = ref(storage, `images/${previewImage.name + v4()}`);
+       const uploadTask = uploadBytesResumable(
+         storageRef,
+         previewImage,
+         metadata.contentType
+       );
+       await uploadTask.on(
+        
+         (error) => {
+           alert(error);
+         },
+         async () => {
+           await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+             setImage(downloadURL);
+           });
+         }
+       );
+     } catch (err) {
+      
+       alert(err.message);
+       console.log(err.message);
+     }
+   }
+ };
 
-  //   reader.readAsDataURL(file);
-  // };
+
+
+
+
+  const handleUpdateProfile = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <aside
@@ -100,9 +142,15 @@ const ProfileInfoForm = () => {
           <div className="editDetails">
             <p>Edit Details</p>
           </div>
-          <button className="save-btn">Save</button>
+          <button className="save-btn" type="submit" form="myForm">
+            Save
+          </button>
         </nav>
-        <div className="details-body">
+        <form
+          className="details-body "
+          id="myForm"
+          onSubmit={handleUpdateProfile}
+        >
           {" "}
           <div className="change-header-profile-image">
             <div
@@ -173,7 +221,7 @@ const ProfileInfoForm = () => {
               />
             )}
           </div>
-          <form className="form">
+          <div className="form">
             <div className="input-container">
               <input
                 type="text"
@@ -204,19 +252,19 @@ const ProfileInfoForm = () => {
             <div className="input-container">
               <input
                 type="text"
-                placeholder="Date of Birth"
+                placeholder="MM/DD/YYYY or MM-DD-YYY"
                 name="date of birth"
-                value={infoForm.dateofbirth}
-                onChange={handleInfoFormChange}
+                value={dob}
+                onChange={handleDobChange}
               />
             </div>
             <div className="input-container">
               <input
                 type="text"
-                placeholder="Number"
+                placeholder="(+234) 91 611 7011"
                 name="number"
-                value={infoForm.number}
-                onChange={handleInfoFormChange}
+                value={phoneNumber}
+                onChange={handleInputChange}
               />
             </div>
             <div className="input-container">
@@ -233,8 +281,8 @@ const ProfileInfoForm = () => {
                 <option value="Non-binary">Non-binary</option>
               </select>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </aside>
   );
