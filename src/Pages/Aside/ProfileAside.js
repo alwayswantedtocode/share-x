@@ -35,7 +35,7 @@ const ProfileAside = () => {
         <div className="profileOptions">
           <div className="option">
             <div>
-              <BiBarChartAlt2 />
+              <BiBarChartAlt2 className="option-icon" />
             </div>
             <span className="Name">Insights</span>
           </div>

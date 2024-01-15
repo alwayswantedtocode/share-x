@@ -28,24 +28,52 @@
         .AccountName {
           display: flex;
           align-items: center;
-          padding:0.625rem 0.625rem;
+          padding: 0.625rem 0.625rem;
           gap: 0.625rem;
           cursor: pointer;
           border-radius: 0.625rem;
 
           img {
-            width: 2.7rem;
-            height: 2.7rem;
+            width: 2.2rem;
+            height: 2.2rem;
             border-radius: 50%;
             object-fit: cover;
+            @include tab {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include surface-Pro {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web-large {
+              width: 3rem;
+              height: 3rem;
+            }
           }
           span {
             font-family: "Rubik", sans-serif;
-            font-size: 1.5rem;
+            font-size: 1rem;
             font-weight: 500;
             color: themed("textColor");
-            // margin-left: 2.3%;
+
             gap: 3rem;
+            @include tab {
+              font-size: 1.5rem;
+            }
+            @include surface-Pro {
+              font-size: 1.5rem;
+            }
+            @include web {
+              font-size: 1.5rem;
+            }
+            @include web-large {
+              font-size: 1.5rem;
+            }
           }
         }
         .AccountName:hover {
@@ -63,10 +91,22 @@
 
           span {
             font-family: "Rubik", sans-serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 500;
             color: themed("textColor");
             margin-left: 2.3%;
+            @include tab {
+              font-size: 1.5rem;
+            }
+            @include surface-Pro {
+              font-size: 1.5rem;
+            }
+            @include web {
+              font-size: 1.5rem;
+            }
+            @include web-large {
+              font-size: 1.5rem;
+            }
           }
         }
         .AddAccount:hover {
@@ -88,8 +128,8 @@
           padding: 0.625rem;
           row-gap: 0.8rem;
           div {
-            width: 2.3rem;
-            height: 2.3rem;
+            width: 2rem;
+            height: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -97,6 +137,10 @@
             background-color: themed("bgSoft");
             border-radius: 50%;
             color: themed("textColor");
+            // .option-icon {
+            //   width: 2.3rem;
+            //   height: 2.3rem;
+            // }
           }
           span {
             font-family: "Rubik", sans-serif;
