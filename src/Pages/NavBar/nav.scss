@@ -19,15 +19,37 @@ $nav-padding: 0.5rem;
     top: 0;
     z-index: 99;
     color: themed("textColor");
+     @include tab {
+          font-size: 3rem;
+        }
+        @include web {
+          height: #{$header-height};
+        }
+
+        @include web-large {
+           height: #{$header-height};
+        }
 
     .nav {
       font-family: "Signika Negative", sans-serif;
       width: 97%;
-      height: #{$nav-height};
+      height: 3rem;
       display: flex;
       align-items: center;
       // justify-content: space-between;
       padding: 0 $nav-padding 0 $nav-padding;
+      border: 2px solid blue;
+
+      @include tab {
+          font-size: 3rem;
+        }
+        @include web {
+          height: #{$nav-height};
+        }
+
+        @include web-large {
+           height: #{$nav-height};
+        }
 
       a {
         text-decoration: none;
@@ -39,12 +61,19 @@ $nav-padding: 0.5rem;
       }
       span {
         flex: 1;
-        font-size: 1.4rem;
+        font-size: 1rem;
         font-family: "Montserrat", sans-serif;
         font-weight: 700;
         color: themed(logo);
 
         @include tab {
+          font-size: 1.7rem;
+        }
+        @include web {
+          font-size: 1.7rem;
+        }
+
+        @include web-large {
           font-size: 1.7rem;
         }
       }
@@ -74,19 +103,32 @@ $nav-padding: 0.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 2.5rem;
+          width: 2rem;
           border-radius: 0.4375rem;
-          font-size: 1.5rem;
+          font-size: 1rem;
           border: none;
           background-color: transparent;
           cursor: pointer;
           color: themed("textColor");
 
           @include surface-duo {
+            width: 2.2rem;
             font-size: 1.7rem;
             width: 3rem;
           }
           @include tab {
+            width: 2.5rem;
+            font-size: 1.7rem;
+            width: 3rem;
+          }
+          @include web {
+            width: 2.5rem;
+            font-size: 1.7rem;
+            width: 3rem;
+          }
+
+          @include web-large {
+            width: 2.5rem;
             font-size: 1.7rem;
             width: 3rem;
           }
@@ -113,6 +155,9 @@ $nav-padding: 0.5rem;
             color: themed("textColor");
 
             @include web {
+              display: flex;
+            }
+             @include web-large {
               display: flex;
             }
           }
@@ -210,10 +255,24 @@ $nav-padding: 0.5rem;
         }
 
         img {
-          width: 2.7rem;
-          height: 2.7rem;
+          width: 2.2rem;
+          height: 2.2rem;
           border-radius: 50%;
           object-fit: cover;
+
+            @include tab {
+            width: 2.7rem;
+          height: 2.7rem;
+          }
+          @include web {
+            width: 2.7rem;
+          height: 2.7rem;
+          }
+
+          @include web-large {
+           width: 2.7rem;
+          height: 2.7rem;
+          }
         }
 
         span {

@@ -2,25 +2,28 @@
 
 .home {
   @include themify($themes) {
-    background-color: themed("bgSoft");
-    padding: 1.25rem 1.25rem;
-    border: 2px solid blue($color: #1027bc);
-    flex: 3;
-    @include tab {
-      padding: 1.25rem 4.375rem;
-      // background-color: transparent;
-      //  overflow-x: hidden;
-    }
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: themed("bgSoft");
+    // padding: 1.25rem 1.25rem;
+    border: 2px solid blue;
+    flex: 3;
+  
     // Story section style
     .stories {
       // width: 80%;
+      width: 95%;
       display: flex;
+      // align-items: center;
       gap: 0.625rem;
       // height: 15.625rem;
       margin-bottom: 1.875rem;
       height: 7.7rem;
       justify-content: space-between;
+      border: 2px solid red;
+      overflow: hidden;
 
       @include tab {
         height: 15.625rem;
@@ -56,7 +59,7 @@
           text-shadow: 0.0625rem 0.0625rem 0.125rem rgba(74, 73, 73, 0.7);
 
           @include mobile {
-            font-size: 0.7rem;
+            font-size: 0.5rem;
           }
         }
 
@@ -100,8 +103,10 @@
 
   //Timeline Content style
   .timeline-content {
+    width: 95%;
     display: flex;
     flex-direction: column;
+    border: 2px solid blue;
     // column-gap: 6rem;
     .sharePost {
       @include themify($themes) {
@@ -122,6 +127,7 @@
         .sharePostContainer {
           width: 100%;
           padding: 0.625rem;
+          border: 2px solid red;
           .preview-image {
             width: 100%;
             height: max-content;
@@ -140,22 +146,40 @@
             display: flex;
             align-items: center;
             height: max-content;
-            margin: 0.625rem 1.25rem;
+            margin: 0.625rem 0.3rem;
+            // border: 2px solid red;
 
             img {
-              width: 3rem;
-              height: 3rem;
+              width: 2.2rem;
+              height: 2.2rem;
               border-radius: 50%;
               object-fit: cover;
               margin-right: 0.625rem;
               cursor: pointer;
+              @include tab {
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
             }
             .input-container {
               width: 100%;
               height: 100%;
               display: flex;
-              justify-content: space-between;
+              // justify-content: space-between;
+              gap: 20px;
               align-items: center;
+              // border: 2px solid red;
+
               .text-and-preview {
                 display: flex;
                 align-items: center;
@@ -199,7 +223,7 @@
               }
 
               .SendButton {
-                width: 4rem;
+                width: 3rem;
                 height: 2rem;
                 font-weight: 600;
                 border: none;
@@ -208,15 +232,31 @@
                 background-color: themed("btnColor");
                 color: white;
                 cursor: pointer;
+                @include tab {
+                  width: 3rem;
+                  height: 2rem;
+                }
+                @include surface-Pro {
+                  width: 4rem;
+                  height: 2rem;
+                }
+                @include web {
+                  width: 4rem;
+                  height: 2rem;
+                }
+                @include web-medium {
+                  width: 4rem;
+                  height: 2rem;
+                }
               }
             }
 
-            .progressbar {
-              padding: 0.6rem;
-              color: rgb(160, 136, 254);
-              font-size: 1rem;
-              border-radius: 50%;
-            }
+            // .progressbar {
+            //   padding: 0.6rem;
+            //   color: rgb(160, 136, 254);
+            //   font-size: 1rem;
+            //   border-radius: 50%;
+            // }
           }
 
           hr {
@@ -229,21 +269,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 1.25rem;
+            margin: 0 0.3rem;
             padding: 0.3rem;
-            // border: 2px solid red;
+            border: 2px solid red;
             .postOptions {
               display: flex;
               gap: 1rem;
 
               @include surface-duo {
                 gap: 1.375rem;
+                margin: 0 1.25rem;
               }
               @include tab {
                 gap: 1.7rem;
+                margin: 0 1.25rem;
               }
               @include web {
                 gap: 1.7rem;
+                margin: 0 1.25rem;
               }
               .postOption {
                 display: flex;
