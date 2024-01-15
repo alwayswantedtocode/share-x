@@ -2,15 +2,12 @@
 
 .home {
   @include themify($themes) {
-
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: themed("bgSoft");
-    // padding: 1.25rem 1.25rem;
-    border: 2px solid blue;
     flex: 3;
-  
+
     // Story section style
     .stories {
       // width: 80%;
@@ -22,7 +19,6 @@
       margin-bottom: 1.875rem;
       height: 7.7rem;
       justify-content: space-between;
-      border: 2px solid red;
       overflow: hidden;
 
       @include tab {
@@ -106,8 +102,7 @@
     width: 95%;
     display: flex;
     flex-direction: column;
-    border: 2px solid blue;
-    // column-gap: 6rem;
+
     .sharePost {
       @include themify($themes) {
         // flex: 5;
@@ -127,7 +122,6 @@
         .sharePostContainer {
           width: 100%;
           padding: 0.625rem;
-          border: 2px solid red;
           .preview-image {
             width: 100%;
             height: max-content;
@@ -157,6 +151,8 @@
               margin-right: 0.625rem;
               cursor: pointer;
               @include tab {
+                width: 3rem;
+                height: 3rem;
               }
               @include surface-Pro {
                 width: 3rem;
@@ -271,7 +267,6 @@
             justify-content: center;
             margin: 0 0.3rem;
             padding: 0.3rem;
-            border: 2px solid red;
             .postOptions {
               display: flex;
               gap: 1rem;
@@ -386,10 +381,26 @@
             gap: 1.25rem;
 
             img {
-              width: 2.7rem;
-              height: 2.7rem;
+              width: 2.2rem;
+              height: 2.2rem;
               border-radius: 50%;
               object-fit: cover;
+              @include tab {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
             }
 
             .details {

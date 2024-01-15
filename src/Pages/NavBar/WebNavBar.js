@@ -88,7 +88,7 @@ const WebNavBar = () => {
             <HiOutlineNewspaper />
           </button>
           <div className="search">
-            <MdOutlineSearch />
+            <MdOutlineSearch className="search-icon" />
             <input type="text" placeholder="search" />
           </div>
         </div>

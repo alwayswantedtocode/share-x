@@ -19,16 +19,16 @@ $nav-padding: 0.5rem;
     top: 0;
     z-index: 99;
     color: themed("textColor");
-     @include tab {
-          font-size: 3rem;
-        }
-        @include web {
-          height: #{$header-height};
-        }
+    @include tab {
+      font-size: 3rem;
+    }
+    @include web {
+      height: #{$header-height};
+    }
 
-        @include web-large {
-           height: #{$header-height};
-        }
+    @include web-large {
+      height: #{$header-height};
+    }
 
     .nav {
       font-family: "Signika Negative", sans-serif;
@@ -38,18 +38,17 @@ $nav-padding: 0.5rem;
       align-items: center;
       // justify-content: space-between;
       padding: 0 $nav-padding 0 $nav-padding;
-      border: 2px solid blue;
 
       @include tab {
-          font-size: 3rem;
-        }
-        @include web {
-          height: #{$nav-height};
-        }
+        font-size: 3rem;
+      }
+      @include web {
+        height: #{$nav-height};
+      }
 
-        @include web-large {
-           height: #{$nav-height};
-        }
+      @include web-large {
+        height: #{$nav-height};
+      }
 
       a {
         text-decoration: none;
@@ -139,6 +138,7 @@ $nav-padding: 0.5rem;
         }
 
         .search {
+          // height: 1.3rem;
           display: flex;
           align-items: center;
           border: 0.125rem solid rgb(145, 143, 143);
@@ -146,10 +146,26 @@ $nav-padding: 0.5rem;
           border-radius: 0.4375rem;
           padding: 0 0.3125rem;
 
+          .search-icon {
+            font-size: 1rem;
+            @include tab {
+              font-size: 1.7rem;
+            }
+            @include surface-Pro {
+              font-size: 1.7rem;
+            }
+            @include web {
+              font-size: 1.7rem;
+            }
+            @include web-large {
+              font-size: 1.7rem;
+            }
+          }
           input {
             display: none;
-            height: 1.9rem;
+            height: 1.7rem;
             border: none;
+
             width: 20rem;
             background-color: transparent;
             color: themed("textColor");
@@ -157,7 +173,7 @@ $nav-padding: 0.5rem;
             @include web {
               display: flex;
             }
-             @include web-large {
+            @include web-large {
               display: flex;
             }
           }
@@ -260,18 +276,21 @@ $nav-padding: 0.5rem;
           border-radius: 50%;
           object-fit: cover;
 
-            @include tab {
-            width: 2.7rem;
-          height: 2.7rem;
+          @include tab {
+            width: 3rem;
+            height: 3rem;
+          }
+          @include surface-Pro {
+            width: 3rem;
+            height: 3rem;
           }
           @include web {
-            width: 2.7rem;
-          height: 2.7rem;
+            width: 3rem;
+            height: 3rem;
           }
-
           @include web-large {
-           width: 2.7rem;
-          height: 2.7rem;
+            width: 3rem;
+            height: 3rem;
           }
         }
 
