@@ -116,6 +116,15 @@ const Post = ({ uid, id, logo, name, email, text, image, timestamp }) => {
     setIsCommentOpen(!isCommentOpen);
   };
 
+//  const [like, setLike] = useState(post.like);
+//  const [isLiked, setIsLiked] = useState(false);
+
+//  const likeHandler = () => {
+//    setLike(isLiked ? like - 1 : like + 1);
+//    setIsLiked(!isLiked);
+//  }; 
+
+
   return (
     <div className="post">
       <div className="container">

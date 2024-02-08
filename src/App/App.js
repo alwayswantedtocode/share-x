@@ -2,10 +2,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-  Navigate,
+
 } from "react-router-dom";
 import Login from "../Pages/Authentication/LoginPage/UserLogin";
 import Register from "../Pages/Authentication/RegisterPage/UserResgister";
@@ -23,6 +20,7 @@ import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
 
 const App = () => {
   // const { userId } = useAuthenticationContext();
+  // console.log("user:", userId);
 
   return (
     <>
@@ -41,7 +39,7 @@ const App = () => {
                 }
               >
                 <Route index path="/home" element={<Home />} />
-                <Route path="/profile/:id" element={<ProfileInfo />} />
+                <Route path="/profile/:username" element={<ProfileInfo />} />
               </Route>
             </Route>
           </Routes>

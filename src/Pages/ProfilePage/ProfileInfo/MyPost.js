@@ -23,6 +23,7 @@ const MyPost = ({ logo, name, image, text, timestamp }) => {
   const liked = true;
   return (
     <div className="post">
+     
       <div className="container">
         {/* poster author and time */}
         <div className="user">

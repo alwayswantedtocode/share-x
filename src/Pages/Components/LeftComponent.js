@@ -24,7 +24,7 @@ const LeftComponent = () => {
     <section className="LeftComponent">
       <div className="container">
         <div className="menu">
-          <Link to="/profile/:id">
+          <Link to="/profile/:id " style={{textDecoration:"none"}}>
             <div className="user">
               <div className="image">
                 <img src={user?.photoURL || UserIcon} alt="userIcon" />
