@@ -77,7 +77,7 @@ const showAlert = (show = false, type = "", message = "") => {
       setAuthUser(response.data);
       setEmailOrUsername("");
       setPassword("");
-      showAlert(true, "Success", AuthUser?.username);
+      // showAlert(true, "Success", AuthUser?.username);
       navigate("/home");
      
       //  setSuccess(true);
