@@ -1,5 +1,5 @@
 import React from "react";
-import "./Preview.scss";
+import "../Preview.scss";
 import { BiArrowBack } from "react-icons/bi";
 
 const PPI = ({ previewImage, setPreviewImage }) => {

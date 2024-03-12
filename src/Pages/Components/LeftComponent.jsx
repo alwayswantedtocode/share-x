@@ -14,22 +14,22 @@ import Tutorials from "../../Assets/Tutorials.svg";
 import Courses from "../../Assets/Courses.svg";
 import Funds from "../../Assets/Funds.svg";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
-import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
+import UserIcon from "../../Assets/profile-gender-neutral.jpg";
 import { Link } from "react-router-dom";
 
 const LeftComponent = () => {
-  const { currentUser, user } = useAuthenticationContext();
+  const { currentUser, user, AuthUser} = useAuthenticationContext();
 
   return (
-    <section className="LeftComponent">
+    <article className="LeftComponent">
       <div className="container">
         <div className="menu">
-          <Link to="/profile/:id " style={{textDecoration:"none"}}>
+          <Link to={`/profilepage/${AuthUser.username}`}  style={{ textDecoration: "none" }}>
             <div className="user">
               <div className="image">
-                <img src={user?.photoURL || UserIcon} alt="userIcon" />
+                <img src={AuthUser?.photoURL || UserIcon} alt="userIcon" />
               </div>
-              <span>{user.displayName}</span>
+              <span>{AuthUser.username}</span>
             </div>
           </Link>
 
@@ -97,7 +97,7 @@ const LeftComponent = () => {
         <hr />
       </div>
       {/* <p>&copy; 2023 ShowRoom. All rights reserved.</p> */}
-    </section>
+    </article>
   );
 };
 

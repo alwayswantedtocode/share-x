@@ -11,7 +11,7 @@ const Home = () => {
       <div className="home">
         <ShareStories />
         <SharePost />
-        {/* <TimeLine /> */}
+        <TimeLine />
       </div>
       <RightComponent />
     </div>

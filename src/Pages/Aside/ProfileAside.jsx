@@ -16,15 +16,15 @@ import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
 import { Link } from "react-router-dom";
 
 const ProfileAside = () => {
-  const { user, SignOutUser } = useAuthenticationContext();
+  const { user, SignOutUser, AuthUser,  } = useAuthenticationContext();
   return (
     <article className="AsideProfile">
       <div className="container">
         <div className="Account">
-          <Link to="/profile/:id">
+          <Link to={`/profilepage/${AuthUser.username}`}>
             <div className="AccountName">
-              <img src={user?.photoURL || UserIcon} alt="userIcon" />
-              <span className="Name">{user.displayName}</span>{" "}
+              <img src={AuthUser?.profilePicture || UserIcon} alt="userIcon" />
+              <span className="Name">{AuthUser.username}</span>{" "}
             </div>
           </Link>
           <hr />

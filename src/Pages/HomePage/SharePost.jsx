@@ -4,7 +4,7 @@ import { FcGallery, FcVideoCall } from "react-icons/fc";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { IoMdPricetag } from "react-icons/io";
 import { HiLocationMarker } from "react-icons/hi";
-import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
+import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import {
   useState,
   useRef,
@@ -26,6 +26,7 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
+  uploadBytes,
 } from "firebase/storage";
 import { db } from "../Authentication/Firebase";
 import {
@@ -34,15 +35,17 @@ import {
   initialPostState,
 } from "../../ContextApi/PostReducer";
 import { v4 } from "uuid";
+
 import { Picker } from "emoji-mart";
 import { Link } from "react-router-dom";
 
 import Post from "./Post";
+import axios from "axios";
 
 const MIN_TEXTAREA_HEIGHT = 65;
 
 const SharePost = () => {
-  const { user, userData, userId } = useAuthenticationContext();
+  const { user, userData, userId, AuthUser } = useAuthenticationContext();
 
   const textareaRef = useRef(null);
   const text = useRef("");
@@ -68,42 +71,10 @@ const SharePost = () => {
   //
 
   // Post handler
-  const [image, setImage] = useState(null);
-  const [state, dispatch] = useReducer(postReducer, initialPostState);
-  const { SUBMIT_POST, HANDLE_ERROR } = postActions;
 
-  const scrollRef = useRef();
-  const collectionRef = collection(db, "posts");
-  const postRef = doc(collection(db, "posts"));
-  const document = postRef.id;
-
-  const handleSubmitPost = async (e) => {
-    e.preventDefault();
-    if (text.current.value !== "") {
-      try {
-        await setDoc(postRef, {
-          documentId: document,
-          uid: user?.uid || userData?.uid,
-          logo: user?.photoURL,
-          name: user?.displayName || userData?.name,
-          email: user?.email || userData?.email,
-          text: text.current.value,
-          image: image,
-          timestamp: serverTimestamp(),
-        });
-        text.current.value = "";
-      } catch (err) {
-        dispatch({ type: HANDLE_ERROR });
-        alert(err.message);
-        console.log(err.message);
-      }
-    } else {
-      dispatch({ type: HANDLE_ERROR });
-    }
-  };
 
   // image handler
-
+  const [viewimage, setViewImage] = useState(null);
   const [file, setFile] = useState(null);
   // const [progressbar, setProgressbar] = useState(0);
   const storage = getStorage();
@@ -122,65 +93,66 @@ const SharePost = () => {
   };
 
   const handleUpload = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleImage = async () => {
-    const fileType = metadata.contentType.includes(file["type"]);
-    if (!file) return;
-    if (fileType) {
-      try {
-        const storageRef = ref(storage, `images/${file.name + v4()}`);
-        const uploadTask = uploadBytesResumable(
-          storageRef,
-          file,
-          metadata.contentType
-        );
-        await uploadTask.on(
-          // "state_changed",
-          // (snapshot) => {
-          //   const progress = Math.round(
-          //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          //   );
-          //   console.log("Upload is" + progress + "% done");
-          //   setProgressbar(progress);
-          // },
-          (error) => {
-            alert(error);
-          },
-          async () => {
-            await getDownloadURL(uploadTask.snapshot.ref).then(
-              (downloadURL) => {
-                setImage(downloadURL);
-              }
-            );
-          }
-        );
-      } catch (err) {
-        dispatch({ type: HANDLE_ERROR });
-        alert(err.message);
-        console.log(err.message);
-      }
+    const file = e.target.files[0];
+    setFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setViewImage(event.target.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
-  //
 
-  useEffect(() => {
-    const postData = async () => {
-      const q = query(collectionRef, orderBy("timestamp", "desc"));
-      await onSnapshot(q, (doc) => {
-        dispatch({
-          type: SUBMIT_POST,
-          posts: doc?.docs?.map((item) => ({ id: item?.id, ...item?.data() })),
+
+
+  const uploadImageToFirestore = async () => {
+    if (!file) {
+      throw new Error("No file selected");
+    }
+    // const fileType = metadata.contentType.includes(file["type"]);
+
+    // if (fileType) {
+    const storageRef = ref(storage, `Sharedimage/${file.name + v4()}`);
+    //   console.log(`${file.name + v4()}`)
+
+    try {
+      // Upload the file
+      await uploadBytes(storageRef, file);
+
+      // Get the download URL
+      const imageUrl = await getDownloadURL(storageRef);
+
+      return imageUrl;
+    } catch (error) {
+      console.error("Error uploading image to Firestore: ", error);
+      throw new Error("Error uploading image to Firestore.");
+    }
+    // }
+  };
+
+  const handleSubmitPost = async (e) => {
+    e.preventDefault();
+    if (text.current.value !== "") {
+      try {
+        const imageUrl = await uploadImageToFirestore();
+        // Use Axios to send post data to your backend route
+        await axios.post("/posts", {
+          userId: AuthUser._id,
+          Description: text.current.value,
+          Image: imageUrl,
         });
-        scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
-        setImage(null);
+
+        text.current.value = "";
         setFile(null);
-        // setProgressbar(0);
-      });
-    };
-    return () => postData();
-  }, [SUBMIT_POST]);
+        setViewImage(null);
+      } catch (error) {
+        alert(error.message);
+      }
+    } else {
+      
+    }
+  };
 
   // console.log(postData);
   //Emoji Mart use State
@@ -206,27 +178,30 @@ const SharePost = () => {
   };
 
   return (
-    <div className="timeline-content">
+    <div className="Sharepost-Wrapper">
       <div className="sharePost">
         {/* text and preview area*/}
-        <div className="sharePostContainer">
+        <form className="sharePostContainer" onSubmit={handleSubmitPost}>
           <div className="preview-image">
-            {image && <img src={image} alt="previewImage" />}
+            {viewimage && <img src={viewimage} alt="previewImage" />}
           </div>
           <div className="textarea">
-            <Link to={`/profile/${userId}`}>
+            <Link to={`/profilepage/${AuthUser.username}`}>
               <div className="image">
                 {/* <img src={currentUser.profilePicture} alt="" /> */}
-                <img src={user?.photoURL || UserIcon} alt="userIcon" />
+                <img
+                  src={AuthUser?.profilePicture || Profileimage}
+                  alt="Profile"
+                />
               </div>
             </Link>
 
-            <form className="input-container" onSubmit={handleSubmitPost}>
+            <div className="input-container">
               <div className="text-and-preview">
                 <textarea
                   placeholder={`Share your experience ${
-                    user?.displayName?.trim() ||
-                    userData?.name?.charAt(0).toLowerCase() ||
+                    AuthUser?.username?.trim() ||
+                    AuthUser?.username?.charAt(0).toLowerCase() ||
                     "User"
                   }`}
                   ref={setRefs}
@@ -242,7 +217,7 @@ const SharePost = () => {
               <button className="SendButton" type="submit">
                 Share
               </button>
-            </form>
+            </div>
             {/* <span
               className="progressbar"
               style={{ width: `${progressbar}` }}
@@ -269,7 +244,7 @@ const SharePost = () => {
                   />
                 </label>
                 {file ? (
-                  <span onClick={handleImage}>Upload</span>
+                  <span onClick={uploadImageToFirestore}>Upload</span>
                 ) : (
                   <span className="btn">Gallery</span>
                 )}
@@ -302,46 +277,11 @@ const SharePost = () => {
               <Picker onSelect={(emoji) => addEmoji(emoji)} />
             </div>
           )}
-        </div>
+        </form>
         {/* <div>posts</div> */}
       </div>
-      <div className="TimeLine">
-        {/* {feeds.map((feed) => {
-        return <Post feed={feed} key={feed.id} />;
-       })} */}
 
-        {state.error ? (
-          <div className="alert">
-            <div style={{ color: "red" }}>
-              Something went wrong refresh and try again...
-            </div>
-          </div>
-        ) : (
-          <div>
-            {state?.posts?.length > 0 ? (
-              state.posts.map((post, index) => (
-                <Post
-                  key={index}
-                  logo={post.logo}
-                  id={post.documentId}
-                  uid={post?.uid}
-                  name={post.name}
-                  email={post.email}
-                  image={post.image}
-                  text={post.text}
-                  timestamp={new Date(post?.timestamp?.toDate())?.toUTCString()}
-                />
-              ))
-            ) : (
-              <div>
-                No posts available.Share your first experince
-                {/* <Post /> */}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-      <div ref={scrollRef}>{/*refrence for later*/}</div>
+      {/* <div ref={scrollRef}></div> */}
     </div>
   );
 };

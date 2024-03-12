@@ -67,29 +67,29 @@ export const AuthenticationProvider = ({ children }) => {
     }
   };
 
-  const signUpHandleSubmit = async (fullname, username, email, password) => {
-    try {
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredentials.user;
+  // const signUpHandleSubmit = async (fullname, username, email, password) => {
+  //   try {
+  //     const userCredentials = await createUserWithEmailAndPassword(
+  //       auth,
+  //       email,
+  //       password
+  //     );
+  //     const user = userCredentials.user;
 
-      await addDoc(collectionUserRef, {
-        uid: user.uid,
-        fullname,
-        username,
-        providerId: "email/password",
-        email: user.email,
-      });
+  //     await addDoc(collectionUserRef, {
+  //       uid: user.uid,
+  //       fullname,
+  //       username,
+  //       providerId: "email/password",
+  //       email: user.email,
+  //     });
 
-      await updateProfile(user, { displayName: username });
-    } catch (error) {
-      console.error(error, "regestration failed");
-      alert(error.message);
-    }
-  };
+  //     await updateProfile(user, { displayName: username });
+  //   } catch (error) {
+  //     console.error(error, "regestration failed");
+  //     alert(error.message);
+  //   }
+  // };
 
   // const handleRestPassword = async(email)=>{
   //   try {
@@ -100,39 +100,44 @@ export const AuthenticationProvider = ({ children }) => {
   //   }
   // }
 
-  const userStateChanged = async () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const q = query(collectionUserRef, where("uid", "==", user?.uid));
-        await onSnapshot(q, (doc) => {
-          setUserData(doc?.docs[0]?.data());
-        });
-        setUser(user);
-      } else {
-        setUser(null);
-        navigate("/login");
-      }
-    });
-  };
+  // const userStateChanged = async () => {
+  //   onAuthStateChanged(auth, async (user) => {
+  //     if (user) {
+  //       const q = query(collectionUserRef, where("uid", "==", user?.uid));
+  //       await onSnapshot(q, (doc) => {
+  //         setUserData(doc?.docs[0]?.data());
+  //       });
+  //       setUser(user);
+  //     } else {
+  //       setUser(null);
+  //       navigate("/login");
+  //     }
+  //   });
+  // };
 
-  useEffect(() => {
-    userStateChanged();
-    if (user || userData) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-    return () => userStateChanged();
-  }, []);
+  // useEffect(() => {
+  //   userStateChanged();
+  //   if (user || userData) {
+  //     navigate("/");
+  //   } else {
+  //     navigate("/login");
+  //   }
+  //   return () => userStateChanged();
+  // }, []);
 
-  console.log("user", user);
+  // console.log("user", user);
 
-  const SignOutUser = async () => {
-    await signOut(auth);
-    console.log("signed out");
-  };
+  // const SignOutUser = async () => {
+  //   await signOut(auth);
+  //   console.log("signed out");
+  // };
 
-  const userId = user?.uid;
+
+
+  const [AuthUser, setAuthUser] = useState(null)
+  const [fetchUser, setFetchuser]= useState(false)
+
+  const userId = AuthUser?.uid;
   return (
     <AuthenticationContext.Provider
       value={{
@@ -140,12 +145,14 @@ export const AuthenticationProvider = ({ children }) => {
         setIsAuthenticated,
         SignInWithGoogle,
         signInHandleSubmit,
-        signUpHandleSubmit,
-        SignOutUser,
+        // signUpHandleSubmit,
+        // SignOutUser,
         user,
         setUser,
         userData,
         userId,
+        AuthUser,
+        setAuthUser,
       }}
     >
       {children}

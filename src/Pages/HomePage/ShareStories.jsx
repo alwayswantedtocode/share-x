@@ -3,7 +3,7 @@ import { BsFillPlusCircleFill } from "react-icons/bs";
 import "./home.scss";
 
 const ShareStories = () => {
-  const { currentUser, user } = useAuthenticationContext();
+  const { currentUser, AuthUser } = useAuthenticationContext();
 
   const storiesData = [
     {
@@ -38,7 +38,7 @@ const ShareStories = () => {
           src="https://images.unsplash.com/photo-1515943492249-2d5d5d944085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTQ2fHxibGFjayUyMHBlb3BsZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"
           alt=""
         />
-        <span>{user.displayName}</span>
+        <span>{AuthUser.username}</span>
         <button>+</button>
       </div>
       {storiesData.map((story) => {

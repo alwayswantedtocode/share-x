@@ -1,7 +1,7 @@
 import React from "react";
 import "../profile.scss";
 
-const Profile = () => {
+const Profile = ({ shareXUsers }) => {
   return (
     <section className="InfoComponent">
       <div className="container">
@@ -12,30 +12,25 @@ const Profile = () => {
             <div className="displayUserinfo">
               <div className="info">
                 <div className="bio">
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Perferendis ipsum, debitis, aliquid fugit ratione rerum
-                    ipsam doloremque accusantium illo hic sunt distinctio
-                    voluptatem.
-                  </p>
+                  <p>{shareXUsers.Bio}</p>
                 </div>
 
                 <div className="infodetailsContainer">
                   <div className="infoDetails">
                     <span>Location:</span>
-                    <p></p>
+                    <p>{shareXUsers.CurrentCity}</p>
                   </div>
                   <div className="infoDetails">
-                    <span>Work at:</span>
-                    <p></p>
+                    <span>Work Place:</span>
+                    <p>{shareXUsers.Workplace}</p>
                   </div>
                   <div className="infoDetails">
                     <span>School:</span>
                     <p></p>
                   </div>
                   <div className="infoDetails">
-                    <span>Birthday</span>
-                    <p></p>
+                    <span>Birthday:</span>
+                    <p>{shareXUsers.Birthday}</p>
                   </div>
                 </div>
               </div>

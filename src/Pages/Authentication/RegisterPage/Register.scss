@@ -157,7 +157,8 @@
       }
       .popup-alert {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
+        flex-direction: row;
         margin-top: 0.25rem;
         display: flex;
         color: #3c3c3c;
@@ -165,10 +166,51 @@
       .offscreen {
         display: none;
       }
+      .errmsg {
+        width: 20rem;
+        height: 6rem;
+        // background-color: lightpink;
+        background-color: rgb(254, 251, 251);
+        border-radius: 0.4rem;
+        position: absolute;
+        top: 1%;
+        right: 0%;
+        left: 0%;
+        margin: auto;
+        box-shadow: rgba(159, 159, 159, 0.3);
+        -webkit-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+          rgba(159, 159, 159, 0.3);
+        -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+          rgba(159, 159, 159, 0.3);
+      }
+      .alert-danger {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: firebrick;
+        font-weight: bold;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .alert-success {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: limegreen;
+        font-weight: bold;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
       .click-4-info {
         margin-right: 0.2rem;
         color: #3c3c3c;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
       }
     }
     .Right {
@@ -230,6 +272,9 @@
         color: rgb(196 181 253);
         font-weight: 500;
         cursor: pointer;
+      }
+      button:disabled {
+        cursor: not-allowed;
       }
     }
   }

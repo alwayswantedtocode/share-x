@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useGlobalContext } from "../../../ContextApi/GlobalContext";
+import { useGlobalContext } from "../../../../ContextApi/GlobalContext";
 import { BiArrowBack } from "react-icons/bi";
 import { AiOutlineCamera } from "react-icons/ai";
 import PPI from "./PPI";
 import PPHI from "./PPHI";
-import defaultimage from "../../../Assets/istockphoto-1409329028-612x612.jpg";
-import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
+import defaultimage from "../../../../Assets/istockphoto-1409329028-612x612.jpg";
+import { useAuthenticationContext } from "../../../../ContextApi/AuthenticationContext";
 import {
   getStorage,
   ref,
@@ -19,10 +19,11 @@ const ProfileInfoForm = () => {
   const { user } = useAuthenticationContext();
 
   const [infoForm, setInforForm] = useState({
+    fullname: "",
     username: "",
-    location: "",
-    workplace: "",
-    gender: "select gender",
+    CurrentCity: "",
+    Workplace: "",
+    Gender: "Select Gender",
   });
   const [dob, setDob] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -65,7 +66,7 @@ const ProfileInfoForm = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [previewheaderImage, setPreviewheaderImage] = useState(null);
   const [iamge, setImage] = useState(null);
-  const storage =getStorage()
+  const storage = getStorage();
 
   const SelectProfileImage = (e) => {
     const file = e.target.files[0];
@@ -89,40 +90,35 @@ const ProfileInfoForm = () => {
     }
   };
 
-
- const handleImage = async () => {
-   const fileType = metadata.contentType.includes(previewImage["type"]);
-   if (!previewImage) return;
-   if (fileType) {
-     try {
-       const storageRef = ref(storage, `images/${previewImage.name + v4()}`);
-       const uploadTask = uploadBytesResumable(
-         storageRef,
-         previewImage,
-         metadata.contentType
-       );
-       await uploadTask.on(
-        
-         (error) => {
-           alert(error);
-         },
-         async () => {
-           await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-             setImage(downloadURL);
-           });
-         }
-       );
-     } catch (err) {
-      
-       alert(err.message);
-       console.log(err.message);
-     }
-   }
- };
-
-
-
-
+  const handleImage = async () => {
+    const fileType = metadata.contentType.includes(previewImage["type"]);
+    if (!previewImage) return;
+    if (fileType) {
+      try {
+        const storageRef = ref(storage, `images/${previewImage.name + v4()}`);
+        const uploadTask = uploadBytesResumable(
+          storageRef,
+          previewImage,
+          metadata.contentType
+        );
+        await uploadTask.on(
+          (error) => {
+            alert(error);
+          },
+          async () => {
+            await getDownloadURL(uploadTask.snapshot.ref).then(
+              (downloadURL) => {
+                setImage(downloadURL);
+              }
+            );
+          }
+        );
+      } catch (err) {
+        alert(err.message);
+        console.log(err.message);
+      }
+    }
+  };
 
   const handleUpdateProfile = (e) => {
     e.preventDefault();
@@ -225,7 +221,16 @@ const ProfileInfoForm = () => {
             <div className="input-container">
               <input
                 type="text"
-                placeholder="username"
+                placeholder="Fullname"
+                name="fullname"
+                value={infoForm.fullname}
+                onChange={handleInfoFormChange}
+              />
+            </div>
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Username"
                 name="username"
                 value={infoForm.username}
                 onChange={handleInfoFormChange}
@@ -234,9 +239,9 @@ const ProfileInfoForm = () => {
             <div className="input-container">
               <input
                 type="text"
-                placeholder="Location"
-                name="location"
-                value={infoForm.location}
+                placeholder="Current City"
+                name="CurrentCity"
+                value={infoForm.CurrentCity}
                 onChange={handleInfoFormChange}
               />
             </div>
@@ -244,8 +249,8 @@ const ProfileInfoForm = () => {
               <input
                 type="text"
                 placeholder="Workplace"
-                name="workplace"
-                value={infoForm.workplace}
+                name="Workplace"
+                value={infoForm.Workplace}
                 onChange={handleInfoFormChange}
               />
             </div>
@@ -269,11 +274,11 @@ const ProfileInfoForm = () => {
             </div>
             <div className="input-container">
               <select
-                name="gender"
-                value={infoForm.gender}
+                name="Gender"
+                value={infoForm.Gender}
                 onChange={handleInfoFormChange}
               >
-                <option value="select gender" disabled>
+                <option value="Select Gender" disabled>
                   Select Gender
                 </option>
                 <option value="Female">Female</option>

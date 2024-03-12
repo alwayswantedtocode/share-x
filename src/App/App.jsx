@@ -8,7 +8,7 @@ import Login from "../Pages/Authentication/LoginPage/UserLogin";
 import Register from "../Pages/Authentication/RegisterPage/UserResgister";
 import Home from "../Pages/HomePage/Home";
 import Layout from "../Pages/SharedLayout/Layout";
-import ProfileInfo from "../Pages/ProfilePage/ProfileInfo";
+import ProfilePage from "../Pages/ProfilePage/ProfilePage";
 import { AuthenticationProvider } from "../ContextApi/AuthenticationContext";
 import ProtectedRoute from "../Pages/Authentication/Protected Route/ProtectedRoute";
 import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
@@ -39,7 +39,7 @@ const App = () => {
                 }
               >
                 <Route index path="/home" element={<Home />} />
-                <Route path="/profile/:username" element={<ProfileInfo />} />
+                <Route path="/profilepage/:username" element={<ProfilePage />} />
               </Route>
             </Route>
           </Routes>

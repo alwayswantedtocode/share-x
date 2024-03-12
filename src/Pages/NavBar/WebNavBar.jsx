@@ -19,7 +19,7 @@ import CommunityAside from "../Aside/CommunityAside";
 import MessageAside from "../Aside/MessageAside";
 import NotificationAside from "../Aside/NotificationAside";
 import ProfileAside from "../Aside/ProfileAside";
-import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
+import UserIcon from "../../Assets/profile-gender-neutral.jpg";
 
 const WebNavBar = () => {
   const { isDarkMode, modeToggle } = useGlobalContext();

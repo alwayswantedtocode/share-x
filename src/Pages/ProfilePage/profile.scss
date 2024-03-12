@@ -3,9 +3,10 @@
   @include themify($themes) {
     width: 100%;
     background-color: themed("bgSoft");
-    // flex: 4;
+    // flex: 3;
     display: flex;
     flex-direction: column;
+
     .profileDashboard {
       width: 100%;
       .images {
@@ -47,37 +48,40 @@
         -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
           rgba(159, 159, 159, 0.3);
 
-        .follower-following {
-          display: flex;
-          gap: 1.25rem;
-          justify-content: space-between;
-          margin-top: 2.5rem;
-          margin-bottom: 0.625rem;
-          color: themed("textColor");
-        }
-
         .displayName {
-          margin-bottom: 0.625rem;
-          //   flex: 5;
+          margin-top: 2.5rem;
+          // margin-bottom: 0.125rem;
+          flex: 5;
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: center;
           font-size: 1.5rem;
           font-weight: 600;
+          text-transform: capitalize;
         }
+        .follower-following {
+          display: flex;
+          gap: 2.5rem;
+          justify-content: space-between;
+          margin-top: 2.1rem;
+          margin-bottom: 0.625rem;
+          color: themed("textColor");
+        }
+
         .button {
           display: flex;
-          gap: 1.875rem;
+          gap: 2.5rem;
           justify-content: space-between;
           margin-bottom: 0.625rem;
           .follow {
             font-weight: 600;
-            width: 4.125rem;
-            padding: 0.3125rem;
+            font-size: 1rem;
+            width: 6.125rem;
+            height: 2.7rem;
+            padding: 1rem;
             border: none;
-            border-radius: 0.3rem;
-            // flex: 1;
+            border-radius: 1.5rem;
             display: flex;
             gap: 0.625rem;
             align-items: center;
@@ -88,11 +92,12 @@
           }
           .message {
             font-weight: 600;
-            width: 4.125rem;
-            padding: 0.3125rem;
+            font-size: 1rem;
+            width: 6.125rem;
+            height: 2.5rem;
+            padding: 1rem;
             border: none;
-            border-radius: 0.3rem;
-            // flex: 1;
+            border-radius: 1.5rem;
             display: flex;
             gap: 0.625rem;
             align-items: center;
@@ -135,6 +140,308 @@
   }
 }
 
+//Profile Timeline and User Info Container
+.accountuser-timeline-info-container {
+  display: flex;
+  flex-direction: column-reverse;
+
+  @include surface-Pro {
+    display: flex;
+    flex-direction: row;
+  }
+
+  @include web {
+    display: flex;
+    flex-direction: row;
+  }
+  @include web-medium {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+//Account User Timeline Section
+.accountuser-timeline {
+  display: flex;
+  flex-direction: column;
+  // gap: 3.125rem;
+  flex: 3;
+  margin: 1.875rem 1.25rem;
+
+  @include surface-Pro {
+    margin-left: 1.25rem;
+    margin-right: 2.5rem;
+  }
+
+  @include web {
+    margin-left: 1.25rem;
+    margin-right: 2rem;
+  }
+  @include web-medium {
+    margin-left: 1.25rem;
+    margin-right: 2.5rem;
+  }
+}
+
+//Share post Content style
+.Sharepost-Wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .sharePost {
+    @include themify($themes) {
+      // flex: 5;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: max-content;
+      margin-bottom: 1.875rem;
+      border-radius: 0.625rem;
+      background-color: themed("bg");
+      box-shadow: rgba(159, 159, 159, 0.3);
+      -webkit-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+        rgba(159, 159, 159, 0.3);
+      -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+        rgba(159, 159, 159, 0.3);
+      //  background-color: themed("bgSoft");
+
+      .sharePostContainer {
+        width: 100%;
+        padding: 0.625rem;
+        .preview-image {
+          width: 100%;
+          height: max-content;
+          // border:2px solid red;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 50%;
+            height: max-content;
+            object-fit: cover;
+            border-radius: 0.2rem;
+          }
+        }
+        .textarea {
+          display: flex;
+          align-items: center;
+          height: max-content;
+          margin: 0.625rem 0.3rem;
+          // border: 2px solid red;
+
+          img {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.625rem;
+            cursor: pointer;
+            @include tab {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include surface-Pro {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web-large {
+              width: 3rem;
+              height: 3rem;
+            }
+          }
+          .input-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            // justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+            // border: 2px solid red;
+
+            .text-and-preview {
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              width: 70%;
+              gap: 15px;
+              height: max-content;
+              // border: 2px solid black;
+              @include surface-duo {
+                font-size: 1.2rem;
+                width: 80%;
+              }
+              @include tab {
+                font-size: 1.3rem;
+                width: 80%;
+              }
+              @include surface-Pro {
+                font-size: 1rem;
+                width: 80%;
+              }
+              @include web {
+                font-size: 1rem;
+                width: 85%;
+              }
+              @include web-medium {
+                font-size: 1rem;
+                width: 85%;
+              }
+              textarea {
+                border: none;
+                width: 100%;
+                height: 100%;
+                border-radius: 0.7rem;
+                padding: 0.625rem;
+                background-color: themed("bgSoft");
+                color: themed("textColor");
+              }
+              textarea:focus {
+                outline: none;
+              }
+            }
+
+            .SendButton {
+              width: 3rem;
+              height: 2rem;
+              font-weight: 600;
+              border: none;
+              padding: 0.4375rem;
+              border-radius: 0.3rem;
+              background-color: themed("btnColor");
+              color: white;
+              cursor: pointer;
+              @include tab {
+                width: 5rem;
+                height: 2.6rem;
+              }
+              @include surface-Pro {
+                width: 5rem;
+                height: 2.6rem;
+              }
+              @include web {
+                width: 5rem;
+                height: 2.6rem;
+              }
+              @include web-medium {
+                width: 5rem;
+                height: 2.6rem;
+              }
+            }
+          }
+
+          // .progressbar {
+          //   padding: 0.6rem;
+          //   color: rgb(160, 136, 254);
+          //   font-size: 1rem;
+          //   border-radius: 50%;
+          // }
+        }
+
+        hr {
+          margin: 0.625rem 1.25rem;
+        }
+
+        .functionarea {
+          // width: max-content;
+          height: max-content;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 0.3rem;
+          padding: 0.3rem;
+          .postOptions {
+            display: flex;
+            gap: 1rem;
+
+            @include surface-duo {
+              gap: 1.375rem;
+              margin: 0 1.25rem;
+            }
+            @include tab {
+              gap: 1.7rem;
+              margin: 0 1.25rem;
+            }
+            @include web {
+              gap: 1.7rem;
+              margin: 0 1.25rem;
+            }
+            .postOption {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+              padding: 0.3rem;
+              font-size: 1rem;
+              &:nth-child(3) {
+                display: none;
+                color: rgb(255, 196, 46);
+
+                @include web {
+                  display: flex;
+                }
+                @include surface-duo {
+                  display: flex;
+                }
+                @include tab {
+                  display: flex;
+                }
+              }
+
+              .optionIcon {
+                font-size: 1rem;
+
+                @include surface-duo {
+                  font-size: 1.2rem;
+                }
+                @include tab {
+                  font-size: 1.3rem;
+                }
+                @include surface-Pro {
+                  font-size: 1.3rem;
+                }
+                @include web {
+                  font-size: 1.3rem;
+                }
+              }
+              span {
+                font-size: 0.8rem;
+                font-weight: 500;
+                color: themed("textColor");
+
+                @include surface-duo {
+                  font-size: 1rem;
+                }
+                @include tab {
+                  font-size: 1rem;
+                }
+                @include surface-Pro {
+                  font-size: 1rem;
+                }
+
+                @include web {
+                  font-size: 1rem;
+                  color: themed("textColor");
+                }
+              }
+              .btn {
+                cursor: pointer;
+              }
+            }
+            .postOption:hover {
+              border-radius: 0.3rem;
+              background-color: themed("bgSoft");
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 //Timeline Post Section
 .post {
   @include themify($themes) {
@@ -146,9 +453,10 @@
       rgba(159, 159, 159, 0.3);
     -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
       rgba(159, 159, 159, 0.3);
+    margin-bottom: 1.5rem;
 
     .container {
-      padding: 1.25rem;
+      padding: 1.25rem 1.25rem 1.25rem 1rem;
 
       .user {
         display: flex;
@@ -157,29 +465,33 @@
 
         .userInfo {
           display: flex;
+          align-items: center;
+          justify-content: center;
           gap: 1.25rem;
+          // border:2px solid green;
+          padding: 0 0.3rem 0 0;
 
           img {
             width: 2.2rem;
             height: 2.2rem;
             border-radius: 50%;
             object-fit: cover;
-             @include tab {
-                width: 3rem;
-                height: 3rem;
-              }
-              @include surface-Pro {
-                width: 3rem;
-                height: 3rem;
-              }
-              @include web {
-                width: 3rem;
-                height: 3rem;
-              }
-              @include web-large {
-                width: 3rem;
-                height: 3rem;
-              }
+            @include tab {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include surface-Pro {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web-large {
+              width: 3rem;
+              height: 3rem;
+            }
           }
 
           .details {
@@ -188,6 +500,7 @@
 
             .name {
               font-weight: 500;
+              text-transform: capitalize;
             }
 
             .date {
@@ -220,6 +533,38 @@
           cursor: pointer;
           font-size: 1rem;
         }
+      }
+    }
+  }
+}
+//Timeline no Post Section
+.Nopost {
+  @include themify($themes) {
+    width: 100%;
+    height: 40rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: themed("bgSoft");
+
+    .Reload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .Reload-Btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        width: 9rem;
+        height: 2.7rem;
+        border-radius: 0.3rem;
+        border: none;
+        background-color: themed("btnColor");
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
       }
     }
   }
@@ -330,46 +675,6 @@
   }
 }
 
-//Profile Timeline and User Info Container
-.accountuser-timeline-info-container {
-  display: flex;
-  flex-direction: column-reverse;
-
-  @include surface-Pro {
-    display: flex;
-    flex-direction: row;
-  }
-
-  @include web {
-    display: flex;
-    flex-direction: row;
-  }
-  @include web-medium {
-    display: flex;
-    flex-direction: row;
-  }
-}
-
-//Account User Timeline Section
-.accountuser-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 3.125rem;
-  flex: 3;
-  margin: 0 1.25rem;
-
-  @include surface-Pro {
-    margin-left: 1.25rem;
-  }
-
-  @include web {
-    margin-left: 1.25rem;
-  }
-  @include web-medium {
-    margin-left: 1.25rem;
-  }
-}
-
 //Account User Info Section
 .accountuser-info {
   @include themify($themes) {
@@ -427,25 +732,27 @@
         background-color: themed("bgSoft");
         // border: 2px solid green;
         padding: 0 0.625rem;
-        padding-bottom: 1.25rem;
+        // padding-bottom: 1.25rem;
+        margin-top: 1.875rem;
         @include surface-Pro {
-          // margin: 0% 5%;
+          padding-bottom: 1.25rem;
         }
-
         @include web {
-          // margin: 0% 5%;
+          padding-bottom: 1.25rem;
         }
-        @include web-medium {
-          // margin: 0% 5%;
+        @include web-large {
+          padding-bottom: 1.25rem;
         }
         .items {
           padding: 0.5rem;
           margin-bottom: 1.25rem;
           border-radius: 0.5rem;
           background-color: themed("bg");
-          -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
-          -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
           box-shadow: rgba(159, 159, 159, 0.3);
+          -webkit-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+            rgba(159, 159, 159, 0.3);
+          -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+            rgba(159, 159, 159, 0.3);
           .intro {
             color: themed("textColorsoft");
             font-size: 18px;
@@ -499,6 +806,7 @@
 
                   .infoDetails {
                     display: flex;
+                    align-items: center;
                   }
                   span {
                   }
@@ -891,7 +1199,7 @@
           .input-container {
             width: 100%;
             height: 2.5rem;
-          border: 2px solid themed("btnBorder");
+            border: 2px solid themed("btnBorder");
             display: flex;
             flex-direction: column;
             justify-content: center;

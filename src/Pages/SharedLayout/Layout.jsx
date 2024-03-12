@@ -16,17 +16,17 @@ const Layout = () => {
     //   className={`page ${isDarkMode ? "theme-dark" : "theme-light"}`}
     //   style={{ backgroundColor: "rgb(246, 246, 246)", width: "100%" }}
     // >
-    <main className={`page ${isDarkMode ? "theme-dark" : "theme-light"}`}>
+    <section className={`page ${isDarkMode ? "theme-dark" : "theme-light"}`}>
       <NavBar />
-      <div className="main" style={{ display: "flex" }}>
+      <main className="main" style={{ display: "flex" }}>
         <LeftComponent />
-        <div style={{ flex: 6 }}>
+        <article style={{ flex: 6 }}>
           <Outlet />
-        </div>
-
+        </article>
         {/* <RightComponent /> */}
-      </div>
-    </main>
+      </main>
+      
+    </section>
 
     // </section>
   );

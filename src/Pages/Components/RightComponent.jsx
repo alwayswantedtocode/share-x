@@ -20,7 +20,7 @@ const RightComponent = () => {
   const latestFilter = data.filter((items) => items.id < 5);
   const onlineFilter = data.filter((items) => items.id < 8);
   return (
-    <section className="RightComponent">
+    <article className="RightComponent">
       <div className="container">
         <div className="items">
           <span>Suggested For You</span>
@@ -87,7 +87,7 @@ const RightComponent = () => {
           })}
         </div>
       </div>
-    </section>
+    </article>
   );
 };
 
