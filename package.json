@@ -48,5 +48,5 @@
     "sass": "^1.63.4",
     "tailwindcss": "^3.3.2"
   },
-  "proxy": "http://localhost:5050/api/"
+  "proxy": "https://share-x-server.onrender.com"
 }
