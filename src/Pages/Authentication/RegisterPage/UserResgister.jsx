@@ -34,9 +34,9 @@ const UserResgister = () => {
   const navigate = useNavigate();
 
     const [alert, setAlert] = useState({ show: false, message: "", type: "" });
-    const showAlert = (show = false, type = "", message = "") => {
-      setAlert({ show, type, message });
-    };
+  const showAlert = (show = false, type = "", message = "") => {
+    setAlert({ show, type, message });
+  };
 
   useEffect(() => {
     focusRef.current.focus();
@@ -71,7 +71,7 @@ const UserResgister = () => {
     console.log(username, password, email);
     try {
       await axios.post(
-        "usersauth/register",
+        "/usersauth/register",
         JSON.stringify({ username, email, password }),
         {
           headers: { "Content-Type": "application/json" },

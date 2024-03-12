@@ -25,11 +25,11 @@ const UserLogin = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
-  const showAlert = (show = false, type = "", message = "") => {
-    setAlert({ show, type, message });
-  };
+ 
+const [alert, setAlert] = useState({ show: false, message: "", type: "" });
+const showAlert = (show = false, type = "", message = "") => {
+  setAlert({ show, type, message });
+};
 
   const navigate = useNavigate();
   const username = AuthUser?.Username;
@@ -47,6 +47,9 @@ const UserLogin = () => {
     const TestPassword = PWD_REGX.test(password);
     setValidPassword(TestPassword);
   }, [password]);
+
+
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,15 +73,13 @@ const UserLogin = () => {
         }
       );
       console.log(JSON.stringify(response));
-
       console.log(response.data);
-
       setAuthUser(response.data);
       setEmailOrUsername("");
       setPassword("");
-      showAlert(true, "success", username);
+      showAlert(true, "Success", AuthUser?.username);
       navigate("/home");
-
+     
       //  setSuccess(true);
     } catch (error) {
       if (!error?.response) {
