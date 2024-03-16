@@ -39,8 +39,8 @@ import { v4 } from "uuid";
 import { Picker } from "emoji-mart";
 import { Link } from "react-router-dom";
 
-import Post from "./Post";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../API/axios"
 
 const MIN_TEXTAREA_HEIGHT = 65;
 
@@ -72,7 +72,6 @@ const SharePost = () => {
 
   // Post handler
 
-
   // image handler
   const [viewimage, setViewImage] = useState(null);
   const [file, setFile] = useState(null);
@@ -103,8 +102,6 @@ const SharePost = () => {
       reader.readAsDataURL(file);
     }
   };
-
-
 
   const uploadImageToFirestore = async () => {
     if (!file) {
@@ -150,7 +147,6 @@ const SharePost = () => {
         alert(error.message);
       }
     } else {
-      
     }
   };
 

@@ -14,7 +14,8 @@ import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext
 import { db } from "../Authentication/Firebase";
 import { useParams } from "react-router-dom";
 
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../API/axios"
 
 import useReload from "../../Hooks/useReload";
 
@@ -44,7 +45,7 @@ const ProfileInfo = () => {
     const fetchMypost = async () => {
       try {
         const response = await axios.get("/posts/profile/" + username);
-        console.log(response.data);
+       
         setUserpost(
           response.data.sort((p1, p2) => {
             return new Date(p2.createdAt) - new Date(p1.createdAt);

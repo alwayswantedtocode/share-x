@@ -12,7 +12,7 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import useHandleLike from "../../../Hooks/useHandleLike";
 
-TimeAgo.addDefaultLocale(en);
+// TimeAgo.addDefaultLocale(en);
 
 const ProfileTimeLine = ({
   image,
@@ -27,7 +27,7 @@ const ProfileTimeLine = ({
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
   const UserId = user?.uid;
 
-  // TimeAgo.addDefaultLocale(en);
+  TimeAgo.addLocale(en);
 
   const date = new Date(Timestamp);
 

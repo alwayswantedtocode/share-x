@@ -47,8 +47,8 @@
   "devDependencies": {
     "sass": "^1.63.4",
     "tailwindcss": "^3.3.2"
-  },
- "proxy": "https://share-x-server.onrender.com"
+  }
+
 
 }
 

@@ -28,7 +28,8 @@ import {
   postActions,
   initialPostState,
 } from "../../ContextApi/PostReducer";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../API/axios"
 import TimeAgo from "javascript-time-ago";
 
 import en from "javascript-time-ago/locale/en";

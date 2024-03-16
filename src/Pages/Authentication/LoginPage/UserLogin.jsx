@@ -4,7 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { BiInfoCircle } from "react-icons/bi";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../../API/axios"
 import Alert from "../../Components/Alert/Alert";
 
 const PWD_REGX =
@@ -14,7 +15,7 @@ const USER_EMAIL_REGX =
   /^(?:[a-zA-Z][A-Za-z0-9-_]{3,23}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
 const UserLogin = () => {
-  const { login, SignInWithGoogle, signInHandleSubmit, AuthUser, setAuthUser } =
+  const { SignInWithGoogle, AuthUser, setAuthUser } =
     useAuthenticationContext();
 
   const focusRef = useRef();
@@ -25,11 +26,11 @@ const UserLogin = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
   const [loading, setLoading] = useState(false);
- 
-const [alert, setAlert] = useState({ show: false, message: "", type: "" });
-const showAlert = (show = false, type = "", message = "") => {
-  setAlert({ show, type, message });
-};
+
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
+  const showAlert = (show = false, type = "", message = "") => {
+    setAlert({ show, type, message });
+  };
 
   const navigate = useNavigate();
   const username = AuthUser?.Username;
@@ -47,9 +48,6 @@ const showAlert = (show = false, type = "", message = "") => {
     const TestPassword = PWD_REGX.test(password);
     setValidPassword(TestPassword);
   }, [password]);
-
-
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,15 +70,14 @@ const showAlert = (show = false, type = "", message = "") => {
           withCredentials: true,
         }
       );
+      // showAlert(true, "Success", AuthUser?.username);
       console.log(JSON.stringify(response));
       console.log(response.data);
       setAuthUser(response.data);
       setEmailOrUsername("");
       setPassword("");
-      // showAlert(true, "Success", AuthUser?.username);
       navigate("/home");
-     
-      //  setSuccess(true);
+    
     } catch (error) {
       if (!error?.response) {
         showAlert(true, "danger", "No Server Response");

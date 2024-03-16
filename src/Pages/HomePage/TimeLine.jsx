@@ -6,7 +6,8 @@ import {
   initialPostState,
 } from "../../ContextApi/PostReducer";
 import { useEffect, useReducer, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from "../../API/axios"
 import useReload from "../../Hooks/useReload";
 import { IoReload } from "react-icons/io5";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
@@ -21,7 +22,6 @@ const TimeLine = () => {
     const fetchPostsData = async () => {
       try {
         const response = await axios.get("posts/timeline/" + AuthUser._id);
-        console.log(response.data);
         setPosts(
           response.data.sort((p1, p2) => {
             return new Date(p2.createdAt) - new Date(p1.createdAt);

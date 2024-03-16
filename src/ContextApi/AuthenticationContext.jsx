@@ -58,14 +58,14 @@ export const AuthenticationProvider = ({ children }) => {
   };
 
   // SignIn WithEmailandPassword handler
-  const signInHandleSubmit = async (email, password) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
-  };
+  // const signInHandleSubmit = async (email, password) => {
+  //   try {
+  //     await signInWithEmailAndPassword(auth, email, password);
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert(error.message);
+  //   }
+  // };
 
   // const signUpHandleSubmit = async (fullname, username, email, password) => {
   //   try {
@@ -144,7 +144,7 @@ export const AuthenticationProvider = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated,
         SignInWithGoogle,
-        signInHandleSubmit,
+        // signInHandleSubmit,
         // signUpHandleSubmit,
         // SignOutUser,
         user,

@@ -23,7 +23,7 @@ import UserIcon from "../../Assets/profile-gender-neutral.jpg";
 
 const WebNavBar = () => {
   const { isDarkMode, modeToggle } = useGlobalContext();
-  const { user, userData } = useAuthenticationContext();
+  const { AuthUser } = useAuthenticationContext();
 
   const closeAsideRef = useRef();
 
@@ -168,7 +168,7 @@ const WebNavBar = () => {
           className="user right-btn"
           onClick={() => handleIcons(4)}
         >
-          <img src={user?.photoURL || UserIcon} alt="" />
+          <img src={AuthUser?.profilePicture || UserIcon} alt="" />
 
           {/* <img src={currentUser.profilePicture} alt="" /> */}
 
