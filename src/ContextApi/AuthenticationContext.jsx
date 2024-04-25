@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, db, onAuthStateChanged } from "../Pages/Authentication/Firebase";
+import { auth, db, onAuthStateChanged } from "../Authentication/Firebase";
 import {
   collection,
   addDoc,
@@ -22,9 +22,6 @@ import { useNavigate } from "react-router-dom";
 const AuthenticationContext = React.createContext();
 
 export const AuthenticationProvider = ({ children }) => {
-
- 
-
   // SIGN-IN/REGISTER
   const collectionUserRef = collection(db, "user");
 
@@ -57,85 +54,8 @@ export const AuthenticationProvider = ({ children }) => {
     }
   };
 
-  // SignIn WithEmailandPassword handler
-  // const signInHandleSubmit = async (email, password) => {
-  //   try {
-  //     await signInWithEmailAndPassword(auth, email, password);
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert(error.message);
-  //   }
-  // };
-
-  // const signUpHandleSubmit = async (fullname, username, email, password) => {
-  //   try {
-  //     const userCredentials = await createUserWithEmailAndPassword(
-  //       auth,
-  //       email,
-  //       password
-  //     );
-  //     const user = userCredentials.user;
-
-  //     await addDoc(collectionUserRef, {
-  //       uid: user.uid,
-  //       fullname,
-  //       username,
-  //       providerId: "email/password",
-  //       email: user.email,
-  //     });
-
-  //     await updateProfile(user, { displayName: username });
-  //   } catch (error) {
-  //     console.error(error, "regestration failed");
-  //     alert(error.message);
-  //   }
-  // };
-
-  // const handleRestPassword = async(email)=>{
-  //   try {
-  //     await sendPasswordResetEmail(auth,email)
-  //   } catch (error) {
-  //      console.error(error);
-  //      alert(error.message)
-  //   }
-  // }
-
-  // const userStateChanged = async () => {
-  //   onAuthStateChanged(auth, async (user) => {
-  //     if (user) {
-  //       const q = query(collectionUserRef, where("uid", "==", user?.uid));
-  //       await onSnapshot(q, (doc) => {
-  //         setUserData(doc?.docs[0]?.data());
-  //       });
-  //       setUser(user);
-  //     } else {
-  //       setUser(null);
-  //       navigate("/login");
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   userStateChanged();
-  //   if (user || userData) {
-  //     navigate("/");
-  //   } else {
-  //     navigate("/login");
-  //   }
-  //   return () => userStateChanged();
-  // }, []);
-
-  // console.log("user", user);
-
-  // const SignOutUser = async () => {
-  //   await signOut(auth);
-  //   console.log("signed out");
-  // };
-
-
-
-  const [AuthUser, setAuthUser] = useState(null)
-  const [fetchUser, setFetchuser]= useState(false)
+  const [AuthUser, setAuthUser] = useState(null);
+  const [fetchUser, setFetchuser] = useState(false);
 
   const userId = AuthUser?.uid;
   return (
@@ -144,9 +64,7 @@ export const AuthenticationProvider = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated,
         SignInWithGoogle,
-        // signInHandleSubmit,
-        // signUpHandleSubmit,
-        // SignOutUser,
+
         user,
         setUser,
         userData,

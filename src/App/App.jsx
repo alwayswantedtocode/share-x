@@ -2,16 +2,16 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-
+  Navigate,
 } from "react-router-dom";
-import Login from "../Pages/Authentication/LoginPage/UserLogin";
-import Register from "../Pages/Authentication/RegisterPage/UserResgister";
-import Home from "../Pages/HomePage/Home";
-import Layout from "../Pages/SharedLayout/Layout";
-import ProfilePage from "../Pages/ProfilePage/ProfilePage";
+import Login from "../Pages/LoginPage/UserLogin";
+import Register from "../Pages/RegisterPage/UserResgister";
+import Home from "../Pages/Home Page/Home";
+import Layout from "../Pages/Shared Layout/Layout";
+import ProfilePage from "../Pages/Profile Page/ProfilePage";
 import { AuthenticationProvider } from "../ContextApi/AuthenticationContext";
-import ProtectedRoute from "../Pages/Authentication/Protected Route/ProtectedRoute";
-import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
+import ProtectedRoute from "../Protected Route/ProtectedRoute";
+
 
 // const router = createBrowserRouter([
 //   { path: , element: <Register /> },
@@ -21,6 +21,7 @@ import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
 const App = () => {
   // const { userId } = useAuthenticationContext();
   // console.log("user:", userId);
+
 
   return (
     <>
@@ -39,7 +40,10 @@ const App = () => {
                 }
               >
                 <Route index path="/home" element={<Home />} />
-                <Route path="/profilepage/:username" element={<ProfilePage />} />
+                <Route
+                  path="/profilepage/:username"
+                  element={<ProfilePage />}
+                />
               </Route>
             </Route>
           </Routes>

@@ -1,24 +1,30 @@
-import axios from "../API/axios"
+import axios from "../API/axios";
 import { useEffect, useState } from "react";
 import { useAuthenticationContext } from "../ContextApi/AuthenticationContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setLikes } from "../Reduxtoolkit/postSlice";
 
-const useHandleLike = (Likes,feeds ) => {
+const useHandleLike = (Likes, feeds) => {
   const [like, setLike] = useState(Likes.length);
   const [isLiked, setIsLiked] = useState(false);
-  const { AuthUser } = useAuthenticationContext()
-  
-    useEffect(() => {
-      setIsLiked(Likes.includes(AuthUser._id));
-    }, [AuthUser._id, Likes]);
+  const { AuthUser } = useAuthenticationContext();
+  const { likes } = useSelector((state) => state.post);
+  const { currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  const likeHandler = () => {
-     try {
-       axios.put("/posts/" + feeds._id + "/like", { userId: AuthUser._id });
-     } catch (err) {}
+  useEffect(() => {
+    setIsLiked(feeds.Likes.includes(currentUser?._id));
+  }, [currentUser?._id, feeds.Likes]);
+
+  const likeHandler = async() => {
+    try {
+     await axios.put("/api/posts/" + feeds._id + "/like", { userId: currentUser?._id });
+    } catch (err) {}
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
+    // dispatch(setLikes());
   };
-  return { like, isLiked, likeHandler };
+  return { like, likes, isLiked, likeHandler };
 };
 
 export default useHandleLike;
