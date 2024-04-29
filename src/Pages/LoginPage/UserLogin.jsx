@@ -85,7 +85,7 @@ const UserLogin = () => {
       console.log(response.user);
       setEmailOrUsername("");
       setPassword("");
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       if (!error?.response) {
         dispatch(loginFailure(showAlert(true, "danger", "No Server Response")));

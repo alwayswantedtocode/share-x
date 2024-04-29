@@ -2,10 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
-  // feedsId: {},
-  // likes: false,
   comments: [],
-  // token: null,
   loading: false,
   error: false,
 };
@@ -28,18 +25,40 @@ export const postSlice = createSlice({
       });
       state.posts = updatedPosts;
     },
-    // setLikes: (state, action) => {
-    //   state.likes = true;
-    // },
+    setComments: (state, action) => {
+      state.comments = action.payload;
+    },
+    setupdateComments: (state, action) => {
+      const updatedComments = state.comments.map((comment) => {
+        if (comment._id === action.payload.comment_id)
+          return action.payload.post;
+        return comment;
+      });
+      state.comments = updatedComments;
+    },
+    setError: (state, action) => {
+       state.loading = false;
+       state.error = action.payload && action.payload.length === 0;
+    },
     removePost: (state) => {
       state.posts = [];
+      state.comments = [];
       state.likes = false;
       state.loading = false;
       state.error = false;
     },
   },
 });
-export const {setLoading, setPost, setPosts, setLikes, removePost } =
-  postSlice.actions;
+export const {
+  setLoading,
+  setPost,
+  setPosts,
+  setupdatePosts,
+  setComments,
+  setupdateComments,
+  setLikes,
+  setError,
+  removePost,
+} = postSlice.actions;
 
 export default postSlice.reducer;

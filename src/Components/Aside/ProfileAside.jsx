@@ -29,7 +29,7 @@ const ProfileAside = () => {
 
   const LogOut = async () => {
     try {
-      const response = await axios.post("/api/usersauth/logout", );
+      const response = await axios.post("/api/usersauth/logout");
       console.log(response.data);
       dispatch(setLogout());
       dispatch(removePost());
@@ -104,8 +104,8 @@ const ProfileAside = () => {
           </div>
           <MdChevronRight className="right" />
         </div>
-        <div className="profileOptions" onClick={SignOutUser}>
-          <div className="option" onClick={LogOut}>
+        <div className="profileOptions" onClick={LogOut}>
+          <div className="option">
             <div>
               <MdLogout />
             </div>

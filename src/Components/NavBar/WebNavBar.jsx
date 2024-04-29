@@ -23,6 +23,7 @@ import ProfileAside from "../Aside/ProfileAside";
 import UserIcon from "../../Assets/profile-gender-neutral.jpg";
 import { useSelector } from "react-redux";
 import axios from "../../API/axios";
+import SearchAside from "../Aside/SearchAside";
 
 const WebNavBar = (username) => {
   const { isDarkMode, modeToggle } = useGlobalContext();
@@ -30,6 +31,7 @@ const WebNavBar = (username) => {
   const { currentUser } = useSelector((state) => state.auth);
 
   const closeAsideRef = useRef();
+  const searchResultRef = useRef();
 
   //buttons dropdown states
   const [onClickIcon, setOnClickIcon] = useState([
@@ -52,9 +54,7 @@ const WebNavBar = (username) => {
     }
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          `/api/users/search?query=${search}`
-        );
+        const response = await axios.get(`/api/users/search?query=${search}`);
         console.log(response.data);
         setSearchResult(response.data);
         setShowResult(true);
@@ -81,7 +81,7 @@ const WebNavBar = (username) => {
 
       if (asideElement && iconElement) {
         const iconRect = iconElement.getBoundingClientRect(`Icon-${index}`);
-        const asideRect = asideElement.getBoundingClientRect(`Aside-${index}`);
+        const asideRect = asideElement.getBoundingClientRect(`aside-${index}`);
 
         const bottom = iconRect.buttom - asideRect.height;
 
@@ -89,7 +89,7 @@ const WebNavBar = (username) => {
       }
     }
   };
-
+// close the menu buttons dropdown
   const handleAside = useCallback(
     (e) => {
       if (!closeAsideRef.current.contains(e.target)) {
@@ -105,11 +105,25 @@ const WebNavBar = (username) => {
     };
   }, []);
 
+  // close search result dorpdown onclicking the result.
+  // const closeSearchReault = (e) => {
+  //   if (searchResultRef.current.contains(e.target)) {
+  //     setShowResult(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", closeSearchReault);
+  //   return () => {
+  //     document.removeEventListener("mousedown", closeSearchReault);
+  //   };
+  // }, []);
+
   return (
     <header className="header ">
       <nav className="nav">
         <span>
-          <NavLink to="/home">Share X</NavLink>
+          <NavLink to="/">Share X</NavLink>
         </span>
         <div className="Left-buttons">
           <button>
@@ -119,17 +133,16 @@ const WebNavBar = (username) => {
           <button onClick={modeToggle}>
             {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
           </button>
-          <button>
+          {/* <button>
             <HiOutlineNewspaper />
-          </button>
-          <div className="search">
+          </button> */}
+          <div className="search" >
             <input
               type="text"
               placeholder="search"
               value={search}
               name="textarea"
               onChange={(e) => setsearch(e.target.value)}
-              ref={closeAsideRef}
             />
             <button className="search-btn ">
               <MdOutlineSearch className="search-icon" />
@@ -139,15 +152,12 @@ const WebNavBar = (username) => {
               <div className="search-Aside">
                 {searchResult.map((result) => {
                   return (
-                    <Link
-                      to={`/profilepage/${result.username}`}
-                      key={result._id}
-                    >
-                      <div className="result-content">
-                        <p>{result.Fullname}</p>
-                        <p>{result.username}</p>
-                      </div>
-                    </Link>
+                  
+                    <SearchAside
+                      id={result._id}
+                      fullname={result.Fullname}
+                      username={result.username}
+                    />
                   );
                 })}
               </div>
@@ -156,52 +166,19 @@ const WebNavBar = (username) => {
         </div>
 
         <div className="Right-buttons">
-          {/* <div>
+    
+          <div>
             <button
               ref={closeAsideRef}
               className="right-btn"
               id="Icon-0"
               onClick={() => handleIcons(0)}
             >
-              <AiOutlineAppstore />
-            </button>
-            <aside
-              id="Aside-0"
-              className={`${onClickIcon[0] ? "Aside active " : "Aside"}`}
-            >
-              <AppAside />
-            </aside>
-          </div> */}
-
-          {/* <div>
-            <button
-              ref={closeAsideRef}
-              className="right-btn"
-              id="Icon-1"
-              onClick={() => handleIcons(1)}
-            >
-              <MdOutlinePerson />
-            </button>
-            <aside
-              id="Aside-1"
-              className={`${onClickIcon[1] ? "Aside active " : "Aside"}`}
-            >
-              <CommunityAside />
-            </aside>
-          </div> */}
-
-          <div>
-            <button
-              ref={closeAsideRef}
-              className="right-btn"
-              id="Icon-2"
-              onClick={() => handleIcons(2)}
-            >
               <MdOutlineMail />
             </button>
             <aside
-              id="Aside-2"
-              className={`${onClickIcon[2] ? "Aside active " : "Aside"}`}
+              id="aside-0"
+              className={`${onClickIcon[0] ? "Aside active " : "Aside"}`}
             >
               <MessageAside />
             </aside>
@@ -211,14 +188,14 @@ const WebNavBar = (username) => {
             <button
               ref={closeAsideRef}
               className="right-btn"
-              id="Icon-3"
-              onClick={() => handleIcons(3)}
+              id="Icon-1"
+              onClick={() => handleIcons(1)}
             >
               <MdOutlineNotificationsNone />
             </button>
             <aside
-              id="Aside-3"
-              className={`${onClickIcon[3] ? "Aside active " : "Aside"}`}
+              id="aside-1"
+              className={`${onClickIcon[1] ? "Aside active " : "Aside"}`}
             >
               <NotificationAside />
             </aside>
@@ -226,17 +203,15 @@ const WebNavBar = (username) => {
         </div>
         <div
           ref={closeAsideRef}
-          id="Icon-4"
+          id="Icon-2"
           className="user right-btn"
-          onClick={() => handleIcons(4)}
+          onClick={() => handleIcons(2)}
         >
           <img src={currentUser?.profilePicture || UserIcon} alt="" />
 
-          {/* <img src={currentUser.profilePicture} alt="" /> */}
-
           <aside
-            id="Aside-4"
-            className={`${onClickIcon[4] ? "Aside active " : "Aside"}`}
+            id="aside-2"
+            className={`${onClickIcon[2] ? "Aside active " : "Aside"}`}
           >
             <ProfileAside />
           </aside>

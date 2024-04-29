@@ -1,6 +1,6 @@
 import "./profile.scss";
 import "../../Components/HomePage Components/home.scss";
-import Myposts from "../../Components/ProfileInfo/MyPosts";
+import UserPosts from "../../Components/ProfileInfo/UserPosts";
 import MyProfile from "../../Components/ProfileInfo/My Profile/MyProfile";
 import UsersProfile from "../../Components/ProfileInfo/UsersProfile";
 import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileForm";
@@ -14,7 +14,11 @@ import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { unfollowUser, followUser } from "../../Reduxtoolkit/authSlice";
-import { setUsers, setUsersPost } from "../../Reduxtoolkit/appUsersSlice";
+import {
+  setError,
+  setUsers,
+  setUsersPost,
+} from "../../Reduxtoolkit/appUsersSlice";
 // import axios from "axios";
 import axios from "../../API/axios";
 
@@ -24,7 +28,7 @@ const ProfileInfo = () => {
 
   const { user, userData, AuthUser } = useAuthenticationContext();
   const { currentUser } = useSelector((state) => state.auth);
-  const { users, usersPosts } = useSelector((state) => state.Users);
+  const { users, usersPosts, error } = useSelector((state) => state.Users);
 
   const dispatch = useDispatch();
 
@@ -41,6 +45,7 @@ const ProfileInfo = () => {
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);
+        dispatch(setError());
       }
     };
     fetchMyprofile();
@@ -60,6 +65,7 @@ const ProfileInfo = () => {
         );
       } catch (error) {
         console.error("Error fetching posts:", error);
+        dispatch(setError());
       }
     };
     fetchMypost();
@@ -86,7 +92,7 @@ const ProfileInfo = () => {
         dispatch(followUser(users?._id));
         console.log("followed user");
       }
-    } catch (err) {}
+    } catch (error) {}
   };
 
   return (
@@ -143,27 +149,41 @@ const ProfileInfo = () => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           {username === currentUser?.username ? <SharePost /> : ""}
-
-          {usersPosts?.length > 0 ? (
-            usersPosts?.map((feeds, index) => (
-              <Myposts
-                key={index}
-                Username={username}
-                Likes={feeds.Likes}
-                Image={feeds.Image}
-                feeds={feeds}
-                Description={feeds.Description}
-                Timestamp={feeds.createdAt}
-              />
-            ))
-          ) : (
+          {error ? (
             <div className="Nopost">
               <div className="Reload">
-                <p>No posts available. Try to reload page. </p>
+                <p style={{ color: "red" }}>
+                  Something went wrong. Refresh...{" "}
+                </p>
                 <button className="Reload-Btn" onClick={handleReload}>
                   <IoReload />
                 </button>
               </div>
+            </div>
+          ) : (
+            <div>
+              {usersPosts?.length > 0 ? (
+                usersPosts?.map((feeds, index) => (
+                  <UserPosts
+                    key={index}
+                    Username={username}
+                    Likes={feeds.Likes}
+                    Image={feeds.Image}
+                    feeds={feeds}
+                    Description={feeds.Description}
+                    Timestamp={feeds.createdAt}
+                  />
+                ))
+              ) : (
+                <div className="Nopost">
+                  <div className="Reload">
+                    <p>No posts available. </p>
+                    <button className="Reload-Btn" onClick={handleReload}>
+                      <IoReload />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

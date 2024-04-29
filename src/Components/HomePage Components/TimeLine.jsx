@@ -12,7 +12,7 @@ import useReload from "../../Hooks/useReload";
 import { IoReload } from "react-icons/io5";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import { useSelector, useDispatch } from "react-redux";
-import { setPosts } from "../../Reduxtoolkit/postSlice";
+import { setError, setPosts } from "../../Reduxtoolkit/postSlice";
 import { useParams } from "react-router-dom";
 
 const TimeLine = ({ username }) => {
@@ -21,7 +21,7 @@ const TimeLine = ({ username }) => {
   const dispatch = useDispatch();
 
   const { AuthUser } = useAuthenticationContext();
-  const { posts } = useSelector((state) => state.post);
+  const { posts, error } = useSelector((state) => state.post);
   const { currentUser } = useSelector((state) => state.auth);
 
   // const username = useParams().username;
@@ -40,6 +40,7 @@ const TimeLine = ({ username }) => {
           )
         );
       } catch (error) {
+        dispatch(setError());
         console.error("Error fetching posts:", error);
       }
     };
@@ -48,28 +49,42 @@ const TimeLine = ({ username }) => {
 
   return (
     <div className="TimeLine">
-      {posts?.length > 0 ? (
-        posts.map((feeds) => {
-          return (
-            <Post
-              key={feeds._id}
-              feeds={feeds}
-              description={feeds.Description}
-              Likes={feeds.Likes}
-              Image={feeds.Image}
-              Timestamp={feeds.createdAt}
-              Username ={feeds.username}
-            />
-          );
-        })
-      ) : (
+      {error ? (
         <div className="Nopost">
           <div className="Reload">
-            <p>No posts available. Try to reload page. </p>
+            <p style={{ color: "red" }}>Something went wrong. Refresh... </p>
             <button className="Reload-Btn" onClick={handleReload}>
               <IoReload />
             </button>
           </div>
+        </div>
+      ) : (
+        <div>
+          {posts?.length > 0 ? (
+            posts.map((feeds) => {
+              return (
+                <Post
+                  key={feeds._id}
+                  feeds={feeds}
+                  postId={feeds._id}
+                  description={feeds.Description}
+                  Likes={feeds.Likes}
+                  Image={feeds.Image}
+                  Timestamp={feeds.createdAt}
+                  Username={feeds.username}
+                />
+              );
+            })
+          ) : (
+            <div className="Nopost">
+              <div className="Reload">
+                <p>No posts available. </p>
+                <button className="Reload-Btn" onClick={handleReload}>
+                  <IoReload />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

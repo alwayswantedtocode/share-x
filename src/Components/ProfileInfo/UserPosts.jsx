@@ -4,7 +4,7 @@ import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
 import { useEffect, useState } from "react";
-import Replies from "../HomePage Components/Replies";
+import Replies from "../HomePage Components/Reply";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import TimeAgo from "javascript-time-ago";
@@ -15,12 +15,19 @@ import { useSelector } from "react-redux";
 
 // TimeAgo.addDefaultLocale(en);
 
-const MyPosts = ({ Image, Likes, Username, feeds, Description, Timestamp }) => {
+const UserPosts = ({
+  Image,
+  Likes,
+  Username,
+  feeds,
+  Description,
+  Timestamp,
+}) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const { user } = useAuthenticationContext();
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
   const { currentUser } = useSelector((state) => state.auth);
-   const { users, usersPosts, follow } = useSelector((state) => state.Users);
+  const { users, usersPosts, follow } = useSelector((state) => state.Users);
   const UserId = user?.uid;
 
   TimeAgo.addLocale(en);
@@ -43,24 +50,12 @@ const MyPosts = ({ Image, Likes, Username, feeds, Description, Timestamp }) => {
         {/* poster author and time */}
         <div className="user">
           <div className="userInfo">
-            <Link
-              // to={`/profile/${myPost.UserId}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <img
-                src={currentUser?.profilePicture || Profileimage}
-                alt="Profileimage"
-              />
-            </Link>
-
+            <img
+              src={currentUser?.profilePicture || Profileimage}
+              alt="Profileimage"
+            />
             <div className="details">
-              <Link
-                // to={`/profile/${myPost.UserId}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <span className="name">{Username}</span>
-              </Link>
-
+              <span className="name">{Username}</span>
               <span className="date">{formattedDate}</span>
             </div>
           </div>
@@ -83,19 +78,19 @@ const MyPosts = ({ Image, Likes, Username, feeds, Description, Timestamp }) => {
             )}
             {like}
           </div>
-          {/* <div className="item" onClick={commentHandle}>
+          <div className="item" onClick={commentHandle}>
             <BiMessageAlt />
             12 comments
-          </div> */}
+          </div>
           <div className="item">
             <MdOutlineIosShare />
             share
           </div>
         </div>
-        {/* {isCommentOpen && <Replies />} */}
+        {isCommentOpen && <Replies />}
       </div>
     </div>
   );
 };
 
-export default MyPosts;
+export default UserPosts;

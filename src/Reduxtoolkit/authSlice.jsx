@@ -44,19 +44,12 @@ export const authSlice = createSlice({
       //  }
     },
     unfollowUser: (state, action) => {
-      state.follow = state.follow.filter(
-        (user) => user !== action.payload
-      );
+      state.follow = state.follow.filter((user) => user !== action.payload);
     },
-
-    // toggleFollowStatus: (state, action) => {
-    //   const userId = action.payload;
-    //   if (state.followedUsers.includes(userId)) {
-    //     state.followedUsers = state.followedUsers.filter((id) => id !== userId);
-    //   } else {
-    //     state.followedUsers.push(userId);
-    //   }
-    // },
+    setError: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
 
     setLogout: (state) => {
       state.currentUser = null;
@@ -72,6 +65,7 @@ export const {
   loginSuccess,
   setUsers,
   loginFailure,
+  setError,
   setLogout,
   followUser,
   unfollowUser,

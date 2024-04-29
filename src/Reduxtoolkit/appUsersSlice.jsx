@@ -23,6 +23,10 @@ export const authSlice = createSlice({
     setUsersPost: (state, action) => {
       state.usersPosts = action.payload;
     },
+    setError: (state,action) => {
+     state.loading = false;
+     state.error = action.payload && action.payload.length === 0;
+    },
     removeUsers: (state) => {
       state.users = null;
       state.usersPosts = [];
@@ -37,7 +41,9 @@ export const {
   setLoading,
   setUsers,
   setUsersPost,
+  setError,
   removeUsers,
+
 } = authSlice.actions;
 
 export default authSlice.reducer;

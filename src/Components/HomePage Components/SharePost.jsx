@@ -35,7 +35,6 @@ const SharePost = () => {
   useLayoutEffect(() => {
     // Reset height - important to shrink on delete
     textareaRef.current.style.height = "inherit";
-
     // Set height
     textareaRef.current.style.height = `${Math.max(
       textareaRef.current.scrollHeight,
@@ -48,7 +47,7 @@ const SharePost = () => {
   // image handler
   const [viewimage, setViewImage] = useState(null);
   const [file, setFile] = useState("");
-  // const [progressbar, setProgressbar] = useState(0);
+
   const storage = getStorage();
 
   // Create the file metadata
@@ -77,14 +76,10 @@ const SharePost = () => {
   };
 
   const uploadImageToFirestore = async () => {
-    // if (!file) {
-    //   throw new Error("No file selected");
-    // }
     const fileType = metadata.contentType.includes(file["type"]);
 
     if (fileType) {
       const storageRef = ref(storage, `Sharedimage/${file.name + v4()}`);
-      //   console.log(`${file.name + v4()}`)
 
       try {
         // Upload the file
@@ -107,16 +102,17 @@ const SharePost = () => {
         // Use Axios to send post data to your backend route
         const response = await axios.post("/api/posts", {
           userId: currentUser?._id,
+          profilePicture: currentUser?.profilePicture,
           username: currentUser?.username,
           Fullname: currentUser?.Fullname,
           Description: text.current.value,
           Image: imageUrl,
         });
-
+        dispatch(setLoading());
         text.current.value = "";
         setFile(null);
         setViewImage(null);
-        dispatch(setLoading());
+  
       } catch (error) {
         alert(error.message);
       }

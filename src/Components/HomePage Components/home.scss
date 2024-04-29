@@ -232,6 +232,8 @@
               }
 
               .SendButton {
+                display:flex;
+                justify-content: center;
                 width: 3rem;
                 height: 2rem;
                 font-weight: 600;
@@ -439,7 +441,7 @@
               align-items: center;
               justify-content: center;
               gap: 1.25rem;
-              // border:2px solid green;
+              // border: 2px solid green;
               padding: 0 0.3rem 0 0;
 
               img {
@@ -512,8 +514,10 @@
 
   //Comment Content style
   .comments {
+    width: 100%;
     @include themify($themes) {
       .write {
+        width: 100%;
         display: flex;
         align-items: center;
         // gap: 1.25rem;
@@ -526,46 +530,89 @@
           border-radius: 50%;
           object-fit: cover;
           cursor: pointer;
-        }
-
-        textarea {
-          width: 65%;
-          height: 2.5rem;
-          padding: 0.625rem;
-          border-radius: 5rem;
-          border: 0.0625rem solid themed("border");
-          background-color: transparent;
-          color: themed("textColor");
-
-          @include surface-duo {
-            width: 80%;
-            height: 2.5rem;
-          }
           @include tab {
-            width: 80%;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
           }
-          // @include surface-Pro {
-          //   width: 38rem;
-          //   height: 2.5rem;
-          // }
+          @include surface-Pro {
+            width: 3rem;
+            height: 3rem;
+          }
           @include web {
-            width: 80%;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
+          }
+          @include web-large {
+            width: 3rem;
+            height: 3rem;
           }
         }
-        textarea:focus {
-          outline: none;
-        }
+        .form {
+          display: flex;
+          width: 70%;
+          align-items: center;
+          justify-content: center;
+          justify-content: space-between;
+          textarea {
+            width: 80%;
+            height: 2.5rem;
+            padding: 0.625rem;
+            border-radius: 5rem;
+            border: 0.0625rem solid themed("border");
+            background-color: transparent;
+            color: themed("textColor");
 
-        button {
-          border: none;
-          background-color: themed(logo);
-          font-weight: 600;
-          color: rgb(2, 2, 2);
-          padding: 0.625rem;
-          cursor: pointer;
-          border-radius: 5rem;
+            @include surface-duo {
+              width: 80%;
+              height: 2.5rem;
+            }
+            @include tab {
+              width: 80%;
+              height: 2.5rem;
+            }
+            // @include surface-Pro {
+            //   width: 38rem;
+            //   height: 2.5rem;
+            // }
+            @include web {
+              width: 80%;
+              height: 2.5rem;
+            }
+          }
+          textarea:focus {
+            outline: none;
+          }
+
+          button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 2rem;
+            border: none;
+            background-color: themed("btnColor");
+            color: white;
+            font-weight: 600;
+            padding: 0.625rem;
+            cursor: pointer;
+            border-radius: 5rem;
+            @include tab {
+              width: 5rem;
+              height: 2.6rem;
+            }
+            @include surface-Pro {
+              width: 5rem;
+              height: 2.6rem;
+            }
+            @include web {
+              width: 5rem;
+              height: 2.6rem;
+            }
+            @include web-medium {
+              width: 5rem;
+              height: 2.6rem;
+            }
+          }
         }
       }
 

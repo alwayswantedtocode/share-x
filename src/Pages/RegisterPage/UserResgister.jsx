@@ -83,7 +83,7 @@ const UserResgister = () => {
       setEmail("");
       setPassword("");
       setLoading(true);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       if (!error?.response) {
         setLoading(false);

@@ -1,10 +1,10 @@
 import "./home.scss";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import { useState, } from "react";
-import Replies from "./Replies";
+import { useState } from "react";
+import Reply from "./Reply";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 
 import TimeAgo from "javascript-time-ago";
@@ -12,19 +12,18 @@ import en from "javascript-time-ago/locale/en";
 import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
 
-
 TimeAgo.addDefaultLocale(en);
 const Post = ({
   feeds,
+  postId,
   Username,
   description,
   Likes,
   Image,
   Timestamp,
 }) => {
-
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
-  const { currentUser} = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   // TimeAgo.addDefaultLocale(en);
   const date = new Date(Timestamp);
@@ -34,7 +33,6 @@ const Post = ({
   const formattedDate = timeAgo.format(date);
 
   const [isCommentOpen, setIsCommentOpen] = useState(false);
- 
 
   // COMMENTS
 
@@ -103,9 +101,7 @@ const Post = ({
             share
           </div>
         </div>
-        {isCommentOpen && (
-          <Replies   />
-        )}
+        {isCommentOpen && <Reply postId={postId} />}
       </div>
     </div>
   );
