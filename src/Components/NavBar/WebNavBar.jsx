@@ -76,7 +76,7 @@ const WebNavBar = (username) => {
     setOnClickIcon(updatedOnClickIcon);
 
     if (updatedOnClickIcon[index]) {
-      const asideElement = document.getElementById(`Aside-${index}`);
+      const asideElement = document.getElementById(`aside-${index}`);
       const iconElement = document.getElementById(`Icon-${index}`);
 
       if (asideElement && iconElement) {
@@ -89,15 +89,13 @@ const WebNavBar = (username) => {
       }
     }
   };
-// close the menu buttons dropdown
-  const handleAside = useCallback(
-    (e) => {
-      if (!closeAsideRef.current.contains(e.target)) {
-        setOnClickIcon(onClickIcon);
-      }
-    },
-    [onClickIcon]
-  );
+  // close the menu buttons dropdown
+  const handleAside = (e) => {
+    if (!closeAsideRef.current.contains(e.target)) {
+      setOnClickIcon(onClickIcon);
+    }
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleAside);
     return () => {
@@ -123,12 +121,16 @@ const WebNavBar = (username) => {
     <header className="header ">
       <nav className="nav">
         <span>
-          <NavLink to="/">Share X</NavLink>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
+            Share X
+          </NavLink>
         </span>
         <div className="Left-buttons">
-          <button>
-            <AiOutlineHome />
-          </button>
+          <Link to="/">
+            <button>
+              <AiOutlineHome />
+            </button>
+          </Link>
           {/* onClick={modeToggle} */}
           <button onClick={modeToggle}>
             {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
@@ -136,7 +138,7 @@ const WebNavBar = (username) => {
           {/* <button>
             <HiOutlineNewspaper />
           </button> */}
-          <div className="search" >
+          <div className="search">
             <input
               type="text"
               placeholder="search"
@@ -148,11 +150,10 @@ const WebNavBar = (username) => {
               <MdOutlineSearch className="search-icon" />
             </button>
 
-            <article className={`${showResult ? "Aside active " : "Aside"}`}>
+            <aside className={`${showResult ? "Aside active " : "Aside"}`}>
               <div className="search-Aside">
                 {searchResult.map((result) => {
                   return (
-                  
                     <SearchAside
                       id={result._id}
                       fullname={result.Fullname}
@@ -161,12 +162,11 @@ const WebNavBar = (username) => {
                   );
                 })}
               </div>
-            </article>
+            </aside>
           </div>
         </div>
 
         <div className="Right-buttons">
-    
           <div>
             <button
               ref={closeAsideRef}
