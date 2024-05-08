@@ -24,6 +24,7 @@ const Post = ({
 }) => {
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
   const { currentUser } = useSelector((state) => state.auth);
+  const {comments}=useSelector((state)=>state.post)
 
   // TimeAgo.addDefaultLocale(en);
   const date = new Date(Timestamp);
@@ -94,7 +95,7 @@ const Post = ({
           </div>
           <div className="item" onClick={commentHandle}>
             <BiMessageAlt />
-            {commentsCount > 0 && commentsCount}
+            {comments?.length}
           </div>
           <div className="item">
             <MdOutlineIosShare />

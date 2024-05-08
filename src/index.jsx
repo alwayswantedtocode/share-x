@@ -18,6 +18,7 @@ const LoadingComponent = () => (
 root.render(
   <React.StrictMode>
     <AppProvider>
+      
       <Provider store={store}>
         <PersistGate loading={<LoadingComponent/>} persistor={persistor}>
           <App />

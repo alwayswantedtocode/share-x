@@ -14,10 +14,12 @@ import { Link } from "react-router-dom";
 import axios from "../../API/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setPosts } from "../../Reduxtoolkit/postSlice";
+import useReload from "../../Hooks/useReload";
 
 const MIN_TEXTAREA_HEIGHT = 65;
 
 const SharePost = () => {
+  const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -108,11 +110,12 @@ const SharePost = () => {
           Description: text.current.value,
           Image: imageUrl,
         });
+        dispatch(setPosts(response.data));
         dispatch(setLoading());
         text.current.value = "";
         setFile(null);
         setViewImage(null);
-  
+        handleReload();
       } catch (error) {
         alert(error.message);
       }

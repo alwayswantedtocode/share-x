@@ -14,6 +14,7 @@ import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "../../API/axios";
 import { setComments } from "../../Reduxtoolkit/postSlice";
+import Replies from "./Replies";
 
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;
@@ -56,13 +57,15 @@ const Reply = ({ postId }) => {
       try {
         console.log("hello");
         // Use Axios to send post data to your backend route
-        const response = await axios.post(`/api/comments/${postId}/comment`, {
-          userId: currentUser?.userId,
+        const form = {
+          userId: currentUser?._id,
           postId,
           username: currentUser?.username,
           profilePicture: currentUser?.profilePicture,
           comments: Comment.current.value,
-        });
+        };
+        console.log("form:",form)
+        const response = await axios.post(`/api/comments/${postId}/comment`,form);
         console.log(response.data);
         Comment.current.value = "";
         dispatch(setComments(response.data));
@@ -70,7 +73,7 @@ const Reply = ({ postId }) => {
         alert(error.message);
       }
     } else {
-      // ${postId}
+  
     }
   };
 
@@ -96,27 +99,7 @@ const Reply = ({ postId }) => {
           <button type="submit">Reply</button>
         </form>
       </div>
-      {/* {comments.map((reply) => {
-        return (
-        <
-          <div className="comment" key={reply?._id}>
-            <img src={reply?.profilePicture|| UserIcon} alt="" />
-            <div className="info">
-              <span className="name">{reply?.username}</span>
-              <div className="text">
-                <p>{reply?.comments}</p>
-              </div>
-              <div className="impressions">
-                <p>Like</p>
-                <p>Reply</p>
-              </div>
-            </div>
-            <span className="time">
-              {new Date(reply?.timestamp?.toDate())?.toUTCString()}
-            </span>
-          </div>
-        );
-      })} */}
+      <Replies postId={postId} />
     </div>
   );
 };

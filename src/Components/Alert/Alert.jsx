@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-const Alert = ({ type, Message , isVisible }) => {
+const Alert = ({ type, Message, isVisible }) => {
   const [displayAlert, setDisplayAlert] = useState(isVisible);
-  
+
   useEffect(() => {
     let timeoutId;
     if (isVisible) {
@@ -15,9 +15,7 @@ const Alert = ({ type, Message , isVisible }) => {
   return (
     <aside className={`${displayAlert ? "errmsg" : "offscreen"}`}>
       <div className={`alert-${type}`}>
-        <p  aria-live="assertive">
-          {Message}
-        </p>
+        <p aria-live="assertive">{Message}</p>
       </div>
     </aside>
   );
