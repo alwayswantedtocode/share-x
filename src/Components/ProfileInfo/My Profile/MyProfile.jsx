@@ -3,7 +3,9 @@ import { useState } from "react";
 import EditBio from "../EditBio";
 import "../../../Pages/Profile Page/profile.scss";
 import { useGlobalContext } from "../../../ContextApi/GlobalContext";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux"
+
+
 const UserProfile = () => {
   const { currentUser } = useSelector((state)=>state.auth)
   const { openEditInfo } = useGlobalContext();

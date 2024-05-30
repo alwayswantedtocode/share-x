@@ -1,20 +1,19 @@
-import React, { useContext, useState } from "react";
-import { useGlobalContext } from "../../../ContextApi/GlobalContext";
-import { BiArrowBack } from "react-icons/bi";
-import { AiOutlineCamera } from "react-icons/ai";
 import PPI from "./PPI";
 import PPHI from "./PPHI";
 import defaultimage from "../../../Assets/istockphoto-1409329028-612x612.jpg";
-import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
-import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import InputSelector from "../../ResuableSelectInputs/InputSelector";
-import axios from "../../../API/axios";
+import React, {useState } from "react";
+import { BiArrowBack } from "react-icons/bi";
+import { AiOutlineCamera } from "react-icons/ai";
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../../../Reduxtoolkit/authSlice";
+import InputSelector from "../../ResuableSelectInputs/InputSelector";
+import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import axios from "../../../API/axios";
+
 
 const ProfileInfoForm = () => {
-  // const { isDarkMode,  } = useAuthenticationContext();
   const { editDetails, closeEditInfo, isDarkMode } = useGlobalContext();
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -207,7 +206,7 @@ const ProfileInfoForm = () => {
           withCredentials: true,
         }
       );
-      dispatch(loginSuccess(response.data))
+      dispatch(loginSuccess(response.data));
       console.log("response:", response.data);
     } catch (error) {
       alert(error.message || "An error occurred while updating profile.");

@@ -5,7 +5,6 @@ import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { BiInfoCircle } from "react-icons/bi";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import Alert from "../../Components/Alert/Alert";
-// import axios from "axios";
 import axios from "../../API/axios";
 
 //USER NAMES AND PASSWORD RULES
@@ -78,11 +77,11 @@ const UserResgister = () => {
           withCrendentials: true,
         }
       );
+       setLoading(true);
       showAlert(true, "success", "Registered successfully");
       setUsername("");
       setEmail("");
       setPassword("");
-      setLoading(true);
       navigate("/");
     } catch (error) {
       if (!error?.response) {

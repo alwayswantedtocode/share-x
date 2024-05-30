@@ -182,6 +182,164 @@
   }
 }
 
+//Comment Content style
+.comments {
+  width: 100%;
+  @include themify($themes) {
+    .write {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      // gap: 1.25rem;
+      gap: 0.625rem;
+      margin-top: 1.25rem;
+
+      img {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        @include tab {
+          width: 3rem;
+          height: 3rem;
+        }
+        @include surface-Pro {
+          width: 3rem;
+          height: 3rem;
+        }
+        @include web {
+          width: 3rem;
+          height: 3rem;
+        }
+        @include web-large {
+          width: 3rem;
+          height: 3rem;
+        }
+      }
+      .form {
+        display: flex;
+        width: 70%;
+        align-items: center;
+        justify-content: center;
+        justify-content: space-between;
+        textarea {
+          width: 80%;
+          height: 2.5rem;
+          padding: 0.625rem;
+          border-radius: 5rem;
+          border: 0.0625rem solid themed("border");
+          background-color: transparent;
+          color: themed("textColor");
+
+          @include surface-duo {
+            width: 80%;
+            height: 2.5rem;
+          }
+          @include tab {
+            width: 80%;
+            height: 2.5rem;
+          }
+          // @include surface-Pro {
+          //   width: 38rem;
+          //   height: 2.5rem;
+          // }
+          @include web {
+            width: 80%;
+            height: 2.5rem;
+          }
+        }
+        textarea:focus {
+          outline: none;
+        }
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 3rem;
+          height: 2rem;
+          border: none;
+          background-color: themed("btnColor");
+          color: white;
+          font-weight: 600;
+          padding: 0.625rem;
+          cursor: pointer;
+          border-radius: 5rem;
+          @include tab {
+            width: 5rem;
+            height: 2.6rem;
+          }
+          @include surface-Pro {
+            width: 5rem;
+            height: 2.6rem;
+          }
+          @include web {
+            width: 5rem;
+            height: 2.6rem;
+          }
+          @include web-medium {
+            width: 5rem;
+            height: 2.6rem;
+          }
+        }
+      }
+    }
+
+    .comment {
+      margin: 1.875rem 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 1.25rem;
+
+      img {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+      }
+
+      .info {
+        flex: 7;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1875rem;
+        align-items: flex-start;
+        .name {
+          font-weight: 500;
+          color: rgb(93, 93, 93);
+          font-size: 0.8rem;
+          cursor: pointer;
+        }
+        .text {
+          p {
+            font-size: 0.8rem;
+            color: themed("textColoreSoft");
+            cursor: pointer;
+          }
+        }
+
+        .impressions {
+          display: flex;
+          gap: 0.625rem;
+          color: rgb(93, 93, 93);
+          p {
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .time {
+        flex: 1;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}
+
 //Share post Content style
 .Sharepost-Wrapper {
   width: 100%;
@@ -529,8 +687,12 @@
           display: flex;
           align-items: center;
           gap: 0.625rem;
-          cursor: pointer;
           font-size: 1rem;
+          span {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+          }
         }
       }
     }
@@ -620,55 +782,6 @@
         padding: 0.625rem;
         cursor: pointer;
         border-radius: 5rem;
-      }
-    }
-
-    .comment {
-      margin: 1.875rem 0;
-      display: flex;
-      justify-content: space-between;
-      gap: 1.25rem;
-
-      img {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      .info {
-        flex: 7;
-        display: flex;
-        flex-direction: column;
-        gap: 0.1875rem;
-        align-items: flex-start;
-        .name {
-          font-weight: 500;
-          color: rgb(93, 93, 93);
-          font-size: 0.8rem;
-        }
-        .text {
-          p {
-            font-size: 0.8rem;
-            color: themed("textColoreSoft");
-            cursor: pointer;
-          }
-        }
-
-        .impressions {
-          display: flex;
-          gap: 0.625rem;
-          color: rgb(93, 93, 93);
-          p {
-            font-weight: 500;
-            font-size: 0.8rem;
-          }
-        }
-      }
-
-      .time {
-        flex: 1;
-        font-size: 0.7rem;
       }
     }
   }

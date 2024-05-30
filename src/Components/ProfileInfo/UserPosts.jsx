@@ -1,33 +1,40 @@
 import "../../Pages/Profile Page/profile.scss";
+import "../HomePage Components/home.scss"
+import Reply from "../HomePage Components/Reply";
+import { useState } from "react";
+import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import { useEffect, useState } from "react";
-import Replies from "../HomePage Components/Reply";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
-import TimeAgo from "javascript-time-ago";
-
-import en from "javascript-time-ago/locale/en";
 import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+
 
 // TimeAgo.addDefaultLocale(en);
 
 const UserPosts = ({
+  postId,
   Image,
   Likes,
   Username,
   feeds,
   Description,
   Timestamp,
+  Comments,
+  replyLikes,
 }) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const { user } = useAuthenticationContext();
-  const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
+  const { like, isLiked, likeHandler, isLikedComment, likedComment, commentLikeHandler } = useHandleLike(
+    Likes,
+    feeds,
+    replyLikes
+  );
   const { currentUser } = useSelector((state) => state.auth);
-  const { users, usersPosts, follow } = useSelector((state) => state.Users);
   const UserId = user?.uid;
 
   TimeAgo.addLocale(en);
@@ -80,14 +87,16 @@ const UserPosts = ({
           </div>
           <div className="item" onClick={commentHandle}>
             <BiMessageAlt />
-            12 comments
+            {Comments?.length}
           </div>
           <div className="item">
             <MdOutlineIosShare />
             share
           </div>
         </div>
-        {isCommentOpen && <Replies />}
+        {isCommentOpen && (
+          <Reply postId={postId} Comments={Comments} replyLikes={replyLikes} />
+        )}
       </div>
     </div>
   );

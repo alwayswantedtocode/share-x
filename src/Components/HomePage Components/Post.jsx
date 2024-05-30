@@ -1,16 +1,15 @@
 import "./home.scss";
+import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import Reply from "./Reply";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import { useState } from "react";
-import Reply from "./Reply";
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
-
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
 import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 TimeAgo.addDefaultLocale(en);
 const Post = ({
@@ -20,11 +19,13 @@ const Post = ({
   description,
   Likes,
   Image,
+  Comments,
   Timestamp,
 }) => {
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
+
   const { currentUser } = useSelector((state) => state.auth);
-  const {comments}=useSelector((state)=>state.post)
+  const { comments } = useSelector((state) => state.post);
 
   // TimeAgo.addDefaultLocale(en);
   const date = new Date(Timestamp);
@@ -34,15 +35,6 @@ const Post = ({
   const formattedDate = timeAgo.format(date);
 
   const [isCommentOpen, setIsCommentOpen] = useState(false);
-
-  // COMMENTS
-
-  const [commentsCount, setCommentsCount] = useState(0);
-
-  // Function to update comments count
-  const updateCommentsCount = (count) => {
-    setCommentsCount(count);
-  };
 
   const commentHandle = () => {
     setIsCommentOpen(!isCommentOpen);
@@ -55,7 +47,6 @@ const Post = ({
         <div className="user">
           <div className="userInfo">
             <Link
-              // to={`/profile/${feed.userId}`}
               to={`/profilepage/${Username}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -67,7 +58,6 @@ const Post = ({
 
             <div className="details">
               <Link
-                // to={`/profile/${feed.userId}`}
                 to={`/profilepage/${Username}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
@@ -85,24 +75,30 @@ const Post = ({
         </div>
         {/* Interact with post */}
         <div className="info">
-          <div className="item" onClick={likeHandler}>
-            {isLiked ? (
-              <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
-            ) : (
-              <AiOutlineHeart />
-            )}
-            {like}
+          <div className="item">
+            <span onClick={likeHandler}>
+              {isLiked ? (
+                <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
+              ) : (
+                <AiOutlineHeart />
+              )}
+            </span>
+            <p>{like}</p>
           </div>
-          <div className="item" onClick={commentHandle}>
-            <BiMessageAlt />
-            {comments?.length}
+          <div className="item">
+            <span onClick={commentHandle}>
+              <BiMessageAlt />
+            </span>
+            <p>{Comments?.length}</p>
           </div>
           <div className="item">
             <MdOutlineIosShare />
             share
           </div>
         </div>
-        {isCommentOpen && <Reply postId={postId} />}
+        {isCommentOpen && (
+          <Reply postId={postId} feeds={feeds} Comments={Comments} />
+        )}
       </div>
     </div>
   );

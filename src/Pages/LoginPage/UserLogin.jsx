@@ -88,13 +88,12 @@ const UserLogin = () => {
       navigate("/");
     } catch (error) {
       if (!error?.response) {
-        dispatch(loginFailure(showAlert(true, "danger", "No Server Response")));
+        showAlert(true, "danger", "No Server Response");
       } else if (error.response?.status === 400) {
-        dispatch(
-          loginFailure(showAlert(true, "danger", "Wrong email or password"))
-        );
+       
+         showAlert(true, "danger", "Wrong email or password" );
       } else {
-        dispatch(loginFailure(showAlert(true, "danger", "Login failed")));
+       showAlert(true, "danger", "Login failed")
       }
     }
   };

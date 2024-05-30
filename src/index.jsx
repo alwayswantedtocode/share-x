@@ -11,16 +11,14 @@ import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const LoadingComponent = () => (
-  <div>Loading...</div> // Placeholder loading component
-);
+
 
 root.render(
   <React.StrictMode>
     <AppProvider>
       
       <Provider store={store}>
-        <PersistGate loading={<LoadingComponent/>} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
       </Provider>

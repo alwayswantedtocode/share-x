@@ -1,9 +1,11 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
 import "../../Pages/Profile Page/profile.scss";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import axios from "../../API/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess } from "../../Reduxtoolkit/authSlice"
+import { loginSuccess } from "../../Reduxtoolkit/authSlice";
+
 const MIN_TEXTAREA_HEIGHT = 95;
+
 const EditBio = ({ setShoweditbio, showEditbio }) => {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();

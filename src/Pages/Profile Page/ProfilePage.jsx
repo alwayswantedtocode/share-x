@@ -5,12 +5,11 @@ import MyProfile from "../../Components/ProfileInfo/My Profile/MyProfile";
 import UsersProfile from "../../Components/ProfileInfo/UsersProfile";
 import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileForm";
 import SharePost from "../../Components/HomePage Components/SharePost";
-import { IoReload } from "react-icons/io5";
 import CoverImage from "../../Assets/no-image.png";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { useEffect, useState } from "react";
+import { IoReload } from "react-icons/io5";
 import useReload from "../../Hooks/useReload";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { unfollowUser, followUser } from "../../Reduxtoolkit/authSlice";
@@ -19,14 +18,12 @@ import {
   setUsers,
   setUsersPost,
 } from "../../Reduxtoolkit/appUsersSlice";
-// import axios from "axios";
 import axios from "../../API/axios";
 
 const ProfileInfo = () => {
   const username = useParams().username;
   const { handleReload } = useReload();
 
-  const { user, userData, AuthUser } = useAuthenticationContext();
   const { currentUser } = useSelector((state) => state.auth);
   const { users, usersPosts, error } = useSelector((state) => state.Users);
 
@@ -166,11 +163,13 @@ const ProfileInfo = () => {
                 usersPosts?.map((feeds, index) => (
                   <UserPosts
                     key={index}
+                    postId={feeds._id}
                     Username={username}
                     Likes={feeds.Likes}
                     Image={feeds.Image}
                     feeds={feeds}
                     Description={feeds.Description}
+                    Comments={feeds.Comments}
                     Timestamp={feeds.createdAt}
                   />
                 ))

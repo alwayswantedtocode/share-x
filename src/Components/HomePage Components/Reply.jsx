@@ -1,25 +1,16 @@
 import "./home.scss";
-import {
-  useRef,
-  useState,
-  useLayoutEffect,
-  useReducer,
-  useEffect,
-} from "react";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
-import { FiSend } from "react-icons/fi";
-import { db } from "../../Authentication/Firebase";
-
-import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "../../API/axios";
-import { setComments } from "../../Reduxtoolkit/postSlice";
 import Replies from "./Replies";
+import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import { useRef, useState, useLayoutEffect, useEffect } from "react";
+import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
+import { useSelector, useDispatch } from "react-redux";
+import { setComments } from "../../Reduxtoolkit/postSlice";
+import axios from "../../API/axios";
 
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;
 
-const Reply = ({ postId }) => {
+const Reply = ({ postId, feeds, Comments }) => {
   const textareaRef = useRef(null);
   const Comment = useRef("");
 
@@ -41,15 +32,10 @@ const Reply = ({ postId }) => {
     )}px`;
   }, [value]);
 
-  const { user, userData } = useAuthenticationContext();
+  const { user } = useAuthenticationContext();
   const { currentUser } = useSelector((state) => state.auth);
-  const { posts, comments } = useSelector((state) => state.post);
+  const { comments } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-
-  //   const newCommentsCount =
-  //     state.comments?.length > 0 && state.comments?.length;
-  //   updateCommentsCount(newCommentsCount);
-  // };
 
   const handleComment = async (e) => {
     e.preventDefault();
@@ -59,28 +45,30 @@ const Reply = ({ postId }) => {
         // Use Axios to send post data to your backend route
         const form = {
           userId: currentUser?._id,
-          postId,
           username: currentUser?.username,
           profilePicture: currentUser?.profilePicture,
           comments: Comment.current.value,
         };
-        console.log("form:",form)
-        const response = await axios.post(`/api/comments/${postId}/comment`,form);
-        console.log(response.data);
+        console.log("form:", form);
+        const response = await axios.post(
+          `/api/posts/${postId}/comments`,
+          form
+        );
+        dispatch(setComments(response.data, ...Comments));
         Comment.current.value = "";
-        dispatch(setComments(response.data));
       } catch (error) {
         alert(error.message);
       }
     } else {
-  
     }
   };
+
+
 
   return (
     <div className="comments">
       <div className="write">
-        <img src={user?.photoURL || UserIcon} alt="userIcon" />
+        <img src={user?.photoURL || Profileimage} alt="userIcon" />
         <form onSubmit={handleComment} className="form">
           <textarea
             type="text"
@@ -99,7 +87,25 @@ const Reply = ({ postId }) => {
           <button type="submit">Reply</button>
         </form>
       </div>
-      <Replies postId={postId} />
+
+      {Comments?.length > 0 && (
+        <div>
+          {Comments?.map((comment) => {
+            return (
+              <Replies
+                key={comment._id}
+                username={comment?.username}
+                profilePicture={comment?.profilePicture}
+                reply={comment?.comments}
+                Timestamp={comment?.createdAt}
+                postId={postId}
+                feeds={feeds}
+                comment={comment}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

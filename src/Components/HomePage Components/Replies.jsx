@@ -1,61 +1,75 @@
-import { useEffect, useState } from "react";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import useHandleCommentsLikes from "../../Hooks/useHandleCommentsLikes";
+import { useEffect } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import axios from "../../API/axios";
-import { setComments } from "../../Reduxtoolkit/postSlice";
+TimeAgo.addDefaultLocale(en);
+const Replies = ({
+  username,
+  profilePicture,
+  reply,
+  Timestamp,
+  comment,
+  feeds,
+}) => {
+  // TimeAgo.addDefaultLocale(en);
+  const date = new Date(Timestamp);
+  // Create a TimeAgo instance
+  const timeAgo = new TimeAgo("en-US");
+  // Format the date using TimeAgo
+  const formattedDate = timeAgo.format(date);
 
-const Replies = ({ postId }) => {
-  const { currentUser } = useSelector((state) => state.auth);
-  const { posts, comments } = useSelector((state) => state.post);
+  const { isLikedComment, likedComment, commentLikeHandler } =
+    useHandleCommentsLikes(comment, feeds);
+
   const dispatch = useDispatch();
 
 
-    // const [coment, setcoment] = useState(posts?.comments)
-    // console.log(coment)
-  useEffect(() => {
-    const getComment = async () => {
-   
-      try {
-        const response = await axios.get(`/api/comments/${postId}`);
-        console.log(response.data);
-        dispatch(
-          setComments(
-            response.data.sort((p1, p2) => {
-              return new Date(p2.createdAt) - new Date(p1.createdAt);
-            })
-          )
-        );
-      } catch (error) {}
-    };
-    getComment();
-  }, [postId, dispatch]);
+
   return (
     <>
-      {posts?.comments?.length > 0 && (
-        <div>
-          {posts?.comments?.map((reply) => {
-            return (
-              <div className="comment" key={reply?._id}>
-                <img src={reply?.profilePicture || Profileimage} alt="" />
-                <div className="info">
-                  <span className="name">{reply?.username}</span>
-                  <div className="text">
-                    <p>{reply?.comments}</p>
-                  </div>
-                  <div className="impressions">
-                    <p>Like</p>
-                    <p>Reply</p>
-                  </div>
-                </div>
-                <span className="time">
-                  {new Date(reply?.timestamp?.toDate())?.toUTCString()}
-                </span>
-              </div>
-            );
-          })}
+      <div className="comment-div">
+        <div className="CommenterInfo">
+          <Link
+            to={`/profilepage/${username}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <div className="userImage">
+              <img src={profilePicture || Profileimage} alt="" />
+            </div>
+          </Link>
         </div>
-      )}
+        <div className="description">
+          <div className="Name-timeStamp">
+            <span className="name">
+              <Link
+                to={`/profilepage/${username}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                {username}
+              </Link>
+            </span>
+            <span className="time">{formattedDate}</span>
+          </div>
+          <div className="text">
+            <p>{reply}</p>
+          </div>
+        </div>
+        <div className="impressions">
+          <span onClick={commentLikeHandler}>
+            {isLikedComment ? (
+              <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
+            ) : (
+              <AiOutlineHeart />
+            )}
+          </span>
+          <p>{likedComment}</p>
+        </div>
+      </div>
     </>
   );
 };

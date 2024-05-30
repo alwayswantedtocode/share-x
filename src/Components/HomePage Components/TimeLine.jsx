@@ -1,30 +1,21 @@
 import Post from "./Post";
 import "./home.scss";
-import {
-  postReducer,
-  postActions,
-  initialPostState,
-} from "../../ContextApi/PostReducer";
-import { useEffect, useReducer, useState } from "react";
-// import axios from "axios";
-import axios from "../../API/axios";
-import useReload from "../../Hooks/useReload";
+import { useEffect, useState } from "react";
 import { IoReload } from "react-icons/io5";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
+import useReload from "../../Hooks/useReload";
 import { useSelector, useDispatch } from "react-redux";
 import { setError, setPosts } from "../../Reduxtoolkit/postSlice";
-import { useParams } from "react-router-dom";
+import axios from "../../API/axios";
 
-const TimeLine = ({ username }) => {
+const TimeLine = () => {
   const { handleReload } = useReload();
-  // const [posts, setPosts] = useState([]);
+  
   const dispatch = useDispatch();
 
   const { AuthUser } = useAuthenticationContext();
   const { posts, error } = useSelector((state) => state.post);
   const { currentUser } = useSelector((state) => state.auth);
-
-  // const username = useParams().username;
 
   useEffect(() => {
     const fetchPostsData = async () => {
@@ -32,6 +23,11 @@ const TimeLine = ({ username }) => {
         const response = await axios.get(
           `/api/posts/timeline/${currentUser._id}`
         );
+        // setDisplayposts(
+        //   response.data.sort((p1, p2) => {
+        //     return new Date(p2.createdAt) - new Date(p1.createdAt);
+        //   })
+        // );
         dispatch(
           setPosts(
             response.data.sort((p1, p2) => {
@@ -72,16 +68,15 @@ const TimeLine = ({ username }) => {
                   Image={feeds.Image}
                   Timestamp={feeds.createdAt}
                   Username={feeds.username}
+                  Comments={feeds?.Comments}
                 />
               );
             })
           ) : (
             <div className="Nopost">
               <div className="Reload">
-                <p>No posts available. </p>
-                <button className="Reload-Btn" onClick={handleReload}>
-                  <IoReload />
-                </button>
+                <p>No posts available. Follw friends to see their posts </p>
+               
               </div>
             </div>
           )}

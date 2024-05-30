@@ -19,9 +19,11 @@ import useReload from "../../Hooks/useReload";
 const MIN_TEXTAREA_HEIGHT = 65;
 
 const SharePost = () => {
-  const { handleReload } = useReload();
+  // const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
+  const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
+  const [displayposts, setDisplayposts] = useState(posts);
 
   const textareaRef = useRef(null);
   const text = useRef("");
@@ -110,12 +112,13 @@ const SharePost = () => {
           Description: text.current.value,
           Image: imageUrl,
         });
-        dispatch(setPosts(response.data));
+        // setDisplayposts([...posts, response.data]);
+        dispatch(setPosts([response.data, ...posts]));
         dispatch(setLoading());
         text.current.value = "";
         setFile(null);
         setViewImage(null);
-        handleReload();
+        // handleReload();
       } catch (error) {
         alert(error.message);
       }
