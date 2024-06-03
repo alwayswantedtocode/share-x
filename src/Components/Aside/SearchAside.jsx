@@ -1,5 +1,4 @@
 import React from "react";
-import "./Search.scss";
 import { Link} from "react-router-dom";
 
 

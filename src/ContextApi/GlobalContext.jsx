@@ -1,8 +1,12 @@
-import { useContext, createContext, useEffect, useState } from "react";
+import { useContext, createContext, useEffect, useState, useRef } from "react";
 
 const GlobalContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  const moreRef = useRef(null);
+  const commentRef = useRef(null);
+  const editPostRef = useRef(null);
+    const closeAsideRef = useRef(null);
   const [isDarkMode, setIsModeDark] = useState(
     JSON.parse(localStorage.getItem("DarkMode")) || false
   );
@@ -33,6 +37,10 @@ export const AppProvider = ({ children }) => {
         closeEditInfo,
         editDetails,
         setEditDetails,
+        moreRef,
+        commentRef,
+        editPostRef,
+        closeAsideRef,
       }}
     >
       {children}

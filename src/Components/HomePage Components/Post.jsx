@@ -1,7 +1,10 @@
 import "./home.scss";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import Reply from "./Reply";
-import { useState } from "react";
+import OptionsAside from "../Aside/OptionsAside";
+import EditPost from "./EditPost";
+import moreClass from "./MoreStlye";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -10,11 +13,15 @@ import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import useHandleComments from "../../Hooks/useHandleComments";
+import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
 
 TimeAgo.addDefaultLocale(en);
 const Post = ({
   feeds,
   postId,
+  userId,
   Username,
   description,
   Likes,
@@ -22,10 +29,14 @@ const Post = ({
   Comments,
   Timestamp,
 }) => {
+  const { moreRef, commentRef } = useGlobalContext();
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
+  const { isCommentOpen, commentHandle, closeCommentOnMousedown } =
+    useHandleComments();
+  const { more, setMore, handleMoreOptions, closePotionOnmousedown } =
+    useHandlePostOptions();
 
   const { currentUser } = useSelector((state) => state.auth);
-  const { comments } = useSelector((state) => state.post);
 
   // TimeAgo.addDefaultLocale(en);
   const date = new Date(Timestamp);
@@ -34,10 +45,27 @@ const Post = ({
   // Format the date using TimeAgo
   const formattedDate = timeAgo.format(date);
 
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  // // //Close Comment section
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", closeCommentOnMousedown);
+  //   return () => {
+  //     document.removeEventListener("mousedown", closeCommentOnMousedown);
+  //   };
+  // }, []);
 
-  const commentHandle = () => {
-    setIsCommentOpen(!isCommentOpen);
+  // //CLose More Options for post
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", closePotionOnmousedown);
+  //   return () => {
+  //     document.removeEventListener("mousedown", closePotionOnmousedown);
+  //   };
+  // }, []);
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleEditPost = () => {
+    setIsEdit(true);
+    setMore(false);
   };
 
   return (
@@ -66,12 +94,43 @@ const Post = ({
               <span className="date">{formattedDate}</span>
             </div>
           </div>
-          <MdOutlineMoreHoriz style={{ cursor: "pointer" }} />
+          <div className="More" style={moreClass}>
+            <MdOutlineMoreHoriz
+              style={{ cursor: "pointer" }}
+              onClick={handleMoreOptions}
+            />
+
+            <aside ref={moreRef}>
+              {more ? (
+                <OptionsAside
+                  isMore={setMore}
+                  more={more}
+                  handleEditPost={handleEditPost}
+                  userId={userId}
+                />
+              ) : (
+                ""
+              )}
+            </aside>
+          </div>
         </div>
         {/* Post content text and picture or video */}
         <div className="content">
-          <p>{description}</p>
-          {Image && <img src={Image} alt="" />}
+          <div className="desc-wrapper">
+            {isEdit && currentUser?._id === userId ? (
+              <EditPost
+                description={description}
+                postId={postId}
+                Image={Image}
+                isClosedEditPost={setIsEdit}
+              />
+            ) : (
+              <p>{description}</p>
+            )}
+          </div>
+          <div className="Image-wrapper">
+            {Image && <img src={Image} alt="" />}
+          </div>
         </div>
         {/* Interact with post */}
         <div className="info">
@@ -85,9 +144,9 @@ const Post = ({
             </span>
             <p>{like}</p>
           </div>
-          <div className="item">
-            <span onClick={commentHandle}>
-              <BiMessageAlt />
+          <div className="item" ref={commentRef}>
+            <span>
+              <BiMessageAlt onClick={() => commentHandle()} />
             </span>
             <p>{Comments?.length}</p>
           </div>

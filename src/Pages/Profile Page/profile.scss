@@ -67,6 +67,8 @@
           margin-top: 2.1rem;
           margin-bottom: 0.625rem;
           color: themed("textColor");
+          font-size: 1rem;
+          font-weight: 500;
         }
 
         .button {
@@ -456,6 +458,21 @@
                 padding: 0.625rem;
                 background-color: themed("bgSoft");
                 color: themed("textColor");
+                @include surface-duo {
+                  font-size: 1.1rem;
+                }
+                @include tab {
+                  font-size: 1.1rem;
+                }
+                @include surface-Pro {
+                  font-size: 1.1rem;
+                }
+                @include web {
+                  font-size: 1.1rem;
+                }
+                @include web-medium {
+                  font-size: 1.1rem;
+                }
               }
               textarea:focus {
                 outline: none;
@@ -662,19 +679,33 @@
 
             .date {
               font-size: 12px;
+              font-weight: 500;
             }
           }
         }
       }
 
       .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         margin: 1.25rem 0;
-
-        img {
+        .desc-wrapper {
           width: 100%;
-          max-height: 31.25rem;
-          object-fit: cover;
-          margin-top: 1.25rem;
+          height: max-content;
+          p {
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 400;
+          }
+        }
+        .Image-wrapper {
+          width: 100%;
+          img {
+            width: 100%;
+            height: 31.25rem;
+            object-fit: cover;
+          }
         }
       }
 
@@ -687,7 +718,7 @@
           display: flex;
           align-items: center;
           gap: 0.625rem;
-          font-size: 1rem;
+          font-size: 1.1rem;
           span {
             cursor: pointer;
             display: flex;
@@ -726,6 +757,88 @@
         color: white;
         font-size: 2rem;
         cursor: pointer;
+      }
+    }
+  }
+}
+
+//Edit post
+.edit-post-wrapper {
+  width: 100%;
+  @include themify($themes) {
+    .Edit-text {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 70%;
+      gap: 15px;
+      height: max-content;
+      // border: 2px solid rgb(201, 17, 17);
+      @include surface-duo {
+        font-size: 1.2rem;
+        width: 80%;
+      }
+      @include tab {
+        font-size: 1.3rem;
+        width: 80%;
+      }
+      @include surface-Pro {
+        font-size: 1rem;
+        width: 80%;
+      }
+      @include web {
+        font-size: 1rem;
+        width: 85%;
+      }
+      @include web-medium {
+        font-size: 1rem;
+        width: 85%;
+      }
+      textarea {
+        border: none;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.7rem;
+        padding: 0.625rem;
+        background-color: themed("bgSoft");
+        color: themed("textColor");
+        font-size: 1.1rem;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      textarea:focus {
+        outline: none;
+      }
+    }
+    .SendButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 2rem;
+      font-weight: 600;
+      border: none;
+      padding: 0.4375rem;
+      border-radius: 0.3rem;
+      background-color: themed("btnColor");
+      color: white;
+      cursor: pointer;
+      @include tab {
+        width: 5rem;
+        height: 2.6rem;
+      }
+      @include surface-Pro {
+        width: 5rem;
+        height: 2.6rem;
+      }
+      @include web {
+        width: 5rem;
+        height: 2.6rem;
+      }
+      @include web-medium {
+        width: 5rem;
+        height: 2.6rem;
       }
     }
   }
@@ -837,7 +950,7 @@
 
   .InfoComponent {
     width: 100%;
-
+    font-size: 1rem;
     @include themify($themes) {
       .container {
         // width: 100%;
@@ -929,7 +1042,7 @@
                 }
 
                 span {
-                  font-size: 0.9rem;
+                  font-size: 1rem;
                   font-weight: 500;
                   color: themed("textColor");
                   margin-left: 2.3%;

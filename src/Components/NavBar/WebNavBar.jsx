@@ -24,13 +24,22 @@ import UserIcon from "../../Assets/profile-gender-neutral.jpg";
 import { useSelector } from "react-redux";
 import axios from "../../API/axios";
 import SearchAside from "../Aside/SearchAside";
+import useSearch from "../../Hooks/useSearch";
 
 const WebNavBar = (username) => {
-  const { isDarkMode, modeToggle } = useGlobalContext();
+  const { isDarkMode, modeToggle, closeAsideRef } = useGlobalContext();
+  const {
+    isSearchVisible,
+    setIsSearchVisible,
+   
+    toggleSearchVisibility,
+
+    
+  } = useSearch();
   const { AuthUser } = useAuthenticationContext();
   const { currentUser } = useSelector((state) => state.auth);
 
-  const closeAsideRef = useRef();
+  // const closeAsideRef = useRef();
   const searchResultRef = useRef();
 
   //buttons dropdown states
@@ -45,26 +54,7 @@ const WebNavBar = (username) => {
   const [search, setsearch] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-
-  useEffect(() => {
-    if (search.trim() === "") {
-      setSearchResult([]);
-      setShowResult(false);
-      return;
-    }
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(`/api/users/search?query=${search}`);
-        console.log(response.data);
-        setSearchResult(response.data);
-        setShowResult(true);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-    fetchUser();
-  }, [search]);
-
+ 
   const handleShowResult = () => {
     setShowResult(true);
   };
@@ -117,6 +107,26 @@ const WebNavBar = (username) => {
   //   };
   // }, []);
 
+   useEffect(() => {
+     if (search.trim() === "") {
+       setSearchResult([]);
+       setShowResult(false);
+       return;
+     }
+     const fetchUser = async () => {
+       try {
+         const response = await axios.get(`/api/users/search?query=${search}`);
+         console.log(response.data);
+         setSearchResult(response.data);
+         setShowResult(true);
+       } catch (error) {
+         console.error("Error fetching posts:", error);
+       }
+     };
+     fetchUser();
+   }, [search]);
+
+
   return (
     <header className="header ">
       <nav className="nav">
@@ -135,34 +145,39 @@ const WebNavBar = (username) => {
           <button onClick={modeToggle}>
             {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
           </button>
-          {/* <button>
-            <HiOutlineNewspaper />
-          </button> */}
-          <div className="search">
-            <input
-              type="text"
-              placeholder="search"
-              value={search}
-              name="textarea"
-              onChange={(e) => setsearch(e.target.value)}
-            />
-            <button className="search-btn ">
-              <MdOutlineSearch className="search-icon" />
-            </button>
+          <button className="search-toggle" onClick={toggleSearchVisibility}>
+            <MdOutlineSearch />
+          </button>
+          <div
+            className={`search-container ${isSearchVisible ? "visible" : ""}`}
+          >
+            <div className="search">
+              <input
+                type="text"
+                placeholder="search"
+                value={search}
+                name="textarea"
+                onChange={(e) => setsearch(e.target.value)}
+              />
+              <button className="search-btn">
+                <MdOutlineSearch className="search-icon" />
+              </button>
 
-            <aside className={`${showResult ? "Aside active " : "Aside"}`}>
-              <div className="search-Aside">
-                {searchResult.map((result) => {
-                  return (
-                    <SearchAside
-                      id={result._id}
-                      fullname={result.Fullname}
-                      username={result.username}
-                    />
-                  );
-                })}
-              </div>
-            </aside>
+              <aside className={`${showResult ? "Aside active" : "Aside"}`}>
+                <div className="search-Aside">
+                  {searchResult.map((result) => {
+                    return (
+                      <SearchAside
+                        key={result._id}
+                        id={result._id}
+                        fullname={result.Fullname}
+                        username={result.username}
+                      />
+                    );
+                  })}
+                </div>
+              </aside>
+            </div>
           </div>
         </div>
 

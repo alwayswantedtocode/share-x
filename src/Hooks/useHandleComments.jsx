@@ -1,18 +1,39 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "../API/axios";
+import { useGlobalContext } from "../ContextApi/GlobalContext";
 
-const useHandleCommentsLikes = (comment, feeds) => {
+const useHandleComments = (comment, feeds) => {
+  const { commentRef } = useGlobalContext();
   const { currentUser } = useSelector((state) => state.auth);
 
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+
+  //Open Comment section
+  const commentHandle = () => {
+    setIsCommentOpen(!isCommentOpen);
+  };
+
+  const closeCommentOnMousedown = (e) => {
+   
+    if (commentRef.current && !commentRef.current.contains(e.target)) {
+      setIsCommentOpen(false);
+    } else {
+       e.stopPropagation();
+    }
+  };
+
+   useEffect(() => {
+     document.addEventListener("mousedown", closeCommentOnMousedown);
+     return () => {
+       document.removeEventListener("mousedown", closeCommentOnMousedown);
+     };
+   }, []);
+
   const commentLikes = comment?.Likes?.length || 0;
-  console.log("commentLikes", commentLikes);
   const [likedComment, setLikedComment] = useState(commentLikes);
 
   const [isLikedComment, setIsLikedComment] = useState(false);
-
-  const yourlikes = comment;
-  console.log("yourlikes", yourlikes);
 
   useEffect(() => {
     if (comment?.Likes && currentUser?._id) {
@@ -32,9 +53,12 @@ const useHandleCommentsLikes = (comment, feeds) => {
   };
 
   return {
+    isCommentOpen,
+    commentHandle,
+    closeCommentOnMousedown,
     commentLikeHandler,
     likedComment,
     isLikedComment,
   };
 };
-export default useHandleCommentsLikes;
+export default useHandleComments;

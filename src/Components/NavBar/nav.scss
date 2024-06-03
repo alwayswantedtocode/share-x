@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
-$header-height: 4rem;
-$nav-height: 3rem;
+$header-height: 5rem;
+$nav-height: 4rem;
 $nav-padding: 0.5rem;
 
 .header {
@@ -18,6 +18,7 @@ $nav-padding: 0.5rem;
     position: -webkit-sticky;
     top: 0;
     z-index: 99;
+
     color: themed("textColor");
     @include tab {
       font-size: 3rem;
@@ -25,7 +26,6 @@ $nav-padding: 0.5rem;
     @include web {
       height: #{$header-height};
     }
-
     @include web-large {
       height: #{$header-height};
     }
@@ -33,19 +33,17 @@ $nav-padding: 0.5rem;
     .nav {
       font-family: "Signika Negative", sans-serif;
       width: 97%;
-      height: 3rem;
+      height: 4rem;
       display: flex;
       align-items: center;
       // justify-content: space-between;
       padding: 0 $nav-padding 0 $nav-padding;
-
       @include tab {
         font-size: 3rem;
       }
       @include web {
         height: #{$nav-height};
       }
-
       @include web-large {
         height: #{$nav-height};
       }
@@ -64,71 +62,62 @@ $nav-padding: 0.5rem;
         font-family: "Montserrat", sans-serif;
         font-weight: 700;
         color: themed(logo);
-
         @include tab {
           font-size: 1.7rem;
         }
         @include web {
           font-size: 1.7rem;
         }
-
         @include web-large {
           font-size: 1.7rem;
         }
       }
+
       //Left Buttons and Features
       .Left-buttons {
-        flex: 3;
+        flex: 2;
         display: flex;
-        gap: 0.9375rem;
-        padding: 0.3125rem;
-
-        // @include mobile {
-        //   display: flex;
-        //   justify-content: space-between;
-        //   gap: 1.875rem;
-        // }
-
-        // @include tab {
-        //   gap: 0.3125rem;
-        // }
-
-        //  font-size: 1.7rem;
-        //   font-family: "Montserrat", sans-serif;
-        //   font-weight: 700;
-        //   color: themed(logo);
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 0.3125rem 0;
+        // border: 2px solid red;
+        @include tab {
+          gap: 40px;
+        }
+        @include web {
+          gap: 40px;
+        }
+        @include web-large {
+          gap: 40px;
+        }
 
         button {
           display: flex;
           align-items: center;
           justify-content: center;
           width: 2rem;
+          padding: 0.3rem;
           border-radius: 0.4375rem;
           font-size: 1rem;
           border: none;
           background-color: transparent;
           cursor: pointer;
           color: themed("textColor");
-
           @include surface-duo {
-            width: 2.2rem;
-            font-size: 1.7rem;
+            font-size: 2rem;
             width: 3rem;
           }
           @include tab {
-            width: 2.5rem;
-            font-size: 1.7rem;
+            font-size: 2rem;
             width: 3rem;
           }
           @include web {
-            width: 2.5rem;
-            font-size: 1.7rem;
+            font-size: 2rem;
             width: 3rem;
           }
-
           @include web-large {
-            width: 2.5rem;
-            font-size: 1.7rem;
+            font-size: 2rem;
             width: 3rem;
           }
         }
@@ -137,83 +126,84 @@ $nav-padding: 0.5rem;
           background-color: rgb(187, 187, 187);
         }
 
-        .search {
-          // height: 1.3rem;
-          display: flex;
+        .search-container {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 10;
+          justify-content: center;
           align-items: center;
-          border: 0.125rem solid rgb(145, 143, 143);
-          // gap: 0.3125rem;
-          border-radius: 0.4375rem;
-          padding: 0 0 0 0.3125rem;
-          .search-btn {
-            border-top-right-radius: 0.4375rem;
-            border-bottom-right-radius: 0.4375rem;
-            width: max-content;
-            height: max-content;
-            cursor: pointer;
-            border: none;
-            padding: 0 0.3125rem;
-            .search-icon {
-              font-size: 1rem;
+
+          &.visible {
+            display: flex;
+          }
+
+          .search {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            width: 90%;
+
+            input {
+              flex-grow: 1;
+              padding: 0.5rem;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+            input:focus {
+              outline: none;
+            }
+
+            .search-btn {
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: inherit;
+              padding: 0.5rem;
+              font-size: 1.5rem;
+            }
+
+            .Aside {
+              display: flex;
+              justify-content: flex-end;
+              width: 100%;
+              background-color: themed("bg");
+              position: absolute;
+              top: 5rem;
+              right: 0%;
+              left: -20%;
+              bottom: 0%;
+              border-radius: 0.5rem;
+
+              -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+              -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+              box-shadow: rgba(159, 159, 159, 0.3);
+              visibility: hidden;
+
               @include tab {
-                font-size: 1.7rem;
-              }
-              @include surface-Pro {
-                font-size: 1.7rem;
+                left: -27%;
               }
               @include web {
-                font-size: 1.7rem;
+                left: -27%;
               }
               @include web-large {
-                font-size: 1.7rem;
+                left: -27%;
               }
             }
-          }
-
-          input {
-            display: none;
-            height: 1.7rem;
-            border: none;
-
-            width: 25rem;
-            background-color: transparent;
-            color: themed("textColor");
-
-            @include web {
-              display: flex;
+            .Aside.active {
+              visibility: visible;
             }
-            @include web-large {
-              display: flex;
-            }
-          }
-
-          input:focus {
-            outline: none;
-          }
-          .Aside {
-            display: flex;
-            justify-content: flex-end;
-            width: 95%;
-            background-color: themed("bg");
-            position: absolute;
-            top: 3rem;
-            right: 0%;
-            left: -45%;
-            bottom: 0%;
-            border-radius: 0.5rem;
-
-            -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
-            -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
-            box-shadow: rgba(159, 159, 159, 0.3);
-            visibility: hidden;
-          }
-          .Aside.active {
-            visibility: visible;
           }
         }
 
         .search-Aside {
-          width: 25rem;
+          width: 60%;
           height: max-content;
           background-color: themed("bg");
           display: flex;
@@ -224,9 +214,17 @@ $nav-padding: 0.5rem;
           box-shadow: rgba(159, 159, 159, 0.6);
           -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.6);
           -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.6);
-
           &::-webkit-scrollbar {
             display: none;
+          }
+           @include tab {
+            width: 50%;
+          }
+          @include web {
+            width: 50%;
+          }
+          @include web-large {
+            width: 50%;
           }
           .result-content {
             width: 100%;
@@ -234,45 +232,65 @@ $nav-padding: 0.5rem;
             color: themed("textColor");
             // color: red;
           }
-          p{
+          p {
             width: 100%;
             // border:2px solid green;
           }
+         
         }
       }
       // Right buttons and Features
 
       .Right-buttons {
-        display: none;
+        // display: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        gap: 10px;
+        padding: 0.3125rem 0;
 
-        @include web {
-          display: flex;
-          justify-content: flex-end;
-          flex: 2;
-        }
         @include tab {
-          display: flex;
-          flex: 1.5;
-          gap: 0.9375rem;
+          gap: 20px;
         }
-        // @include web-large {
-        //   display: flex;
-        //   justify-content: flex-end;
-        // }
+        @include web {
+          gap: 20px;
+        }
+        @include web-large {
+          gap: 20px;
+        }
         div {
           display: flex;
           flex-direction: column;
           button {
-            width: 3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            border: none;
+            width: 2rem;
+            padding: 0.3rem;
             border-radius: 0.4375rem;
+            font-size: 1rem;
+            border: none;
             background-color: transparent;
             cursor: pointer;
             color: themed("textColor");
+
+            @include surface-duo {
+              font-size: 2rem;
+              width: 3rem;
+            }
+            @include tab {
+              font-size: 2rem;
+              width: 3rem;
+            }
+            @include web {
+              font-size: 2rem;
+              width: 3rem;
+            }
+            @include web-large {
+              font-size: 2rem;
+              width: 3rem;
+            }
           }
 
           button:hover {
@@ -285,12 +303,11 @@ $nav-padding: 0.5rem;
             width: 95%;
             background-color: themed("bg");
             position: absolute;
-            top: 4rem;
+            top: 5rem;
             right: 0%;
             left: 2.5%;
             bottom: 0%;
             border-radius: 0.5rem;
-
             -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
             -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
             box-shadow: rgba(159, 159, 159, 0.3);
@@ -315,7 +332,7 @@ $nav-padding: 0.5rem;
           // height: max-content;
           background-color: themed("bg");
           position: absolute;
-          top: 4rem;
+          top: 5rem;
           right: 0;
           left: 2.5%;
           bottom: 0%;

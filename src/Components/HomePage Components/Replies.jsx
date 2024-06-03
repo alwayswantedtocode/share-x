@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import useHandleCommentsLikes from "../../Hooks/useHandleCommentsLikes";
+import useHandleComments from "../../Hooks/useHandleComments";
 import { useEffect } from "react";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
 
 TimeAgo.addDefaultLocale(en);
 const Replies = ({
@@ -23,8 +24,9 @@ const Replies = ({
   // Format the date using TimeAgo
   const formattedDate = timeAgo.format(date);
 
+
   const { isLikedComment, likedComment, commentLikeHandler } =
-    useHandleCommentsLikes(comment, feeds);
+    useHandleComments(comment, feeds);
 
   const dispatch = useDispatch();
 

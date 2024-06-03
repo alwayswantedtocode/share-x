@@ -6,11 +6,13 @@ import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext
 import { useSelector, useDispatch } from "react-redux";
 import { setComments } from "../../Reduxtoolkit/postSlice";
 import axios from "../../API/axios";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import useHandleComments from "../../Hooks/useHandleComments";
 
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;
 
-const Reply = ({ postId, feeds, Comments }) => {
+const Reply = ({ postId, feeds, Comments, iscommentopen }) => {
   const textareaRef = useRef(null);
   const Comment = useRef("");
 
@@ -33,6 +35,9 @@ const Reply = ({ postId, feeds, Comments }) => {
   }, [value]);
 
   const { user } = useAuthenticationContext();
+  const { commentRef } = useGlobalContext();
+  const { isCommentOpen, commentHandle, closeCommentOnMousedown } =
+    useHandleComments();
   const { currentUser } = useSelector((state) => state.auth);
   const { comments } = useSelector((state) => state.post);
   const dispatch = useDispatch();
@@ -66,7 +71,7 @@ const Reply = ({ postId, feeds, Comments }) => {
 
 
   return (
-    <div className="comments">
+    <div className="comments" ref={commentRef}>
       <div className="write">
         <img src={user?.photoURL || Profileimage} alt="userIcon" />
         <form onSubmit={handleComment} className="form">

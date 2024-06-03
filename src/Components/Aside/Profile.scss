@@ -57,9 +57,9 @@
             }
           }
           span {
-            font-family: "Rubik", sans-serif;
+            // font-family: "Rubik", sans-serif;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             color: themed("textColor");
 
             gap: 3rem;
@@ -91,9 +91,9 @@
           border-radius: 0.625rem;
 
           span {
-            font-family: "Rubik", sans-serif;
+            // font-family: "Rubik", sans-serif;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             color: themed("textColor");
             margin-left: 2.3%;
             @include tab {
@@ -144,9 +144,9 @@
             // }
           }
           span {
-            font-family: "Rubik", sans-serif;
+            // font-family: "Rubik", sans-serif;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             color: themed("textColor");
             // margin-left: 2.3%;
           }

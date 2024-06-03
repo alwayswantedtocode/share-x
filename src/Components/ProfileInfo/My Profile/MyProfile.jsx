@@ -69,7 +69,7 @@ const UserProfile = () => {
         )}
         {/* <EditBio showEditbio={showEditbio} setShoweditbio={setShoweditbio} /> */}
         {/* Latest activities */}
-        <div className="items">
+        {/* <div className="items">
           <span>Lastest Activities</span>
 
           <div className="user">
@@ -87,9 +87,9 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Friends online */}
-        <div className="items">
+        {/* <div className="items">
           <span>Online Friends</span>
 
           <div className="user">
@@ -99,7 +99,7 @@ const UserProfile = () => {
               <span>name</span>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

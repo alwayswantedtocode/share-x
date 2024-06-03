@@ -1,5 +1,5 @@
 import "../../Pages/Profile Page/profile.scss";
-import "../HomePage Components/home.scss"
+import "../HomePage Components/home.scss";
 import Reply from "../HomePage Components/Reply";
 import { useState } from "react";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
@@ -12,12 +12,18 @@ import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-
+import moreClass from "../HomePage Components/MoreStlye";
+import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
+import OptionsAside from "../Aside/OptionsAside";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import useHandleComments from "../../Hooks/useHandleComments";
+import EditPost from "../HomePage Components/EditPost";
 
 // TimeAgo.addDefaultLocale(en);
 
 const UserPosts = ({
   postId,
+  userId,
   Image,
   Likes,
   Username,
@@ -27,28 +33,32 @@ const UserPosts = ({
   Comments,
   replyLikes,
 }) => {
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const { moreRef, commentRef } = useGlobalContext();
   const { user } = useAuthenticationContext();
-  const { like, isLiked, likeHandler, isLikedComment, likedComment, commentLikeHandler } = useHandleLike(
+
+  TimeAgo.addLocale(en);
+  const date = new Date(Timestamp);
+  // Create a TimeAgo instance
+  const timeAgo = new TimeAgo("en-US");
+  // Format the date using TimeAgo
+  const formattedDate = timeAgo.format(date);
+
+  const { like, isLiked, likeHandler } = useHandleLike(
     Likes,
     feeds,
     replyLikes
   );
+  const { isCommentOpen, commentHandle  } =
+    useHandleComments();
   const { currentUser } = useSelector((state) => state.auth);
-  const UserId = user?.uid;
 
-  TimeAgo.addLocale(en);
-
-  const date = new Date(Timestamp);
-
-  // Create a TimeAgo instance
-  const timeAgo = new TimeAgo("en-US");
-
-  // Format the date using TimeAgo
-  const formattedDate = timeAgo.format(date);
-
-  const commentHandle = () => {
-    setIsCommentOpen(!isCommentOpen);
+  const { more, setMore, handleMoreOptions} =
+    useHandlePostOptions();
+ 
+   const [isEdit, setIsEdit] = useState(false);
+  const handleEditPost = () => {
+    setIsEdit(true);
+    setMore(false);
   };
 
   return (
@@ -67,13 +77,38 @@ const UserPosts = ({
             </div>
           </div>
 
-          <MdOutlineMoreHoriz />
+          <div className="More" style={moreClass}>
+            <MdOutlineMoreHoriz
+              style={{ cursor: "pointer" }}
+              onClick={handleMoreOptions}
+            />
+
+            <aside ref={moreRef}>
+              {more ? (
+                <OptionsAside
+                  isMore={setMore}
+                  more={more}
+                  handleEditPost={handleEditPost}
+                  userId={userId}
+                />
+              ) : (
+                ""
+              )}
+            </aside>
+          </div>
         </div>
         {/* Post content text and picture or video */}
         <div className="content">
-          <p>{Description}</p>
-
-          {Image && <img src={Image} alt="" />}
+          <div className="desc-wrapper">
+            {isEdit && currentUser?._id === userId ? (
+              <EditPost description={Description} />
+            ) : (
+              <p>{Description}</p>
+            )}
+          </div>
+          <div className="Image-wrapper">
+            {Image && <img src={Image} alt="" />}
+          </div>
         </div>
         {/* Interact with post */}
         <div className="info">
@@ -85,9 +120,11 @@ const UserPosts = ({
             )}
             {like}
           </div>
-          <div className="item" onClick={commentHandle}>
-            <BiMessageAlt />
-            {Comments?.length}
+          <div className="item" ref={commentRef}>
+            <span>
+              <BiMessageAlt onClick={() => commentHandle()} />
+            </span>
+            <p>{Comments?.length}</p>
           </div>
           <div className="item">
             <MdOutlineIosShare />

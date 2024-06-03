@@ -63,6 +63,7 @@ const TimeLine = () => {
                   key={feeds._id}
                   feeds={feeds}
                   postId={feeds._id}
+                  userId={feeds.userId}
                   description={feeds.Description}
                   Likes={feeds.Likes}
                   Image={feeds.Image}

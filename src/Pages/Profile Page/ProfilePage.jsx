@@ -116,7 +116,7 @@ const ProfileInfo = () => {
           </div>
           <div className="follower-following">
             <p>{users?.followings?.length} Followings</p>
-            <p>{users?.followers?.length} followers</p>
+            <p>{users?.followers?.length} Followers</p>
           </div>
 
           {username !== currentUser?.username && (
@@ -128,15 +128,9 @@ const ProfileInfo = () => {
               <button className="message">Message</button>
             </div>
           )}
-          {/* <button className="edit">
-            <MdOutlineModeEditOutline />
-          </button>{" "}
-          <button className="more">
-            <MdOutlineMoreVert />
-          </button> */}
+
         </div>
       </div>
-      {/* {username === currentUser?.username ? <SharePost /> : ""} */}
       <div
         className="accountuser-timeline-info-container"
         style={{ display: "flex" }}
@@ -164,6 +158,7 @@ const ProfileInfo = () => {
                   <UserPosts
                     key={index}
                     postId={feeds._id}
+                    userId={feeds.userId}
                     Username={username}
                     Likes={feeds.Likes}
                     Image={feeds.Image}
