@@ -6,12 +6,14 @@ export const AppProvider = ({ children }) => {
   const moreRef = useRef(null);
   const commentRef = useRef(null);
   const editPostRef = useRef(null);
-    const closeAsideRef = useRef(null);
+  const closeAsideRef = useRef(null);
   const [isDarkMode, setIsModeDark] = useState(
     JSON.parse(localStorage.getItem("DarkMode")) || false
   );
 
   const [editDetails, setEditDetails] = useState(false);
+
+
 
   const openEditInfo = () => {
     setEditDetails(true);
@@ -19,6 +21,8 @@ export const AppProvider = ({ children }) => {
   const closeEditInfo = () => {
     setEditDetails(false);
   };
+
+ 
 
   useEffect(() => {
     localStorage.setItem("DarkMode", isDarkMode);

@@ -6,17 +6,13 @@ import { loginSuccess } from "../../Reduxtoolkit/authSlice";
 
 const MIN_TEXTAREA_HEIGHT = 95;
 
-const EditBio = ({ setShoweditbio, showEditbio }) => {
+const EditBio = ({ setShoweditbio }) => {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const textareaRef = useRef(null);
-  const text = useRef("");
 
-  const setRefs = (element) => {
-    text.current = element;
-    textareaRef.current = element;
-  };
-
+const [editBio, setEditBio]=useState(currentUser?.Bio)
+ 
   //textarea auto adjust
   const [value, setValue] = useState("");
 
@@ -42,7 +38,7 @@ const EditBio = ({ setShoweditbio, showEditbio }) => {
     try {
       const response = await axios.put(
         `/api/users/${currentUser?._id}`,
-        { Bio: text.current.value },
+        { Bio: editBio },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -62,13 +58,15 @@ const EditBio = ({ setShoweditbio, showEditbio }) => {
       <form className="bioContainer">
         <textarea
           className="biotextarea"
-          name="textarea"
-          id=""
+          name="editBio"
+          id="editBio"
+          value={editBio}
+          onChange={(e) => setEditBio(e.target.value)}
           style={{
             minHeight: MIN_TEXTAREA_HEIGHT,
             resize: "none",
           }}
-          ref={setRefs}
+          ref={textareaRef}
         />
         <div className="cancel-save-buttons">
           <button type="button" onClick={handleCancelBtn}>

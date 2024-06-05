@@ -9,12 +9,11 @@ import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { Picker } from "emoji-mart";
 import { Link } from "react-router-dom";
-
 // import axios from "axios";
 import axios from "../../API/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setPosts } from "../../Reduxtoolkit/postSlice";
-import useReload from "../../Hooks/useReload";
+
 
 const MIN_TEXTAREA_HEIGHT = 65;
 
@@ -23,7 +22,7 @@ const SharePost = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  const [displayposts, setDisplayposts] = useState(posts);
+
 
   const textareaRef = useRef(null);
   const text = useRef("");
@@ -100,6 +99,7 @@ const SharePost = () => {
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
+      dispatch(setLoading());
     if (text.current.value !== "" || file) {
       try {
         const imageUrl = await uploadImageToFirestore();
@@ -114,7 +114,6 @@ const SharePost = () => {
         });
         // setDisplayposts([...posts, response.data]);
         dispatch(setPosts([response.data, ...posts]));
-        dispatch(setLoading());
         text.current.value = "";
         setFile(null);
         setViewImage(null);

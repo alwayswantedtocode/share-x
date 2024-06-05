@@ -1,13 +1,11 @@
 import "../../Pages/Profile Page/profile.scss";
 import "../HomePage Components/home.scss";
-import Reply from "../HomePage Components/Reply";
 import { useState } from "react";
+import Reply from "../HomePage Components/Reply";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
-import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
@@ -18,6 +16,7 @@ import OptionsAside from "../Aside/OptionsAside";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import useHandleComments from "../../Hooks/useHandleComments";
 import EditPost from "../HomePage Components/EditPost";
+
 
 // TimeAgo.addDefaultLocale(en);
 
@@ -33,8 +32,8 @@ const UserPosts = ({
   Comments,
   replyLikes,
 }) => {
-  const { moreRef, commentRef } = useGlobalContext();
-  const { user } = useAuthenticationContext();
+  const { moreRef, commentRef,  } =
+    useGlobalContext();
 
   TimeAgo.addLocale(en);
   const date = new Date(Timestamp);
@@ -42,21 +41,20 @@ const UserPosts = ({
   const timeAgo = new TimeAgo("en-US");
   // Format the date using TimeAgo
   const formattedDate = timeAgo.format(date);
-
+  const { currentUser } = useSelector((state) => state.auth);
   const { like, isLiked, likeHandler } = useHandleLike(
     Likes,
     feeds,
     replyLikes
   );
-  const { isCommentOpen, commentHandle  } =
-    useHandleComments();
-  const { currentUser } = useSelector((state) => state.auth);
+  const { isCommentOpen, commentHandle } = useHandleComments();
+  const { handleMoreOptions, more, setMore } = useHandlePostOptions();
+  const [isEdit, setIsEdit] = useState(false); //edit post state
 
-  const { more, setMore, handleMoreOptions} =
-    useHandlePostOptions();
- 
-   const [isEdit, setIsEdit] = useState(false);
-  const handleEditPost = () => {
+
+  const handleEditPost = (event) => {
+    event.stopPropagation();
+    //  console.log(true);
     setIsEdit(true);
     setMore(false);
   };
@@ -86,10 +84,9 @@ const UserPosts = ({
             <aside ref={moreRef}>
               {more ? (
                 <OptionsAside
-                  isMore={setMore}
-                  more={more}
-                  handleEditPost={handleEditPost}
                   userId={userId}
+                  postId={postId}
+                  handleEditPost={handleEditPost}
                 />
               ) : (
                 ""
@@ -101,7 +98,7 @@ const UserPosts = ({
         <div className="content">
           <div className="desc-wrapper">
             {isEdit && currentUser?._id === userId ? (
-              <EditPost description={Description} />
+              <EditPost description={Description} postId={postId} />
             ) : (
               <p>{Description}</p>
             )}

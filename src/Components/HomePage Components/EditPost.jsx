@@ -1,13 +1,16 @@
 import "./home.scss";
 import React, { useState, useRef, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, setPosts } from "../../Reduxtoolkit/postSlice";
+import { setLoading } from "../../Reduxtoolkit/postSlice";
 import axios from "../../API/axios";
+import useReload from "../../Hooks/useReload";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
 
 const MIN_TEXTAREA_HEIGHT = 65;
-const EditPost = ({ description, postId, Image, isClosedEditPost }) => {
+const EditPost = ({ description, postId, Image }) => {
   const textareaRef = useRef(null);
-  const { posts } = useSelector((state) => state.post);
+  const { setIsEdit } = useGlobalContext();
+  const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
   const [editPost, setEditPost] = useState(description);
   const [value, setValue] = useState("");
@@ -25,7 +28,9 @@ const EditPost = ({ description, postId, Image, isClosedEditPost }) => {
 
   const onSubmitEditPost = async (e) => {
     e.preventDefault();
+    dispatch(setLoading());
     const form = {
+      userId: currentUser?._id,
       profilePicture: currentUser?.profilePicture,
       username: currentUser?.username,
       Fullname: currentUser?.Fullname,
@@ -34,18 +39,11 @@ const EditPost = ({ description, postId, Image, isClosedEditPost }) => {
     };
     console.log("form", form);
     try {
-      const res =await axios.put(
-        `/api/posts/${postId}`,
-        { form },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log("edit post", res.data);
-      // dispatch(setPosts([res.data, ...posts]));
-      // dispatch(setLoading());
-      isClosedEditPost(false);
+      await axios.put(`/api/posts/${postId}`, form, {
+        params: { userId: currentUser._id },
+      });
+      setIsEdit(false);
+      handleReload();
     } catch (error) {
       alert(error.message);
     }
@@ -62,6 +60,7 @@ const EditPost = ({ description, postId, Image, isClosedEditPost }) => {
           {" "}
           <textarea
             name="editPost"
+            id="editPost"
             value={editPost}
             onChange={(e) => setEditPost(e.target.value)}
             ref={textareaRef}

@@ -1,10 +1,10 @@
 import "./home.scss";
+import { useEffect, useState } from "react";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import Reply from "./Reply";
 import OptionsAside from "../Aside/OptionsAside";
 import EditPost from "./EditPost";
 import moreClass from "./MoreStlye";
-import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -16,6 +16,7 @@ import en from "javascript-time-ago/locale/en";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import useHandleComments from "../../Hooks/useHandleComments";
 import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
+
 
 TimeAgo.addDefaultLocale(en);
 const Post = ({
@@ -29,14 +30,18 @@ const Post = ({
   Comments,
   Timestamp,
 }) => {
-  const { moreRef, commentRef } = useGlobalContext();
+  const {
+    moreRef,
+    commentRef,
+  
+  } = useGlobalContext();
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
   const { isCommentOpen, commentHandle, closeCommentOnMousedown } =
     useHandleComments();
-  const { more, setMore, handleMoreOptions, closePotionOnmousedown } =
+  const { handleMoreOptions, closePotionOnmousedown, more, setMore } =
     useHandlePostOptions();
-
   const { currentUser } = useSelector((state) => state.auth);
+  const [isEdit, setIsEdit] = useState(false); 
 
   // TimeAgo.addDefaultLocale(en);
   const date = new Date(Timestamp);
@@ -60,10 +65,11 @@ const Post = ({
   //     document.removeEventListener("mousedown", closePotionOnmousedown);
   //   };
   // }, []);
+  
 
-  const [isEdit, setIsEdit] = useState(false);
-
-  const handleEditPost = () => {
+  const handleEditPost = (event) => {
+    event.stopPropagation();
+    //  console.log(true);
     setIsEdit(true);
     setMore(false);
   };
@@ -103,10 +109,9 @@ const Post = ({
             <aside ref={moreRef}>
               {more ? (
                 <OptionsAside
-                  isMore={setMore}
-                  more={more}
-                  handleEditPost={handleEditPost}
                   userId={userId}
+                  postId={postId}
+                  handleEditPost={handleEditPost}
                 />
               ) : (
                 ""
