@@ -127,7 +127,7 @@ const Post = ({
                 description={description}
                 postId={postId}
                 Image={Image}
-                isClosedEditPost={setIsEdit}
+                setIsEdit={setIsEdit}
               />
             ) : (
               <p>{description}</p>

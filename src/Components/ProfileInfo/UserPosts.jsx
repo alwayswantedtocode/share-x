@@ -98,7 +98,11 @@ const UserPosts = ({
         <div className="content">
           <div className="desc-wrapper">
             {isEdit && currentUser?._id === userId ? (
-              <EditPost description={Description} postId={postId} />
+              <EditPost
+                description={Description}
+                postId={postId}
+                setIsEdit={setIsEdit}
+              />
             ) : (
               <p>{Description}</p>
             )}

@@ -7,9 +7,14 @@ import useReload from "../../Hooks/useReload";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 
 const MIN_TEXTAREA_HEIGHT = 65;
-const EditPost = ({ description, postId, Image }) => {
+const EditPost = ({
+  description,
+  postId,
+  Image,
+  setIsEdit,
+}) => {
   const textareaRef = useRef(null);
-  const { setIsEdit } = useGlobalContext();
+  // const { setIsEdit } = useGlobalContext();
   const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
   const [editPost, setEditPost] = useState(description);
