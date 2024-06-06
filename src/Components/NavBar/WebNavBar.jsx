@@ -2,21 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { useCallback } from "react";
 import "./nav.scss";
 // import "../Aside/Aside.scss";
-import { AiOutlineAppstore, AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
 import {
   MdOutlineDarkMode,
   MdOutlineLightMode,
   MdOutlineSearch,
   MdOutlineMail,
   MdOutlineNotificationsNone,
-  MdOutlinePerson,
 } from "react-icons/md";
-import { HiOutlineNewspaper } from "react-icons/hi";
+
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import { Link, NavLink } from "react-router-dom";
-import AppAside from "../Aside/AppAside";
-import CommunityAside from "../Aside/CommunityAside";
 import MessageAside from "../Aside/MessageAside";
 import NotificationAside from "../Aside/NotificationAside";
 import ProfileAside from "../Aside/ProfileAside";
@@ -27,20 +24,15 @@ import SearchAside from "../Aside/SearchAside";
 import useSearch from "../../Hooks/useSearch";
 
 const WebNavBar = (username) => {
-  const { isDarkMode, modeToggle, closeAsideRef } = useGlobalContext();
-  const {
-    isSearchVisible,
-    setIsSearchVisible,
-   
-    toggleSearchVisibility,
+  const { isDarkMode, modeToggle, closeAsideRef, searchBarRef } =
+    useGlobalContext();
 
-    
-  } = useSearch();
+  const { isSearchVisible, setIsSearchVisible, toggleSearchVisibility } =
+    useSearch();
   const { AuthUser } = useAuthenticationContext();
   const { currentUser } = useSelector((state) => state.auth);
 
   // const closeAsideRef = useRef();
-  const searchResultRef = useRef();
 
   //buttons dropdown states
   const [onClickIcon, setOnClickIcon] = useState([
@@ -54,7 +46,7 @@ const WebNavBar = (username) => {
   const [search, setsearch] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
- 
+
   const handleShowResult = () => {
     setShowResult(true);
   };
@@ -107,25 +99,24 @@ const WebNavBar = (username) => {
   //   };
   // }, []);
 
-   useEffect(() => {
-     if (search.trim() === "") {
-       setSearchResult([]);
-       setShowResult(false);
-       return;
-     }
-     const fetchUser = async () => {
-       try {
-         const response = await axios.get(`/api/users/search?query=${search}`);
-         console.log(response.data);
-         setSearchResult(response.data);
-         setShowResult(true);
-       } catch (error) {
-         console.error("Error fetching posts:", error);
-       }
-     };
-     fetchUser();
-   }, [search]);
-
+  useEffect(() => {
+    if (search.trim() === "") {
+      setSearchResult([]);
+      setShowResult(false);
+      return;
+    }
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`/api/users/search?query=${search}`);
+        console.log(response.data);
+        setSearchResult(response.data);
+        setShowResult(true);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+    fetchUser();
+  }, [search]);
 
   return (
     <header className="header ">
@@ -150,6 +141,7 @@ const WebNavBar = (username) => {
           </button>
           <div
             className={`search-container ${isSearchVisible ? "visible" : ""}`}
+            ref={searchBarRef}
           >
             <div className="search">
               <input

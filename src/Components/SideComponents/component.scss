@@ -63,17 +63,34 @@
           .image {
             width: 2.7rem;
             height: 2.7rem;
-            img {
-              width: 2.7rem;
-              height: 2.7rem;
+           img {
+              width: 2.2rem;
+              height: 2.2rem;
               border-radius: 50%;
               object-fit: cover;
+
+              @include tab {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
             }
           }
 
           span {
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             color: themed("textColor");
           }
         }
@@ -98,7 +115,7 @@
 
           span {
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             color: themed("textColor");
           }
         }
@@ -194,16 +211,33 @@
                 width: 2.7rem;
                 height: 2.7rem;
                 img {
-                  width: 2.7rem;
-                  height: 2.7rem;
-                  border-radius: 50%;
-                  object-fit: cover;
-                }
+              width: 2.2rem;
+              height: 2.2rem;
+              border-radius: 50%;
+              object-fit: cover;
+
+              @include tab {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
+            }
               }
 
               span {
                 font-size: 0.9rem;
-                font-weight: 500;
+                font-weight: 600;
                 color: themed("textColor");
                 margin-left: 2.3%;
               }
@@ -270,7 +304,7 @@
             }
             span {
               font-size: 1rem;
-              font-weight: 500;
+              font-weight: 600;
               color: themed("textColor");
             }
             .time {

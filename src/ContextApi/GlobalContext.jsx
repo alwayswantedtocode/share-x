@@ -7,6 +7,8 @@ export const AppProvider = ({ children }) => {
   const commentRef = useRef(null);
   const editPostRef = useRef(null);
   const closeAsideRef = useRef(null);
+  const searchBarRef = useRef();
+  const closeEditTexRef = useRef();
   const [isDarkMode, setIsModeDark] = useState(
     JSON.parse(localStorage.getItem("DarkMode")) || false
   );
@@ -45,6 +47,8 @@ export const AppProvider = ({ children }) => {
         commentRef,
         editPostRef,
         closeAsideRef,
+        searchBarRef,
+        closeEditTexRef,
       }}
     >
       {children}

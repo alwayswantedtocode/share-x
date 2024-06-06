@@ -85,8 +85,8 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin: 0.625rem 0.625rem;
-          padding: 0.625rem 0.625rem;
+          margin: 0.625rem 0.225rem;
+          padding: 0.625rem 0.125rem;
           border-radius: 0.625rem;
           cursor: pointer;
 
@@ -98,11 +98,28 @@
             gap: 0.3rem;
             position: relative;
 
-            img {
-              width: 2.7rem;
-              height: 2.7rem;
+             img {
+              width: 2.2rem;
+              height: 2.2rem;
               border-radius: 50%;
               object-fit: cover;
+
+              @include tab {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
             }
 
             .notice {
@@ -111,7 +128,6 @@
                 color: rgb(137, 137, 137);
               }
               span {
-                // font-family: "Rubik", sans-serif;
                 font-size: 1.1rem;
                 font-weight: 600;
                 color: themed("textColor");

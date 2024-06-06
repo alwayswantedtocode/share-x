@@ -14,12 +14,14 @@ const EditPost = ({
   setIsEdit,
 }) => {
   const textareaRef = useRef(null);
-  // const { setIsEdit } = useGlobalContext();
+  const { closeEditTexRef } = useGlobalContext();
   const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
   const [editPost, setEditPost] = useState(description);
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
+
+ 
 
   useLayoutEffect(() => {
     // Reset height - important to shrink on delete
