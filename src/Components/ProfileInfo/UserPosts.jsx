@@ -42,6 +42,7 @@ const UserPosts = ({
   // Format the date using TimeAgo
   const formattedDate = timeAgo.format(date);
   const { currentUser } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.Users);
   const { like, isLiked, likeHandler } = useHandleLike(
     Likes,
     feeds,
@@ -66,7 +67,7 @@ const UserPosts = ({
         <div className="user">
           <div className="userInfo">
             <img
-              src={currentUser?.profilePicture || Profileimage}
+              src={users?.profilePicture || Profileimage}
               alt="Profileimage"
             />
             <div className="details">

@@ -245,7 +245,8 @@ const SharePost = () => {
           {openEmoji && (
             <div className="emojis">
               emoji
-              <Picker onSelect={(emoji) => addEmoji(emoji)} />
+              <Picker />
+              {/* onSelect={} */}
             </div>
           )}
         </form>

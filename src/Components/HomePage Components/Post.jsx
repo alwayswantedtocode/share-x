@@ -16,6 +16,7 @@ import en from "javascript-time-ago/locale/en";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import useHandleComments from "../../Hooks/useHandleComments";
 import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
+import axios from "../../API/axios";
 
 
 TimeAgo.addDefaultLocale(en);
@@ -36,11 +37,13 @@ const Post = ({
   
   } = useGlobalContext();
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
-  const { isCommentOpen, commentHandle, closeCommentOnMousedown } =
+  const { isCommentOpen, commentHandle } =
     useHandleComments();
-  const { handleMoreOptions, closePotionOnmousedown, more, setMore } =
+  const { handleMoreOptions, more, setMore } =
     useHandlePostOptions();
   const { currentUser } = useSelector((state) => state.auth);
+    const { users } = useSelector((state) => state.Users);
+
   const [isEdit, setIsEdit] = useState(false); 
 
   // TimeAgo.addDefaultLocale(en);
@@ -65,6 +68,22 @@ const Post = ({
   //     document.removeEventListener("mousedown", closePotionOnmousedown);
   //   };
   // }, []);
+
+  const [user, setUser] = useState([])
+   useEffect(() => {
+     const fetchTimelinePicture = async () => {
+       try {
+         const response = await axios.get(`/api/users/profile`, {
+           params: { userId }
+         });
+         setUser(response.data);
+         console.log(response.data);
+       } catch (error) {
+         console.error("Error fetching posts:", error);
+       }
+     };
+     fetchTimelinePicture();
+   }, [userId]);
   
 
   const handleEditPost = (event) => {
@@ -84,10 +103,7 @@ const Post = ({
               to={`/profilepage/${Username}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <img
-                src={currentUser?.profilePicture || Profileimage}
-                alt="Profile"
-              />
+              <img src={user?.profilePicture || Profileimage} alt="Profile" />
             </Link>
 
             <div className="details">
