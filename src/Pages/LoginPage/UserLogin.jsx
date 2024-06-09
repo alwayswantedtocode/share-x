@@ -109,7 +109,7 @@ const UserLogin = () => {
           <div className="Left">
             <h1>Share X</h1>
             <p>
-              Share Fovers moments with your family and friends. We won't live
+              Share Forever moments with your family and friends. We won't live
               forever but our memories will.
             </p>
             <span>Don't have an acount?</span>

@@ -42,7 +42,7 @@ const Post = ({
   const { handleMoreOptions, more, setMore } =
     useHandlePostOptions();
   const { currentUser } = useSelector((state) => state.auth);
-    const { users } = useSelector((state) => state.Users);
+
 
   const [isEdit, setIsEdit] = useState(false); 
 
