@@ -1,22 +1,39 @@
-import PPI from "./PPI";
-import PPHI from "./PPHI";
+import React from "react";
 import defaultimage from "../../../Assets/istockphoto-1409329028-612x612.jpg";
-import React, {useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { AiOutlineCamera } from "react-icons/ai";
 import { useGlobalContext } from "../../../ContextApi/GlobalContext";
-import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess } from "../../../Reduxtoolkit/authSlice";
 import InputSelector from "../../ResuableSelectInputs/InputSelector";
-import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
-import axios from "../../../API/axios";
-
+import useEditProfile from "../../../Hooks/useEditProfile";
 
 const ProfileInfoForm = () => {
+  const {
+    fullname,
+    username,
+    currentCity,
+    homeCity,
+    School,
+    Workplace,
+    dob,
+    phoneNumber,
+    GenderData,
+    selectedGenderOption,
+    setFullname,
+    setUsername,
+    setCurrentCity,
+    setHomeCity,
+    setSchool,
+    setWorkplace,
+    setSelectedGenderOption,
+    handleDobChange,
+    handleInputChange,
+    previewImage,
+    previewheaderImage,
+    SelectProfileImage,
+    SelectProfileHeaderImage,
+    handleUpdateProfile,
+  } = useEditProfile();
   const { editDetails, closeEditInfo, isDarkMode } = useGlobalContext();
-  const { currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
   // Input Selector css
   const inputClass = {
@@ -62,158 +79,6 @@ const ProfileInfoForm = () => {
     cursor: "pointer",
   };
 
-  const GenderData = ["Select gender", "Female", "Male", "Non binary"];
-
-  const [fullname, setFullname] = useState(currentUser?.Fullname || "");
-  const [username, setUsername] = useState(currentUser?.username || "");
-  const [currentCity, setCurrentCity] = useState(
-    currentUser?.CurrentCity || ""
-  );
-  const [homeCity, setHomeCity] = useState(currentUser?.From || "");
-  const [School, setSchool] = useState(currentUser?.School || "");
-  const [Workplace, setWorkplace] = useState(currentUser?.Workplace || "");
-  const [dob, setDob] = useState(currentUser?.Birthday || "");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [selectedGenderOption, setSelectedGenderOption] = useState(
-    currentUser?.Gender || GenderData[0]
-  );
-
-  const handleDobChange = (e) => {
-    // Allow only numbers, "/", and "-" in the dob input
-    const limitdobValue = e.target.value.replace(/[^0-9/-]/g, "");
-    setDob(limitdobValue);
-  };
-
-  const handleInputChange = (e) => {
-    // Allow only numbers in the input
-    const limitnumberValue = e.target.value.replace(/^\d{15}$/, "");
-    setPhoneNumber(limitnumberValue);
-  };
-
-  //Image types, state,functions
-
-  // Create the file metadata
-  /** @type {any} */
-  const metadata = {
-    contentType: [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "image/svg+xml",
-      "image/jpg",
-      "image/gif",
-    ],
-  };
-
-  const [previewImage, setPreviewImage] = useState(null);
-  const [previewheaderImage, setPreviewheaderImage] = useState(null);
-  const [profileImage, setProfileImage] = useState("");
-  const [headerImage, setHeaderImage] = useState("");
-  const storage = getStorage();
-
-  const SelectProfileImage = (e) => {
-    const file = e.target.files[0];
-    setProfileImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setPreviewImage(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const SelectProfileHeaderImage = (e) => {
-    const file = e.target.files[0];
-    setHeaderImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setPreviewheaderImage(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const uploadProfile = async () => {
-    const profileImageType = metadata.contentType.includes(
-      profileImage["type"]
-    );
-
-    if (profileImageType) {
-      const storageRef = ref(
-        storage,
-        `profileImages/${profileImage.name + v4()}`
-      );
-      try {
-        await uploadBytes(storageRef, profileImage);
-        // Get the download URL
-        const imageUrl = await getDownloadURL(storageRef);
-        return imageUrl;
-      } catch (error) {
-        console.error("Error uploading image to Firestore: ", error);
-        throw new Error("Error uploading image to Firestore.");
-      }
-    }
-  };
-
-  const uploadHeaderImage = async () => {
-    const headerImageType = metadata.contentType.includes(headerImage["type"]);
-
-    // if (!previewImage) return;
-    if (headerImageType) {
-      const storageRef = ref(
-        storage,
-        `HeaderImages/${headerImage.name + v4()}`
-      );
-      try {
-        await uploadBytes(storageRef, headerImage);
-        // Get the download URL
-        const imageUrl = await getDownloadURL(storageRef);
-        return imageUrl;
-      } catch (error) {
-        console.error("Error uploading image: ", error);
-        throw new Error("Error uploading image .");
-      }
-    }
-  };
-
-  //Update Profile Info
-  const handleUpdateProfile = async (e) => {
-    e.preventDefault();
-    console.log("I have updated my info");
-
-    try {
-      const profileImageUrl = await uploadProfile();
-      const headerImageUrl = await uploadHeaderImage();
-
-      const response = await axios.put(
-        `/api/users/${currentUser?._id}`,
-        {
-          Fullname: fullname,
-          username: username,
-          From: homeCity,
-          CurrentCity: currentCity,
-          Workplace: Workplace,
-          School: School,
-          Birthday: dob,
-          Gender: selectedGenderOption,
-          profilePicture: profileImageUrl,
-          coverPicture: headerImageUrl,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      dispatch(loginSuccess(response.data));
-      console.log("response:", response.data);
-    } catch (error) {
-      alert(error.message || "An error occurred while updating profile.");
-    }
-    // }
-  };
-
   return (
     <aside
       className={`${
@@ -225,7 +90,7 @@ const ProfileInfoForm = () => {
         className="additionalInfo-content-container"
       >
         <nav>
-          <button onClick={closeEditInfo}>
+          <button type="reset" value="Reset" onClick={closeEditInfo}>
             <BiArrowBack className="closeForm" />
           </button>
           <div className="editDetails">
@@ -263,13 +128,6 @@ const ProfileInfoForm = () => {
                 </label>
               </div>
             </div>
-            {previewheaderImage && (
-              <PPHI
-                previewheaderImage={previewheaderImage}
-                setPreviewheaderImage={setPreviewheaderImage}
-                apply={SelectProfileHeaderImage}
-              />
-            )}
 
             <div className="change-profile-image">
               <div
@@ -299,12 +157,7 @@ const ProfileInfoForm = () => {
                 </label>
               </div>
             </div>
-            {previewImage && (
-              <PPI
-                previewImage={previewImage}
-                setPreviewImage={setPreviewImage}
-              />
-            )}
+
           </div>
           <div className="form">
             <div className="input-container">
@@ -343,7 +196,6 @@ const ProfileInfoForm = () => {
                 onChange={handleInputChange}
               />
             </div>
-            {/* <div className="input-container"> */}
 
             <InputSelector
               className="inputselector"
@@ -354,7 +206,7 @@ const ProfileInfoForm = () => {
               dropdownClass={dropdownClass}
               listClass={listClass}
             />
-            {/* </div> */}
+
             <div className="input-container">
               <input
                 type="text"

@@ -30,7 +30,10 @@ const {currentUser} = useSelector((state)=>state.auth)
           >
             <div className="user">
               <div className="image">
-                <img src={currentUser?.photoURL || UserIcon} alt="userIcon" />
+                <img
+                  src={currentUser?.profilePicture || UserIcon}
+                  alt="userIcon"
+                />
               </div>
               <span>{currentUser?.username}</span>
             </div>
