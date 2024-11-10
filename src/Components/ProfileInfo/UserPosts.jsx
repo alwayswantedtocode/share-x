@@ -17,7 +17,6 @@ import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import useHandleComments from "../../Hooks/useHandleComments";
 import EditPost from "../HomePage Components/EditPost";
 
-
 // TimeAgo.addDefaultLocale(en);
 
 const UserPosts = ({
@@ -32,8 +31,7 @@ const UserPosts = ({
   Comments,
   replyLikes,
 }) => {
-  const { moreRef, commentRef,  } =
-    useGlobalContext();
+  const { moreRef, commentRef } = useGlobalContext();
 
   TimeAgo.addLocale(en);
   const date = new Date(Timestamp);
@@ -51,7 +49,6 @@ const UserPosts = ({
   const { isCommentOpen, commentHandle } = useHandleComments();
   const { handleMoreOptions, more, setMore } = useHandlePostOptions();
   const [isEdit, setIsEdit] = useState(false); //edit post state
-
 
   const handleEditPost = (event) => {
     event.stopPropagation();

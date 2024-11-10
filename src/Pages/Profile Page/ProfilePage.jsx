@@ -2,7 +2,6 @@ import "./profile.scss";
 import "../../Components/HomePage Components/home.scss";
 import UserPosts from "../../Components/ProfileInfo/UserPosts";
 import MyProfile from "../../Components/ProfileInfo/My Profile/MyProfile";
-import UsersProfile from "../../Components/ProfileInfo/UsersProfile";
 import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileForm";
 import SharePost from "../../Components/HomePage Components/SharePost";
 import CoverImage from "../../Assets/no-image.png";
@@ -19,6 +18,7 @@ import {
   setUsersPost,
 } from "../../Reduxtoolkit/appUsersSlice";
 import axios from "../../API/axios";
+import Post from "../../Components/HomePage Components/Post";
 
 const ProfileInfo = () => {
   const username = useParams().username;
@@ -31,42 +31,31 @@ const ProfileInfo = () => {
 
   const [followed, setFollowed] = useState(false);
 
-  //fetch profile user
-  useEffect(() => {
-    const fetchMyprofile = async () => {
-      try {
-        const response = await axios.get(
-          `/api/users/profile?username=${username}`
-        );
-        dispatch(setUsers(response.data));
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        dispatch(setError());
-      }
-    };
-    fetchMyprofile();
-  }, [username, dispatch]);
+   useEffect(() => {
+     const fetchProfile = async () => {
+       try {
+         const userResponse = await axios.get(
+           `/api/users/profile?username=${username}`
+         );
+         dispatch(setUsers(userResponse.data));
 
-  //Fetch profile user posts
-  useEffect(() => {
-    const fetchMypost = async () => {
-      try {
-        const response = await axios.get(`/api/posts/profile/${username}`);
-        dispatch(
-          setUsersPost(
-            response.data.sort((p1, p2) => {
-              return new Date(p2.createdAt) - new Date(p1.createdAt);
-            })
-          )
-        );
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        dispatch(setError());
-      }
-    };
-    fetchMypost();
-  }, [username, dispatch]);
+         const postsResponse = await axios.get(
+           `/api/posts/profile/${username}`
+         );
+         dispatch(
+           setUsersPost(
+             postsResponse.data.sort(
+               (p1, p2) => new Date(p2.createdAt) - new Date(p1.createdAt)
+             )
+           )
+         );
+       } catch (error) {
+         dispatch(setError());
+         console.error("Error fetching profile data:", error);
+       }
+     };
+     fetchProfile();
+   }, [username, dispatch]);
 
   //Follow/Unfollow
   useEffect(() => {
@@ -128,7 +117,6 @@ const ProfileInfo = () => {
               <button className="message">Message</button>
             </div>
           )}
-
         </div>
       </div>
       <div
@@ -167,6 +155,7 @@ const ProfileInfo = () => {
                     Comments={feeds.Comments}
                     Timestamp={feeds.createdAt}
                   />
+                  // <Post key={feeds._id} {...feeds} feeds={feeds} />
                 ))
               ) : (
                 <div className="Nopost">
@@ -182,11 +171,7 @@ const ProfileInfo = () => {
           )}
         </div>
         <div className="accountuser-info">
-          {username === currentUser?.username ? (
-            <MyProfile />
-          ) : (
-            <UsersProfile />
-          )}
+          <MyProfile username={username} />
         </div>
       </div>
     </section>

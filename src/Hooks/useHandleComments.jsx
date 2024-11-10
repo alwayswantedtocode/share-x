@@ -42,14 +42,19 @@ const useHandleComments = (comment, feeds) => {
   }, [currentUser?._id, comment?.Likes]);
 
   const commentLikeHandler = async () => {
+    console.log("Current User ID:", currentUser?._id); // Log current user
     try {
-      await axios.put(`/api/posts/${feeds._id}/comments/${comment._id}/like`, {
+      console.log("Sending like request...");
+      await axios.put(`/api/posts/${feeds?._id}/comments/${comment?._id}/like`, {
         userId: currentUser?._id,
       });
-    } catch (err) {}
+      console.log("Like request sent successfully.");
+    } catch (err) {
+      console.error("Error liking comment:", err);
+    }
+
     setLikedComment(isLikedComment ? likedComment - 1 : likedComment + 1);
     setIsLikedComment(!isLikedComment);
-    // dispatch(setLikes());
   };
 
   return {

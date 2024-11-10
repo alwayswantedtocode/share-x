@@ -1,5 +1,6 @@
 import "./home.scss";
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import Reply from "./Reply";
 import OptionsAside from "../Aside/OptionsAside";
@@ -16,10 +17,10 @@ import en from "javascript-time-ago/locale/en";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import useHandleComments from "../../Hooks/useHandleComments";
 import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
-import axios from "../../API/axios";
 
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(en);
+
 const Post = ({
   feeds,
   postId,
@@ -28,67 +29,25 @@ const Post = ({
   description,
   Likes,
   Image,
-  Comments,
   Timestamp,
+  Comments,
+  profilePicture,
 }) => {
-  const {
-    moreRef,
-    commentRef,
-  
-  } = useGlobalContext();
+  const { moreRef, commentRef } = useGlobalContext();
   const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
-  const { isCommentOpen, commentHandle } =
-    useHandleComments();
-  const { handleMoreOptions, more, setMore } =
-    useHandlePostOptions();
+  const { isCommentOpen, commentHandle } = useHandleComments();
+  const { handleMoreOptions, more, setMore } = useHandlePostOptions();
   const { currentUser } = useSelector((state) => state.auth);
 
+  const [isEdit, setIsEdit] = useState(false);
 
-  const [isEdit, setIsEdit] = useState(false); 
-
-  // TimeAgo.addDefaultLocale(en);
-  const date = new Date(Timestamp);
-  // Create a TimeAgo instance
   const timeAgo = new TimeAgo("en-US");
-  // Format the date using TimeAgo
-  const formattedDate = timeAgo.format(date);
-
-  // // //Close Comment section
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", closeCommentOnMousedown);
-  //   return () => {
-  //     document.removeEventListener("mousedown", closeCommentOnMousedown);
-  //   };
-  // }, []);
-
-  // //CLose More Options for post
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", closePotionOnmousedown);
-  //   return () => {
-  //     document.removeEventListener("mousedown", closePotionOnmousedown);
-  //   };
-  // }, []);
-
-  const [user, setUser] = useState([])
-   useEffect(() => {
-     const fetchTimelinePicture = async () => {
-       try {
-         const response = await axios.get(`/api/users/profile`, {
-           params: { userId }
-         });
-         setUser(response.data);
-         console.log(response.data);
-       } catch (error) {
-         console.error("Error fetching posts:", error);
-       }
-     };
-     fetchTimelinePicture();
-   }, [userId]);
-  
+  const formattedDate = Timestamp
+    ? timeAgo.format(new Date(Timestamp))
+    : "Invalid Date";
 
   const handleEditPost = (event) => {
     event.stopPropagation();
-    //  console.log(true);
     setIsEdit(true);
     setMore(false);
   };
@@ -96,16 +55,14 @@ const Post = ({
   return (
     <div className="post">
       <div className="container">
-        {/* poster author and time */}
         <div className="user">
           <div className="userInfo">
             <Link
               to={`/profilepage/${Username}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <img src={user?.profilePicture || Profileimage} alt="Profile" />
+              <img src={profilePicture || Profileimage} alt="Profile" />
             </Link>
-
             <div className="details">
               <Link
                 to={`/profilepage/${Username}`}
@@ -121,21 +78,16 @@ const Post = ({
               style={{ cursor: "pointer" }}
               onClick={handleMoreOptions}
             />
-
-            <aside ref={moreRef}>
-              {more ? (
-                <OptionsAside
-                  userId={userId}
-                  postId={postId}
-                  handleEditPost={handleEditPost}
-                />
-              ) : (
-                ""
-              )}
-            </aside>
+            {more && (
+              <OptionsAside
+                userId={userId}
+                postId={postId}
+                handleEditPost={handleEditPost}
+              />
+            )}
           </div>
         </div>
-        {/* Post content text and picture or video */}
+
         <div className="content">
           <div className="desc-wrapper">
             {isEdit && currentUser?._id === userId ? (
@@ -150,32 +102,30 @@ const Post = ({
             )}
           </div>
           <div className="Image-wrapper">
-            {Image && <img src={Image} alt="" />}
+            {Image && <img src={Image} alt="Post" />}
           </div>
         </div>
-        {/* Interact with post */}
+
         <div className="info">
-          <div className="item">
-            <span onClick={likeHandler}>
-              {isLiked ? (
-                <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
-              ) : (
-                <AiOutlineHeart />
-              )}
-            </span>
+          <div className="item" onClick={likeHandler}>
+            {isLiked ? (
+              <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
+            ) : (
+              <AiOutlineHeart />
+            )}
             <p>{like}</p>
           </div>
           <div className="item" ref={commentRef}>
-            <span>
-              <BiMessageAlt onClick={() => commentHandle()} />
+            <span onClick={commentHandle}>
+              <BiMessageAlt />
             </span>
             <p>{Comments?.length}</p>
           </div>
           <div className="item">
-            <MdOutlineIosShare />
-            share
+            <MdOutlineIosShare /> Share
           </div>
         </div>
+
         {isCommentOpen && (
           <Reply postId={postId} feeds={feeds} Comments={Comments} />
         )}
@@ -183,5 +133,24 @@ const Post = ({
     </div>
   );
 };
+
+// Post.propTypes = {
+//   postId: PropTypes.string.isRequired,
+//   userId: PropTypes.string.isRequired,
+//   Username: PropTypes.string.isRequired,
+//   description: PropTypes.string,
+//   Likes: PropTypes.arrayOf(PropTypes.string),
+//   Image: PropTypes.string,
+//   Timestamp: PropTypes.string.isRequired,
+//   Comments: PropTypes.arrayOf(PropTypes.object),
+//   profilePicture: PropTypes.string,
+// };
+
+// Post.defaultProps = {
+//   description: "",
+//   Likes: [],
+//   Comments: [],
+//   profilePicture: Profileimage,
+// };
 
 export default Post;

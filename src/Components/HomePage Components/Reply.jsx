@@ -106,6 +106,7 @@ const Reply = ({ postId, feeds, Comments, iscommentopen }) => {
                 postId={postId}
                 feeds={feeds}
                 comment={comment}
+                Likes={comment.Likes}
               />
             );
           })}

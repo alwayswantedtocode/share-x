@@ -12,7 +12,7 @@ const useEditProfile = () => {
   const dispatch = useDispatch();
 
   // form state
-  const GenderData = ["Select gender", "Female", "Male", "Non binary"];
+  // const GenderData = ["Select gender", "Female", "Male", "Non binary"];
   const [fullname, setFullname] = useState(currentUser?.Fullname || "");
   const [username, setUsername] = useState(currentUser?.username || "");
   const [currentCity, setCurrentCity] = useState(
@@ -24,7 +24,7 @@ const useEditProfile = () => {
   const [dob, setDob] = useState(currentUser?.Birthday || "");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedGenderOption, setSelectedGenderOption] = useState(
-    currentUser?.Gender || GenderData[0]
+    currentUser?.Gender || ""
   );
   // date of birth onChange
   const handleDobChange = (e) => {
@@ -173,7 +173,6 @@ const useEditProfile = () => {
     Workplace,
     dob,
     phoneNumber,
-    GenderData,
     selectedGenderOption,
     setFullname,
     setUsername,

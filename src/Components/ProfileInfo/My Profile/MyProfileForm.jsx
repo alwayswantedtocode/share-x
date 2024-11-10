@@ -16,7 +16,6 @@ const ProfileInfoForm = () => {
     Workplace,
     dob,
     phoneNumber,
-    GenderData,
     selectedGenderOption,
     setFullname,
     setUsername,
@@ -157,7 +156,6 @@ const ProfileInfoForm = () => {
                 </label>
               </div>
             </div>
-
           </div>
           <div className="form">
             <div className="input-container">
@@ -199,9 +197,14 @@ const ProfileInfoForm = () => {
 
             <InputSelector
               className="inputselector"
-              Data={GenderData}
+              Data={[
+                { label: "Male", value: "Male" },
+                { label: "Female", value: "Female" },
+                { label: "Non-Binary", value: "Non-Binary" },
+                { label: "Don't specify", value: "Don't specify" },
+              ]}
               value={selectedGenderOption}
-              onChange={setSelectedGenderOption}
+              onChange={(e) => setSelectedGenderOption(e.target.value)}
               inputClass={inputClass}
               dropdownClass={dropdownClass}
               listClass={listClass}

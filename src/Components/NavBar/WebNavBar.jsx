@@ -72,18 +72,18 @@ const WebNavBar = (username) => {
     }
   };
   // close the menu buttons dropdown
-  const handleAside = (e) => {
-    if (!closeAsideRef.current.contains(e.target)) {
-      setOnClickIcon(onClickIcon);
-    }
-  };
+  // const handleAside = (e) => {
+  //   if (!closeAsideRef.current.contains(e.target)) {
+  //     setOnClickIcon(onClickIcon);
+  //   }
+  // };
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleAside);
-    return () => {
-      document.removeEventListener("mousedown", handleAside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", handleAside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleAside);
+  //   };
+  // }, []);
 
   // close search result dorpdown onclicking the result.
   // const closeSearchReault = (e) => {
@@ -175,53 +175,57 @@ const WebNavBar = (username) => {
 
         <div className="Right-buttons">
           <div>
-            <button
-              ref={closeAsideRef}
-              className="right-btn"
-              id="Icon-0"
-              onClick={() => handleIcons(0)}
-            >
-              <MdOutlineMail />
-            </button>
-            <aside
-              id="aside-0"
-              className={`${onClickIcon[0] ? "Aside active " : "Aside"}`}
-            >
-              <MessageAside />
-            </aside>
+            <div ref={closeAsideRef}>
+              <button
+                className="right-btn"
+                id="Icon-0"
+                onClick={() => handleIcons(0)}
+              >
+                <MdOutlineMail />
+              </button>
+              <aside
+                id="aside-0"
+                className={`${onClickIcon[0] ? "Aside active " : "Aside"}`}
+              >
+                <MessageAside />
+              </aside>
+            </div>
           </div>
 
           <div>
-            <button
-              ref={closeAsideRef}
-              className="right-btn"
-              id="Icon-1"
-              onClick={() => handleIcons(1)}
-            >
-              <MdOutlineNotificationsNone />
-            </button>
-            <aside
-              id="aside-1"
-              className={`${onClickIcon[1] ? "Aside active " : "Aside"}`}
-            >
-              <NotificationAside />
-            </aside>
+            <div ref={closeAsideRef}>
+              <button
+                className="right-btn"
+                id="Icon-1"
+                onClick={() => handleIcons(1)}
+              >
+                <MdOutlineNotificationsNone />
+              </button>
+              <aside
+                id="aside-1"
+                className={`${onClickIcon[1] ? "Aside active " : "Aside"}`}
+              >
+                <NotificationAside />
+              </aside>
+            </div>
           </div>
         </div>
-        <div
-          ref={closeAsideRef}
-          id="Icon-2"
-          className="user right-btn"
-          onClick={() => handleIcons(2)}
-        >
-          <img src={currentUser?.profilePicture || UserIcon} alt="" />
-
-          <aside
-            id="aside-2"
-            className={`${onClickIcon[2] ? "Aside active " : "Aside"}`}
+        <div>
+          <div
+            ref={closeAsideRef}
+            id="Icon-2"
+            className="user right-btn"
+            onClick={() => handleIcons(2)}
           >
-            <ProfileAside />
-          </aside>
+            <img src={currentUser?.profilePicture || UserIcon} alt="" />
+
+            <aside
+              id="aside-2"
+              className={`${onClickIcon[2] ? "Aside active " : "Aside"}`}
+            >
+              <ProfileAside />
+            </aside>
+          </div>
         </div>
       </nav>
     </header>

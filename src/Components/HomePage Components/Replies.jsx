@@ -15,6 +15,7 @@ const Replies = ({
   reply,
   Timestamp,
   comment,
+  Likes,
   feeds,
 }) => {
   // TimeAgo.addDefaultLocale(en);

@@ -196,7 +196,8 @@ const UserResgister = () => {
                     Must include aleast one Uppercase,
                     <br />
                     Lowercase letters,
-                    <br /> Atleast a number and a special charater. <br />
+                    <br /> Atleast one Uppercase, a number and a special
+                    charater. <br />
                   </p>
                 </div>
               </div>
@@ -223,8 +224,8 @@ const UserResgister = () => {
           <div className="Right">
             <h1>Share X</h1>
             <p>
-              Sign up to connect and share forever memories with
-              friends and loved ones.
+              Sign up to connect and share forever memories with friends and
+              loved ones.
             </p>
             <span>Have an acount?</span>
             <NavLink to="/Login">

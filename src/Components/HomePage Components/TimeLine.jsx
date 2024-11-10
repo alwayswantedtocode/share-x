@@ -9,7 +9,7 @@ import axios from "../../API/axios";
 
 const TimeLine = () => {
   const { handleReload } = useReload();
-  
+
   const dispatch = useDispatch();
 
   const { posts, error } = useSelector((state) => state.post);
@@ -35,6 +35,8 @@ const TimeLine = () => {
     };
     fetchPostsData();
   }, [currentUser._id, dispatch]);
+
+  
 
   return (
     <div className="TimeLine">
@@ -69,8 +71,7 @@ const TimeLine = () => {
           ) : (
             <div className="Nopost">
               <div className="Reload">
-                <p>No posts available. Follw friends to see their posts </p>
-               
+                <p>No posts available. Follow friends to see their posts </p>
               </div>
             </div>
           )}

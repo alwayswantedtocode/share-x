@@ -47,7 +47,7 @@ const RightComponent = () => {
           })}
         </div>
         {/* Latest activities */}
-        <div className="items">
+        {/* <div className="items">
           <span>Lastest Activities</span>
           {latestFilter.map((latest) => {
             const { id, name, imageUrl } = latest;
@@ -69,9 +69,9 @@ const RightComponent = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
         {/* Friends online */}
-        <div className="items">
+        {/* <div className="items">
           <span>Online Friends</span>
           {onlineFilter.map((online) => {
             const { id, name, imageUrl } = online;
@@ -85,7 +85,7 @@ const RightComponent = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </article>
   );
