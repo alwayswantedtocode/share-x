@@ -12,7 +12,6 @@ const useEditProfile = () => {
   const dispatch = useDispatch();
 
   // form state
-  // const GenderData = ["Select gender", "Female", "Male", "Non binary"];
   const [fullname, setFullname] = useState(currentUser?.Fullname || "");
   const [username, setUsername] = useState(currentUser?.username || "");
   const [currentCity, setCurrentCity] = useState(
