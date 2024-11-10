@@ -341,6 +341,7 @@
 
                 .optionIcon {
                   font-size: 1rem;
+                  cursor: pointer;
 
                   @include surface-duo {
                     font-size: 1.2rem;
@@ -356,6 +357,8 @@
                   }
                 }
                 span {
+                  display: flex;
+                 justify-items: center;
                   font-size: 0.8rem;
                   font-weight: 500;
                   color: themed("textColor");
@@ -374,9 +377,6 @@
                     font-size: 1rem;
                     color: themed("textColor");
                   }
-                }
-                .btn {
-                  cursor: pointer;
                 }
               }
               .postOption:hover {

@@ -14,7 +14,6 @@ import axios from "../../API/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setPosts } from "../../Reduxtoolkit/postSlice";
 
-
 const MIN_TEXTAREA_HEIGHT = 65;
 
 const SharePost = () => {
@@ -22,7 +21,6 @@ const SharePost = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-
 
   const textareaRef = useRef(null);
   const text = useRef("");
@@ -99,7 +97,7 @@ const SharePost = () => {
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
-      dispatch(setLoading());
+    dispatch(setLoading());
     if (text.current.value !== "" || file) {
       try {
         const imageUrl = await uploadImageToFirestore();
@@ -205,7 +203,10 @@ const SharePost = () => {
               </div>
               <div className="postOption">
                 <label htmlFor="addImage">
-                  <FcGallery className="optionIcon" />
+                  <span className="">
+                    <FcGallery className="optionIcon" />
+                    Gallery
+                  </span>
                   <input
                     id="addImage"
                     type="file"
@@ -214,11 +215,6 @@ const SharePost = () => {
                     onChange={handleUpload}
                   />
                 </label>
-                {file ? (
-                  <span onClick={uploadImageToFirestore}>Upload</span>
-                ) : (
-                  <span className="btn">Gallery</span>
-                )}
               </div>
 
               <div className="postOption" onClick={handleEmoji}>
