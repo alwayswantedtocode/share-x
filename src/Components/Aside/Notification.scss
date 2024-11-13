@@ -17,7 +17,7 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 10px;
+      width: 4px;
     }
 
     &::-webkit-scrollbar-track {
@@ -32,6 +32,27 @@
 
     &::-webkit-scrollbar-thumb:hover {
       background-color: #cbcbcb;
+    }
+
+    @include tab {
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+    }
+    @include surface-Pro {
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
+    }
+    @include web {
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+    }
+    @include web-large {
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
     }
 
     .container {
