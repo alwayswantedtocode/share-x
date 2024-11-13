@@ -12,7 +12,7 @@ import {
 } from "react-icons/md";
 import { BiBarChartAlt2 } from "react-icons/bi";
 import { BsBagHeart } from "react-icons/bs";
-import UserIcon from "../../Assets/user-circle-svgrepo-com.svg";
+import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../../Reduxtoolkit/authSlice";
@@ -46,7 +46,7 @@ const ProfileAside = () => {
           <Link to={`/profilepage/${currentUser?.username}`}>
             <div className="AccountName">
               <img
-                src={currentUser?.profilePicture || UserIcon}
+                src={currentUser?.profilePicture || Profileimage}
                 alt="userIcon"
               />
               <span className="Name">{currentUser?.username}</span>{" "}
