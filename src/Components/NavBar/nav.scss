@@ -137,7 +137,7 @@ $nav-padding: 0.5rem;
           z-index: 10;
           justify-content: center;
           align-items: center;
-
+border:2px solid red;
           &.visible {
             display: flex;
           }
@@ -145,16 +145,17 @@ $nav-padding: 0.5rem;
           .search {
             display: flex;
             align-items: center;
-            background: white;
+             background-color: themed("bg");
             padding: 10px;
             border-radius: 4px;
             width: 90%;
-
+border:2px solid red;
             input {
               flex-grow: 1;
               padding: 0.5rem;
               border: 1px solid #ccc;
               border-radius: 4px;
+              background-color: themed("bgSoft");
             }
             input:focus {
               outline: none;
@@ -172,12 +173,13 @@ $nav-padding: 0.5rem;
             .Aside {
               display: flex;
               justify-content: flex-end;
-              width: 100%;
+              width: 90%;
               background-color: themed("bg");
               position: absolute;
+              margin: auto;
               top: 5rem;
               right: 0%;
-              left: -20%;
+              left: 0%;
               bottom: 0%;
               border-radius: 0.5rem;
 
@@ -186,15 +188,15 @@ $nav-padding: 0.5rem;
               box-shadow: rgba(159, 159, 159, 0.3);
               visibility: hidden;
 
-              @include tab {
-                left: -27%;
-              }
-              @include web {
-                left: -27%;
-              }
-              @include web-large {
-                left: -27%;
-              }
+              // @include tab {
+              //   left: -27%;
+              // }
+              // @include web {
+              //   left: -27%;
+              // }
+              // @include web-large {
+              //   left: -27%;
+              // }
             }
             .Aside.active {
               visibility: visible;
@@ -203,7 +205,7 @@ $nav-padding: 0.5rem;
         }
 
         .search-Aside {
-          width: 60%;
+          width: 100%;
           height: max-content;
           background-color: themed("bg");
           display: flex;
@@ -218,19 +220,29 @@ $nav-padding: 0.5rem;
             display: none;
           }
            @include tab {
-            width: 50%;
+            width: 100%;
           }
           @include web {
-            width: 50%;
+            width: 100%;
           }
           @include web-large {
-            width: 50%;
+            width: 100%;
           }
           .result-content {
             width: 100%;
             padding: 0.3rem 0.3rem;
             color: themed("textColor");
-            // color: red;
+            background-color: themed("bg");
+            font-size: 0.8rem;
+             @include tab {
+           font-size: 1rem;
+          }
+          @include web {
+           font-size: 1rem;
+          }
+          @include web-large {
+            font-size: 1rem;
+          }
           }
           p {
             width: 100%;
