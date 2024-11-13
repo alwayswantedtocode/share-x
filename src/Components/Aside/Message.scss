@@ -22,7 +22,7 @@
     }
 
     &::-webkit-scrollbar-track {
-      background-color: #f5f3f3;
+        background-color: themed("bgSoft");
       border-radius: 0.5rem;
     }
 
