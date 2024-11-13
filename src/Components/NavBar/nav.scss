@@ -137,7 +137,7 @@ $nav-padding: 0.5rem;
           z-index: 10;
           justify-content: center;
           align-items: center;
-border:2px solid red;
+
           &.visible {
             display: flex;
           }
@@ -149,7 +149,7 @@ border:2px solid red;
             padding: 10px;
             border-radius: 4px;
             width: 90%;
-border:2px solid red;
+
             input {
               flex-grow: 1;
               padding: 0.5rem;
