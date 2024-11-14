@@ -1,4 +1,4 @@
-import "../../Pages/Profile Page/profile.scss";
+// import "../../Pages/Profile Page/profile.scss";
 import React, { useRef, useState, useLayoutEffect } from "react";
 import axios from "../../API/axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,8 +29,6 @@ const [editBio, setEditBio]=useState(currentUser?.Bio)
     e.preventDefault();
 
     setShoweditbio(false);
-
-    console.log("Cancel Button works");
   };
 
   const submitBio = async (e) => {

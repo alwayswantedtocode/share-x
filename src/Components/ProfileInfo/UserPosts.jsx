@@ -1,4 +1,4 @@
-import "../../Pages/Profile Page/profile.scss";
+// import "../../Pages/Profile Page/profile.scss";
 import "../HomePage Components/home.scss";
 import { useState } from "react";
 import Reply from "../HomePage Components/Reply";

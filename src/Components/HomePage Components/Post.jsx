@@ -1,4 +1,4 @@
-import "./home.scss";
+// import "./home.scss";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
@@ -51,6 +51,7 @@ const Post = ({
     setIsEdit(true);
     setMore(false);
   };
+
 
   return (
     <div className="post">

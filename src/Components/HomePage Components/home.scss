@@ -358,7 +358,7 @@
                 }
                 span {
                   display: flex;
-                 justify-items: center;
+                  justify-items: center;
                   font-size: 0.8rem;
                   font-weight: 500;
                   color: themed("textColor");
@@ -525,7 +525,7 @@
               overflow: hidden;
               img {
                 max-width: 100%;
-                height: auto; 
+                height: auto;
                 object-fit: cover;
               }
             }
@@ -556,84 +556,147 @@
 
 //Edit post
 .edit-post-wrapper {
-  width: 100%;
   @include themify($themes) {
-    .Edit-text {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: themed("trans-background");
+    z-index: 999;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0);
+
+    .Edit-post-body {
       display: flex;
-      align-items: center;
       flex-direction: column;
-      width: 70%;
-      gap: 15px;
-      height: max-content;
-      // border: 2px solid rgb(201, 17, 17);
-      @include surface-duo {
-        font-size: 1.2rem;
-        width: 80%;
-      }
-      @include tab {
-        font-size: 1.3rem;
-        width: 80%;
-      }
-      @include surface-Pro {
-        font-size: 1rem;
-        width: 80%;
-      }
-      @include web {
-        font-size: 1rem;
-        width: 85%;
-      }
-      @include web-medium {
-        font-size: 1rem;
-        width: 85%;
-      }
-      textarea {
-        border: none;
-        width: 100%;
-        height: 100%;
-        border-radius: 0.7rem;
-        padding: 0.625rem;
-        background-color: themed("bgSoft");
-        color: themed("textColor");
-        font-size: 1.1rem;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-          sans-serif;
-      }
-      textarea:focus {
-        outline: none;
-      }
-    }
-    .SendButton {
-      display: flex;
       align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 2rem;
-      font-weight: 600;
-      border: none;
-      padding: 0.4375rem;
-      border-radius: 0.3rem;
-      background-color: themed("btnColor");
-      color: white;
-      cursor: pointer;
+      padding-top: 3rem;
+      border-radius: 0.5rem;
+      width: 80%;
+      height: 20rem;
+      gap: 20px;
+      background-color: themed("bg");
+      box-shadow: rgba(159, 159, 159, 0.3);
+      -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+      -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+
+      @include surface-duo {
+        width: 80%;
+
+        border-radius: 0.5rem;
+      }
       @include tab {
-        width: 5rem;
-        height: 2.6rem;
+        width: 70%;
+        border-radius: 0.5rem;
       }
       @include surface-Pro {
-        width: 5rem;
-        height: 2.6rem;
+        width: 60%;
+        border-radius: 0.5rem;
       }
+
       @include web {
-        width: 5rem;
-        height: 2.6rem;
+        width: 45%;
+        border-radius: 0.5rem;
       }
       @include web-medium {
-        width: 5rem;
-        height: 2.6rem;
+        width: 50%;
+        border-radius: 0.5rem;
+      }
+
+      .Edit-text {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 90%;
+        gap: 15px;
+        height: max-content;
+        // border: 2px solid rgb(201, 17, 17);
+        @include surface-duo {
+          font-size: 1.2rem;
+          width: 80%;
+        }
+        @include tab {
+          font-size: 1.3rem;
+          width: 80%;
+        }
+        @include surface-Pro {
+          font-size: 1rem;
+          width: 80%;
+        }
+        @include web {
+          font-size: 1rem;
+          width: 85%;
+        }
+        @include web-medium {
+          font-size: 1rem;
+          width: 85%;
+        }
+        textarea {
+          border: none;
+          width: 100%;
+          height: 100%;
+          border-radius: 0.7rem;
+          padding: 0.625rem;
+          background-color: themed("bgSoft");
+          color: themed("textColor");
+          font-size: 1.1rem;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+            Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+            sans-serif;
+        }
+        textarea:focus {
+          outline: none;
+        }
+      }
+      .btns {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .SendButton {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 90%;
+          height: 2rem;
+          font-weight: 600;
+          border: none;
+          padding: 0.4375rem;
+          border-radius: 0.3rem;
+          background-color: themed("btnColor");
+          color: white;
+          cursor: pointer;
+          @include surface-duo {
+            width: 80%;
+          }
+          @include tab {
+            width: 80%;
+          }
+          @include surface-Pro {
+            width: 80%;
+          }
+          @include web {
+            width: 85%;
+          }
+          @include web-medium {
+            width: 85%;
+          }
+        }
       }
     }
   }
+}
+.edit-post-wrapper.active {
+  visibility: visible;
+  z-index: 999;
+  transform: scale(1);
 }
 
 //Comment Content style
@@ -681,9 +744,9 @@
           width: 80%;
           height: 2.5rem;
           padding: 0.625rem;
-          border-radius: 5rem;
+          border-radius: 1rem;
           border: 0.0625rem solid themed("border");
-          background-color: transparent;
+          background-color: themed("bgSoft");
           color: themed("textColor");
 
           @include surface-duo {
@@ -715,7 +778,7 @@
           font-weight: 600;
           padding: 0.625rem;
           cursor: pointer;
-          border-radius: 5rem;
+          border-radius: 1rem;
           @include tab {
             width: 5rem;
             height: 2.6rem;

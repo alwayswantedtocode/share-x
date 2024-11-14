@@ -1,5 +1,5 @@
 import Post from "./Post";
-import "./home.scss";
+// import "./home.scss";
 import { useEffect } from "react";
 import { IoReload } from "react-icons/io5";
 import useReload from "../../Hooks/useReload";

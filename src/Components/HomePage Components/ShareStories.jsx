@@ -1,6 +1,6 @@
 import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import "./home.scss";
+// import "./home.scss";
 import { useSelector } from "react-redux";
 
 const ShareStories = () => {

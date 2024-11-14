@@ -185,162 +185,162 @@
 }
 
 //Comment Content style
-.comments {
-  width: 100%;
-  @include themify($themes) {
-    .write {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      // gap: 1.25rem;
-      gap: 0.625rem;
-      margin-top: 1.25rem;
+// .comments {
+//   width: 100%;
+//   @include themify($themes) {
+//     .write {
+//       width: 100%;
+//       display: flex;
+//       align-items: center;
+//       // gap: 1.25rem;
+//       gap: 0.625rem;
+//       margin-top: 1.25rem;
 
-      img {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        object-fit: cover;
-        cursor: pointer;
-        @include tab {
-          width: 3rem;
-          height: 3rem;
-        }
-        @include surface-Pro {
-          width: 3rem;
-          height: 3rem;
-        }
-        @include web {
-          width: 3rem;
-          height: 3rem;
-        }
-        @include web-large {
-          width: 3rem;
-          height: 3rem;
-        }
-      }
-      .form {
-        display: flex;
-        width: 70%;
-        align-items: center;
-        justify-content: center;
-        justify-content: space-between;
-        textarea {
-          width: 80%;
-          height: 2.5rem;
-          padding: 0.625rem;
-          border-radius: 5rem;
-          border: 0.0625rem solid themed("border");
-          background-color: transparent;
-          color: themed("textColor");
+//       img {
+//         width: 2.5rem;
+//         height: 2.5rem;
+//         border-radius: 50%;
+//         object-fit: cover;
+//         cursor: pointer;
+//         @include tab {
+//           width: 3rem;
+//           height: 3rem;
+//         }
+//         @include surface-Pro {
+//           width: 3rem;
+//           height: 3rem;
+//         }
+//         @include web {
+//           width: 3rem;
+//           height: 3rem;
+//         }
+//         @include web-large {
+//           width: 3rem;
+//           height: 3rem;
+//         }
+//       }
+//       .form {
+//         display: flex;
+//         width: 70%;
+//         align-items: center;
+//         justify-content: center;
+//         justify-content: space-between;
+//         textarea {
+//           width: 80%;
+//           height: 2.5rem;
+//           padding: 0.625rem;
+//           border-radius: 5rem;
+//           border: 0.0625rem solid themed("border");
+//           background-color: transparent;
+//           color: themed("textColor");
 
-          @include surface-duo {
-            width: 80%;
-            height: 2.5rem;
-          }
-          @include tab {
-            width: 80%;
-            height: 2.5rem;
-          }
-          // @include surface-Pro {
-          //   width: 38rem;
-          //   height: 2.5rem;
-          // }
-          @include web {
-            width: 80%;
-            height: 2.5rem;
-          }
-        }
-        textarea:focus {
-          outline: none;
-        }
+//           @include surface-duo {
+//             width: 80%;
+//             height: 2.5rem;
+//           }
+//           @include tab {
+//             width: 80%;
+//             height: 2.5rem;
+//           }
+//           // @include surface-Pro {
+//           //   width: 38rem;
+//           //   height: 2.5rem;
+//           // }
+//           @include web {
+//             width: 80%;
+//             height: 2.5rem;
+//           }
+//         }
+//         textarea:focus {
+//           outline: none;
+//         }
 
-        button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 3rem;
-          height: 2rem;
-          border: none;
-          background-color: themed("btnColor");
-          color: white;
-          font-weight: 600;
-          padding: 0.625rem;
-          cursor: pointer;
-          border-radius: 5rem;
-          @include tab {
-            width: 5rem;
-            height: 2.6rem;
-          }
-          @include surface-Pro {
-            width: 5rem;
-            height: 2.6rem;
-          }
-          @include web {
-            width: 5rem;
-            height: 2.6rem;
-          }
-          @include web-medium {
-            width: 5rem;
-            height: 2.6rem;
-          }
-        }
-      }
-    }
+//         button {
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//           width: 3rem;
+//           height: 2rem;
+//           border: none;
+//           background-color: themed("btnColor");
+//           color: white;
+//           font-weight: 600;
+//           padding: 0.625rem;
+//           cursor: pointer;
+//           border-radius: 5rem;
+//           @include tab {
+//             width: 5rem;
+//             height: 2.6rem;
+//           }
+//           @include surface-Pro {
+//             width: 5rem;
+//             height: 2.6rem;
+//           }
+//           @include web {
+//             width: 5rem;
+//             height: 2.6rem;
+//           }
+//           @include web-medium {
+//             width: 5rem;
+//             height: 2.6rem;
+//           }
+//         }
+//       }
+//     }
 
-    .comment {
-      margin: 1.875rem 0;
-      display: flex;
-      justify-content: space-between;
-      gap: 1.25rem;
+//     .comment {
+//       margin: 1.875rem 0;
+//       display: flex;
+//       justify-content: space-between;
+//       gap: 1.25rem;
 
-      img {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        object-fit: cover;
-        cursor: pointer;
-      }
+//       img {
+//         width: 2.5rem;
+//         height: 2.5rem;
+//         border-radius: 50%;
+//         object-fit: cover;
+//         cursor: pointer;
+//       }
 
-      .info {
-        flex: 7;
-        display: flex;
-        flex-direction: column;
-        gap: 0.1875rem;
-        align-items: flex-start;
-        .name {
-          font-weight: 500;
-          color: rgb(93, 93, 93);
-          font-size: 0.8rem;
-          cursor: pointer;
-        }
-        .text {
-          p {
-            font-size: 0.8rem;
-            color: themed("textColoreSoft");
-            cursor: pointer;
-          }
-        }
+//       .info {
+//         flex: 7;
+//         display: flex;
+//         flex-direction: column;
+//         gap: 0.1875rem;
+//         align-items: flex-start;
+//         .name {
+//           font-weight: 500;
+//           color: rgb(93, 93, 93);
+//           font-size: 0.8rem;
+//           cursor: pointer;
+//         }
+//         .text {
+//           p {
+//             font-size: 0.8rem;
+//             color: themed("textColoreSoft");
+//             cursor: pointer;
+//           }
+//         }
 
-        .impressions {
-          display: flex;
-          gap: 0.625rem;
-          color: rgb(93, 93, 93);
-          p {
-            font-weight: 500;
-            font-size: 0.8rem;
-            cursor: pointer;
-          }
-        }
-      }
+//         .impressions {
+//           display: flex;
+//           gap: 0.625rem;
+//           color: rgb(93, 93, 93);
+//           p {
+//             font-weight: 500;
+//             font-size: 0.8rem;
+//             cursor: pointer;
+//           }
+//         }
+//       }
 
-      .time {
-        flex: 1;
-        font-size: 0.7rem;
-      }
-    }
-  }
-}
+//       .time {
+//         flex: 1;
+//         font-size: 0.7rem;
+//       }
+//     }
+//   }
+// }
 
 //Share post Content style
 .Sharepost-Wrapper {
@@ -582,10 +582,11 @@
                 }
               }
               span {
+                display: flex;
+                justify-items: center;
                 font-size: 0.8rem;
                 font-weight: 500;
                 color: themed("textColor");
-
                 @include surface-duo {
                   font-size: 1rem;
                 }
@@ -768,142 +769,142 @@
 }
 
 //Edit post
-.edit-post-wrapper {
-  width: 100%;
-  @include themify($themes) {
-    .Edit-text {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      width: 70%;
-      gap: 15px;
-      height: max-content;
-      // border: 2px solid rgb(201, 17, 17);
-      @include surface-duo {
-        font-size: 1.2rem;
-        width: 80%;
-      }
-      @include tab {
-        font-size: 1.3rem;
-        width: 80%;
-      }
-      @include surface-Pro {
-        font-size: 1rem;
-        width: 80%;
-      }
-      @include web {
-        font-size: 1rem;
-        width: 85%;
-      }
-      @include web-medium {
-        font-size: 1rem;
-        width: 85%;
-      }
-      textarea {
-        border: none;
-        width: 100%;
-        height: 100%;
-        border-radius: 0.7rem;
-        padding: 0.625rem;
-        background-color: themed("bgSoft");
-        color: themed("textColor");
-        font-size: 1.1rem;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-          sans-serif;
-      }
-      textarea:focus {
-        outline: none;
-      }
-    }
-    .SendButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 2rem;
-      font-weight: 600;
-      border: none;
-      padding: 0.4375rem;
-      border-radius: 0.3rem;
-      background-color: themed("btnColor");
-      color: white;
-      cursor: pointer;
-      @include tab {
-        width: 5rem;
-        height: 2.6rem;
-      }
-      @include surface-Pro {
-        width: 5rem;
-        height: 2.6rem;
-      }
-      @include web {
-        width: 5rem;
-        height: 2.6rem;
-      }
-      @include web-medium {
-        width: 5rem;
-        height: 2.6rem;
-      }
-    }
-  }
-}
+// .edit-post-wrapper {
+//   width: 100%;
+//   @include themify($themes) {
+//     .Edit-text {
+//       display: flex;
+//       align-items: center;
+//       flex-direction: column;
+//       width: 70%;
+//       gap: 15px;
+//       height: max-content;
+//       // border: 2px solid rgb(201, 17, 17);
+//       @include surface-duo {
+//         font-size: 1.2rem;
+//         width: 80%;
+//       }
+//       @include tab {
+//         font-size: 1.3rem;
+//         width: 80%;
+//       }
+//       @include surface-Pro {
+//         font-size: 1rem;
+//         width: 80%;
+//       }
+//       @include web {
+//         font-size: 1rem;
+//         width: 85%;
+//       }
+//       @include web-medium {
+//         font-size: 1rem;
+//         width: 85%;
+//       }
+//       textarea {
+//         border: none;
+//         width: 100%;
+//         height: 100%;
+//         border-radius: 0.7rem;
+//         padding: 0.625rem;
+//         background-color: themed("bgSoft");
+//         color: themed("textColor");
+//         font-size: 1.1rem;
+//         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+//           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+//           sans-serif;
+//       }
+//       textarea:focus {
+//         outline: none;
+//       }
+//     }
+//     .SendButton {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       width: 3rem;
+//       height: 2rem;
+//       font-weight: 600;
+//       border: none;
+//       padding: 0.4375rem;
+//       border-radius: 0.3rem;
+//       background-color: themed("btnColor");
+//       color: white;
+//       cursor: pointer;
+//       @include tab {
+//         width: 5rem;
+//         height: 2.6rem;
+//       }
+//       @include surface-Pro {
+//         width: 5rem;
+//         height: 2.6rem;
+//       }
+//       @include web {
+//         width: 5rem;
+//         height: 2.6rem;
+//       }
+//       @include web-medium {
+//         width: 5rem;
+//         height: 2.6rem;
+//       }
+//     }
+//   }
+// }
 
 // TimeLine Posts comment section
-.comments {
-  @include themify($themes) {
-    .write {
-      display: flex;
-      align-items: center;
-      // gap: 1.25rem;
-      gap: 0.625rem;
-      margin-top: 1.25rem;
+// .comments {
+//   @include themify($themes) {
+//     .write {
+//       display: flex;
+//       align-items: center;
+//       // gap: 1.25rem;
+//       gap: 0.625rem;
+//       margin-top: 1.25rem;
 
-      img {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        object-fit: cover;
-      }
+//       img {
+//         width: 2.5rem;
+//         height: 2.5rem;
+//         border-radius: 50%;
+//         object-fit: cover;
+//       }
 
-      input {
-        width: 65%;
-        height: 2.5rem;
-        padding: 0.625rem;
-        border-radius: 5rem;
-        border: 0.0625rem solid themed("border");
-        background-color: transparent;
-        color: themed("textColor");
+//       input {
+//         width: 65%;
+//         height: 2.5rem;
+//         padding: 0.625rem;
+//         border-radius: 5rem;
+//         border: 0.0625rem solid themed("border");
+//         background-color: transparent;
+//         color: themed("textColor");
 
-        @include surface-duo {
-          width: 80%;
-          height: 2.5rem;
-        }
-        @include tab {
-          width: 80%;
-          height: 2.5rem;
-        }
-        // @include surface-Pro {
-        //   width: 38rem;
-        //   height: 2.5rem;
-        // }
-        @include web {
-          width: 90%;
-          height: 2.5rem;
-        }
-      }
+//         @include surface-duo {
+//           width: 80%;
+//           height: 2.5rem;
+//         }
+//         @include tab {
+//           width: 80%;
+//           height: 2.5rem;
+//         }
+//         // @include surface-Pro {
+//         //   width: 38rem;
+//         //   height: 2.5rem;
+//         // }
+//         @include web {
+//           width: 90%;
+//           height: 2.5rem;
+//         }
+//       }
 
-      button {
-        border: none;
-        background-color: rgb(160, 136, 254);
-        color: rgb(255, 255, 255);
-        padding: 0.625rem;
-        cursor: pointer;
-        border-radius: 5rem;
-      }
-    }
-  }
-}
+//       button {
+//         border: none;
+//         background-color: rgb(160, 136, 254);
+//         color: rgb(255, 255, 255);
+//         padding: 0.625rem;
+//         cursor: pointer;
+//         border-radius: 5rem;
+//       }
+//     }
+//   }
+// }
 
 //Account User Info Section
 .accountuser-info {
@@ -1251,8 +1252,9 @@
     .additionalInfo-content-container {
       display: flex;
       flex-direction: column;
-      width: 100%;
-      height: 60rem;
+      border-radius: 0.5rem;
+      width: 80%;
+      height: 40rem;
       gap: 20px;
       background-color: themed("bg");
       box-shadow: rgba(159, 159, 159, 0.3);
@@ -1261,11 +1263,11 @@
       overflow-y: auto;
 
       &::-webkit-scrollbar {
-        width: 10px;
+        width: 7px;
       }
 
       &::-webkit-scrollbar-track {
-        background-color: #f5f3f3;
+        background-color: themed("bgSoft");
         border-radius: 0.5rem;
       }
 
@@ -1280,22 +1282,22 @@
 
       @include surface-duo {
         width: 80%;
-        height: 60rem;
+        height: 40rem;
         border-radius: 0.5rem;
       }
       @include tab {
-        width: 70%;
-        height: 60rem;
+        width: 50%;
+        height: 40rem;
         border-radius: 0.5rem;
       }
       @include surface-Pro {
-        width: 60%;
-        height: 60rem;
+        width: 50%;
+        height: 40rem;
         border-radius: 0.5rem;
       }
 
       @include web {
-        width: 45%;
+        width: 50%;
         height: 40rem;
         border-radius: 0.5rem;
       }
@@ -1311,6 +1313,7 @@
         padding: 10px 0;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         z-index: 9;
         position: -webkit-sticky;
         position: sticky;
@@ -1319,23 +1322,25 @@
         -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
         .editDetails {
-          width: 75%;
+          width: max-content;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 23px;
+          color: themed("textColor");
           margin: 0px 5px;
           padding: 5px;
+          font-size: 20px;
         }
         button {
           display: flex;
           align-items: center;
-          width: 5%;
+          // width: 5%;
           border: none;
           background: transparent;
           margin: 0px 5px;
           padding: 5px;
           cursor: pointer;
+
           .closeForm {
             color: themed("textColor");
             font-size: 23px;
@@ -1345,18 +1350,18 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 15%;
+          width: max-content;
           border: none;
           background: white;
           margin: 0px 5px;
           color: themed("textColor");
           padding: 5px;
-          border-radius: 40%;
-          border-top-right-radius: 5rem;
-          border-bottom-right-radius: 5rem;
-          border-bottom-left-radius: 5rem;
-          border-top-left-radius: 5rem;
-          font-size: 23px;
+          border-radius: 10%;
+          // border-top-right-radius: 5rem;
+          // border-bottom-right-radius: 5rem;
+          // border-bottom-left-radius: 5rem;
+          // border-top-left-radius: 5rem;
+          font-size: 20px;
           background-color: transparent;
           border: 2px solid themed("btnBorder");
         }
@@ -1371,6 +1376,7 @@
           height: 15rem;
           position: relative;
           background-color: themed(bg);
+
           .change-header-image {
             width: 100%;
             height: 10rem;

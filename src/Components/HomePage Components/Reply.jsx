@@ -1,4 +1,4 @@
-import "./home.scss";
+// import "./home.scss";
 import Replies from "./Replies";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { useRef, useState, useLayoutEffect, useEffect } from "react";
