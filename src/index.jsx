@@ -4,7 +4,8 @@ import "./index.scss";
 import App from "./App/App";
 import { AppProvider } from "./ContextApi/GlobalContext";
 import { store, persistor } from "./Reduxtoolkit/store";
-
+import "./Components/HomePage Components/home.scss"
+import "./Pages/Profile Page/profile.scss"
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";

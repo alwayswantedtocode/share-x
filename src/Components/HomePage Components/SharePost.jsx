@@ -1,4 +1,4 @@
-import "./home.scss";
+// import "./home.scss";
 import { FcGallery, FcVideoCall } from "react-icons/fc";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { IoMdPricetag } from "react-icons/io";

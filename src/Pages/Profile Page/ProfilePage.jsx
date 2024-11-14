@@ -1,5 +1,5 @@
-import "./profile.scss";
-import "../../Components/HomePage Components/home.scss";
+// import "./profile.scss";
+// import "../../Components/HomePage Components/home.scss";
 import UserPosts from "../../Components/ProfileInfo/UserPosts";
 import MyProfile from "../../Components/ProfileInfo/My Profile/MyProfile";
 import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileForm";

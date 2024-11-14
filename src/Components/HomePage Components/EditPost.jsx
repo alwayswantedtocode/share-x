@@ -1,10 +1,11 @@
-import "./home.scss";
+// import "./home.scss";
 import React, { useState, useRef, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../Reduxtoolkit/postSlice";
 import axios from "../../API/axios";
 import useReload from "../../Hooks/useReload";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import { useEffect } from "react";
 
 const MIN_TEXTAREA_HEIGHT = 65;
 const EditPost = ({
@@ -14,14 +15,12 @@ const EditPost = ({
   setIsEdit,
 }) => {
   const textareaRef = useRef(null);
-  const { closeEditTexRef } = useGlobalContext();
+  // const { closeEditTexRef } = useGlobalContext();
   const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
   const [editPost, setEditPost] = useState(description);
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
-
- 
 
   useLayoutEffect(() => {
     // Reset height - important to shrink on delete
@@ -44,7 +43,6 @@ const EditPost = ({
       Description: editPost,
       Image: Image,
     };
-    console.log("form", form);
     try {
       await axios.put(`/api/posts/${postId}`, form, {
         params: { userId: currentUser._id },
@@ -56,10 +54,21 @@ const EditPost = ({
     }
   };
 
+  const handleCancelEdit = (e) => {
+    e.preventDefault()
+     setIsEdit(false);
+  }
+
+ 
   return (
-    <div className="edit-post-wrapper">
+    <aside
+      className={`${
+        editPost ? "edit-post-wrapper active" : "edit-post-wrapper"
+      }`}
+    >
       <form
         action=""
+        className="Edit-post-body"
         style={{ display: "flex", gap: "10px", alignItems: "center" }}
         onSubmit={onSubmitEditPost}
       >
@@ -77,11 +86,20 @@ const EditPost = ({
             }}
           />
         </div>
-        <button className="SendButton" type="submit">
-          Edit
-        </button>
+        <div className="btns">
+          <button className="SendButton" type="submit">
+            Edit
+          </button>
+          <button
+            type="button"
+            className="SendButton"
+            onClick={handleCancelEdit}
+          >
+            Cancel
+          </button>
+        </div>
       </form>
-    </div>
+    </aside>
   );
 };
 
