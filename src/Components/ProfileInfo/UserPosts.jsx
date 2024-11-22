@@ -1,7 +1,7 @@
 // import "../../Pages/Profile Page/profile.scss";
 import "../HomePage Components/home.scss";
 import { useState } from "react";
-import Reply from "../HomePage Components/Reply";
+import Reply from "../../Components/HomePage Components/Timeline/Reply";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -10,12 +10,12 @@ import useHandleLike from "../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import moreClass from "../HomePage Components/MoreStlye";
+import moreClass from "../HomePage Components/Timeline/MoreStlye";
 import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
 import OptionsAside from "../Aside/OptionsAside";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
 import useHandleComments from "../../Hooks/useHandleComments";
-import EditPost from "../HomePage Components/EditPost";
+import EditPost from "../HomePage Components/Timeline/EditPost";
 
 // TimeAgo.addDefaultLocale(en);
 

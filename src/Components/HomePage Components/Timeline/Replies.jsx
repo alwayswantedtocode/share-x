@@ -1,12 +1,12 @@
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import useHandleComments from "../../Hooks/useHandleComments";
+import useHandleComments from "../../../Hooks/useHandleComments";
 import { useEffect } from "react";
-import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
 
 TimeAgo.addDefaultLocale(en);
 const Replies = ({

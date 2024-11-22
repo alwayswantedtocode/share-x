@@ -135,18 +135,43 @@
         .sharePostContainer {
           width: 100%;
           padding: 0.625rem;
-          .preview-image {
+          .preview-media {
             width: 100%;
             height: max-content;
-            // border:2px solid red;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
             img {
               width: 50%;
               height: max-content;
               object-fit: cover;
               border-radius: 0.2rem;
+            }
+            video {
+              width: 50%;
+              height: max-content;
+              object-fit: cover;
+              border-radius: 0.2rem;
+            }
+            .icon-btn {
+              width: max-content;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              border: none;
+              padding: 5px;
+              position: absolute;
+              top: 5%;
+              right: 26%;
+              cursor: pointer;
+              background-color: rgba(58, 57, 57, 0.5);
+
+              .icon {
+                color: white;
+                font-size: 1.5rem;
+              }
             }
           }
           .textarea {
@@ -391,12 +416,12 @@
   }
 
   // Timeline Post Content style
-  .TimeLine {
+  .TimeLine,
+  .accountuser-timeline {
     @include themify($themes) {
       width: 90%;
       display: flex;
       flex-direction: column;
-
       @include tab {
         width: 95%;
       }
@@ -407,36 +432,52 @@
       @include web {
         width: 95%;
       }
-      .Nopost {
-        width: 100%;
-        height: 40rem;
+
+
+
+
+
+    }
+  }
+}
+
+//Timeline no Post Section
+.Nopost {
+  @include themify($themes) {
+    width: 100%;
+    height: 40rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: themed("bgSoft");
+
+    .Reload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: themed("textColor");
+
+      .Reload-Btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: themed("bgSoft");
-
-        .Reload {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          .Reload-Btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-            width: 9rem;
-            height: 2.7rem;
-            border-radius: 0.3rem;
-            border: none;
-            background-color: themed("btnColor");
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-          }
-        }
+        margin-top: 20px;
+        width: 9rem;
+        height: 2.7rem;
+        border-radius: 0.3rem;
+        border: none;
+        background-color: themed("btnColor");
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
       }
+    }
+  }
+}
+
+//post style
       .post {
+         @include themify($themes) {
         border-radius: 0.5rem;
         background-color: themed("bg");
         color: themed("textColor");
@@ -516,7 +557,7 @@
                 font-size: 1.1rem;
               }
             }
-            .Image-wrapper {
+            .Media-wrapper {
               width: 100%;
               height: auto;
               display: flex;
@@ -528,9 +569,91 @@
                 height: auto;
                 object-fit: cover;
               }
+              .Desc-video-container {
+                width: 100%;
+                position: relative;
+                video {
+                  max-width: 100%;
+                  height: auto;
+                  object-fit: cover;
+                }
+                .controllers {
+                  width: 100%;
+                  display: flex;
+                  gap: 5px;
+                  padding: 1px 5px;
+                  position: absolute;
+                  bottom: 2%;
+                  visibility: hidden;
+                  background-color: rgba(58, 57, 57, 0.5);
+                  transition: all 0.3s ease-in-out;
+                  .play-pause-container {
+                    width: 80%;
+                    display: flex;
+                    gap: 5px;
+                    .icon-btn {
+                      width: max-content;
+                      display: flex;
+                      align-items: center;
+                      border: none;
+                      background-color: transparent;
+                      .icon {
+                        font-size: 1rem;
+                        color: white;
+                      }
+                    }
+                    .progress-bar-container {
+                      width: 100%;
+                      display: flex;
+                      align-items: center;
+                      gap: 5px;
+                      .progress-bar {
+                        display: flex;
+                        width: 80%;
+                        height: 4px;
+                        border-radius: 2px;
+                        cursor: pointer;
+                      }
+
+                      .time-display {
+                        display: flex;
+                        align-items: center;
+                      }
+                    }
+                  }
+                  .volume-control-container {
+                    display: flex;
+                    align-items: center;
+                    width: 20%;
+                    display: flex;
+                    .icon-btn {
+                      width: max-content;
+                      display: flex;
+                      align-items: center;
+                      border: none;
+                      background-color: transparent;
+                      .icon {
+                        font-size: 1rem;
+                        color: white;
+                      }
+                    }
+                    .volume-slider {
+                      width: 80%;
+                      display: flex;
+                      align-items: center;
+                      height: 4px;
+                    }
+                  }
+                }
+              }
+              .Desc-video-container:hover {
+                .controllers {
+                  visibility: visible;
+                }
+              }
             }
           }
-
+        }
           .info {
             display: flex;
             align-items: center;
@@ -550,9 +673,8 @@
           }
         }
       }
-    }
-  }
-}
+
+
 
 //Edit post
 .edit-post-wrapper {
@@ -778,7 +900,7 @@
           font-weight: 600;
           padding: 0.625rem;
           cursor: pointer;
-          border-radius: 1rem;
+          border-radius: 0.7rem;
           @include tab {
             width: 5rem;
             height: 2.6rem;

@@ -1,10 +1,10 @@
 // import "./home.scss";
 import React, { useState, useRef, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../Reduxtoolkit/postSlice";
-import axios from "../../API/axios";
-import useReload from "../../Hooks/useReload";
-import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import { setLoading } from "../../../Reduxtoolkit/postSlice";
+import axios from "../../../API/axios";
+import useReload from "../../../Hooks/useReload";
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
 import { useEffect } from "react";
 
 const MIN_TEXTAREA_HEIGHT = 65;

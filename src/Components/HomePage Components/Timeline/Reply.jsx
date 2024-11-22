@@ -1,13 +1,13 @@
 // import "./home.scss";
 import Replies from "./Replies";
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import { useRef, useState, useLayoutEffect, useEffect } from "react";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
+import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
 import { useSelector, useDispatch } from "react-redux";
-import { setComments } from "../../Reduxtoolkit/postSlice";
-import axios from "../../API/axios";
-import { useGlobalContext } from "../../ContextApi/GlobalContext";
-import useHandleComments from "../../Hooks/useHandleComments";
+import { setComments } from "../../../Reduxtoolkit/postSlice";
+import axios from "../../../API/axios";
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
+import useHandleComments from "../../../Hooks/useHandleComments";
 
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;

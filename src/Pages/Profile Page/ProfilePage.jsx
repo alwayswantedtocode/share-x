@@ -3,7 +3,7 @@
 import UserPosts from "../../Components/ProfileInfo/UserPosts";
 import MyProfile from "../../Components/ProfileInfo/My Profile/MyProfile";
 import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileForm";
-import SharePost from "../../Components/HomePage Components/SharePost";
+import SharePost from "../../Components/HomePage Components/Timeline/SharePost";
 import CoverImage from "../../Assets/no-image.png";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { useEffect, useState } from "react";
@@ -13,12 +13,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { unfollowUser, followUser } from "../../Reduxtoolkit/authSlice";
 import {
-  setError,
+  setUsererror,
   setUsers,
   setUsersPost,
 } from "../../Reduxtoolkit/appUsersSlice";
 import axios from "../../API/axios";
-import Post from "../../Components/HomePage Components/Post";
+import Post from "../../Components/HomePage Components/Timeline/Post";
+import TimeLine from "../../Components/HomePage Components/Timeline/TimeLine";
 
 const ProfileInfo = () => {
   const username = useParams().username;
@@ -50,7 +51,7 @@ const ProfileInfo = () => {
            )
          );
        } catch (error) {
-         dispatch(setError());
+         dispatch(setUsererror());
          console.error("Error fetching profile data:", error);
        }
      };
@@ -128,7 +129,7 @@ const ProfileInfo = () => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           {username === currentUser?.username ? <SharePost /> : ""}
-          {error ? (
+          {/* {error ? (
             <div className="Nopost">
               <div className="Reload">
                 <p style={{ color: "red" }}>
@@ -168,7 +169,8 @@ const ProfileInfo = () => {
                 </div>
               )}
             </div>
-          )}
+          )} */}
+          <TimeLine/>
         </div>
         <div className="accountuser-info">
           <MyProfile username={username} />

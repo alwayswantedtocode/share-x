@@ -1,23 +1,21 @@
-// import "./home.scss";
-import PropTypes from "prop-types";
 import { useState } from "react";
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import Reply from "./Reply";
-import OptionsAside from "../Aside/OptionsAside";
+import OptionsAside from "../../Aside/OptionsAside";
 import EditPost from "./EditPost";
 import moreClass from "./MoreStlye";
 import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import useHandleLike from "../../Hooks/useHandleLike";
+import useHandleLike from "../../../Hooks/useHandleLike";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import { useGlobalContext } from "../../ContextApi/GlobalContext";
-import useHandleComments from "../../Hooks/useHandleComments";
-import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
-
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
+import useHandleComments from "../../../Hooks/useHandleComments";
+import useHandlePostOptions from "../../../Hooks/useHandlePostOptions";
+import Video from "./video";
 
 TimeAgo.addLocale(en);
 
@@ -29,6 +27,8 @@ const Post = ({
   description,
   Likes,
   Image,
+  media,
+  mediaType,
   Timestamp,
   Comments,
   profilePicture,
@@ -51,7 +51,6 @@ const Post = ({
     setIsEdit(true);
     setMore(false);
   };
-
 
   return (
     <div className="post">
@@ -102,8 +101,12 @@ const Post = ({
               <p>{description}</p>
             )}
           </div>
-          <div className="Image-wrapper">
-            {Image && <img src={Image} alt="Post" />}
+          <div className="Media-wrapper">
+            {mediaType === "image" ? (
+              <img src={media} alt="Post" />
+            ) : mediaType === "video" ? (
+              <Video media={media} />
+            ) : null}
           </div>
         </div>
 
@@ -134,24 +137,5 @@ const Post = ({
     </div>
   );
 };
-
-// Post.propTypes = {
-//   postId: PropTypes.string.isRequired,
-//   userId: PropTypes.string.isRequired,
-//   Username: PropTypes.string.isRequired,
-//   description: PropTypes.string,
-//   Likes: PropTypes.arrayOf(PropTypes.string),
-//   Image: PropTypes.string,
-//   Timestamp: PropTypes.string.isRequired,
-//   Comments: PropTypes.arrayOf(PropTypes.object),
-//   profilePicture: PropTypes.string,
-// };
-
-// Post.defaultProps = {
-//   description: "",
-//   Likes: [],
-//   Comments: [],
-//   profilePicture: Profileimage,
-// };
 
 export default Post;
