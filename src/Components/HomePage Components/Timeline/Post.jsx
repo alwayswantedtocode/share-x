@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
 import { MdOutlineMoreHoriz, MdOutlineIosShare } from "react-icons/md";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageAlt } from "react-icons/bi";
-import useHandleLike from "../../../Hooks/useHandleLike";
+import useHandPostleLike from "../../../Hooks/useHandPostleLike";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { useGlobalContext } from "../../../ContextApi/GlobalContext";
-import useHandleComments from "../../../Hooks/useHandleComments";
+import useHandleCommentsLikes from "../../../Hooks/useHandleCommentsLikes";
 import useHandlePostOptions from "../../../Hooks/useHandlePostOptions";
 import Video from "./video";
 
@@ -33,9 +33,10 @@ const Post = ({
   Comments,
   profilePicture,
 }) => {
-  const { moreRef, commentRef } = useGlobalContext();
-  const { like, isLiked, likeHandler } = useHandleLike(Likes, feeds);
-  const { isCommentOpen, commentHandle } = useHandleComments();
+  const { moreRef, } = useGlobalContext();
+  const { likeCount, isLiked, likeHandler } = useHandPostleLike(Likes, feeds);
+  const { isCommentOpen, commentHandle, toggleComments } =
+    useHandleCommentsLikes();
   const { handleMoreOptions, more, setMore } = useHandlePostOptions();
   const { currentUser } = useSelector((state) => state.auth);
 
@@ -113,14 +114,17 @@ const Post = ({
         <div className="info">
           <div className="item" onClick={likeHandler}>
             {isLiked ? (
-              <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
+              <AiFillHeart
+                className="icon"
+                style={{ color: "rgb(165, 43, 43)" }}
+              />
             ) : (
-              <AiOutlineHeart />
+              <AiOutlineHeart className="icon" />
             )}
-            <p>{like}</p>
+            <p>{likeCount}</p>
           </div>
-          <div className="item" ref={commentRef}>
-            <span onClick={commentHandle}>
+          <div className="item">
+            <span className="icon" onClick={toggleComments}>
               <BiMessageAlt />
             </span>
             <p>{Comments?.length}</p>
@@ -130,9 +134,7 @@ const Post = ({
           </div>
         </div>
 
-        {isCommentOpen && (
-          <Reply postId={postId} feeds={feeds} Comments={Comments} />
-        )}
+        {isCommentOpen && <Reply postId={postId} feeds={feeds} />}
       </div>
     </div>
   );

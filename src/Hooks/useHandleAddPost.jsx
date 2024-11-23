@@ -14,11 +14,11 @@ const useHandleAddPost = (
   text
 ) => {
   const { currentUser } = useSelector((state) => state.auth);
-    const { posts } = useSelector((state) => state.post);
-    const { usersPosts } = useSelector((state) => state.Users);
+  const { posts } = useSelector((state) => state.post);
+  const { usersPosts } = useSelector((state) => state.Users);
   const dispatch = useDispatch();
-    const storage = getStorage();
-    
+  const storage = getStorage();
+
   // Media handler
   const handleUpload = (e) => {
     const selectedFile = e.target.files[0];
@@ -44,7 +44,7 @@ const useHandleAddPost = (
   const handleReomveMediaPreview = () => {
     setFile(null);
     setViewMedia(null);
-  }
+  };
 
   const uploadMediaToStorage = async () => {
     if (file) {
@@ -62,7 +62,7 @@ const useHandleAddPost = (
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
-    dispatch(setLoading());
+    dispatch(setLoading(true));
 
     if (text.current.value.trim() || file) {
       try {
@@ -75,7 +75,7 @@ const useHandleAddPost = (
           Fullname: currentUser?.Fullname,
           Description: text.current.value.trim(),
           Media: mediaUrl,
-          MediaType:mediaType,
+          MediaType: mediaType,
         });
 
         dispatch(setPosts([response.data, ...posts]));
@@ -86,10 +86,12 @@ const useHandleAddPost = (
         setMediaType("");
       } catch (error) {
         alert(error.message);
+      } finally {
+        dispatch(setLoading(false));
       }
     }
   };
-  return { handleUpload,handleReomveMediaPreview, handleSubmitPost };
+  return { handleUpload, handleReomveMediaPreview, handleSubmitPost };
 };
 
 export default useHandleAddPost;

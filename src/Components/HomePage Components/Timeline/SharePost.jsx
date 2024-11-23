@@ -7,7 +7,7 @@ import ProfileImage from "../../../Assets/profile-gender-neutral.jpg";
 import { useState, useRef, useLayoutEffect } from "react";
 import { Picker } from "emoji-mart";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import useHandleAddPost from "../../../Hooks/useHandleAddPost";
 import { FiX } from "react-icons/fi";
 
@@ -23,8 +23,7 @@ const SharePost = () => {
   };
 
   const { currentUser } = useSelector((state) => state.auth);
-  const { posts } = useSelector((state) => state.post);
-  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.post);
 
   const [value, setValue] = useState("");
   const [viewMedia, setViewMedia] = useState(null);
@@ -110,7 +109,12 @@ const SharePost = () => {
                 />
               </div>
 
-              <button className="SendButton" type="submit">
+              <button
+                style={{ backgroundColor: loading && "rgb(196, 181, 255)" }}
+                className="SendButton"
+                type="submit"
+                disabled={loading}
+              >
                 Share
               </button>
             </div>
