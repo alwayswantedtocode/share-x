@@ -8,7 +8,7 @@ const useHandleDelete = (postId) => {
   const { currentUser } = useSelector((state) => state.auth);
   const { setMore } = useHandlePostOptions();
   const { handleReload } = useReload();
-  console.log("postId in use delete:", postId);
+//   console.log("postId in use delete:", postId);
 
   const handleDeletePost = async () => {
     try {
