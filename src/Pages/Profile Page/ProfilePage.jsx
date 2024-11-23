@@ -1,9 +1,6 @@
-// import "./profile.scss";
-// import "../../Components/HomePage Components/home.scss";
-import UserPosts from "../../Components/ProfileInfo/UserPosts";
 import MyProfile from "../../Components/ProfileInfo/My Profile/MyProfile";
 import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileForm";
-import SharePost from "../../Components/HomePage Components/SharePost";
+import SharePost from "../../Components/HomePage Components/Timeline/SharePost";
 import CoverImage from "../../Assets/no-image.png";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { useEffect, useState } from "react";
@@ -13,12 +10,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { unfollowUser, followUser } from "../../Reduxtoolkit/authSlice";
 import {
-  setError,
+  setUsererror,
   setUsers,
   setUsersPost,
 } from "../../Reduxtoolkit/appUsersSlice";
 import axios from "../../API/axios";
-import Post from "../../Components/HomePage Components/Post";
+import Post from "../../Components/HomePage Components/Timeline/Post";
+import TimeLine from "../../Components/HomePage Components/Timeline/TimeLine";
 
 const ProfileInfo = () => {
   const username = useParams().username;
@@ -50,7 +48,7 @@ const ProfileInfo = () => {
            )
          );
        } catch (error) {
-         dispatch(setError());
+         dispatch(setUsererror());
          console.error("Error fetching profile data:", error);
        }
      };
@@ -128,47 +126,8 @@ const ProfileInfo = () => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           {username === currentUser?.username ? <SharePost /> : ""}
-          {error ? (
-            <div className="Nopost">
-              <div className="Reload">
-                <p style={{ color: "red" }}>
-                  Something went wrong. Refresh...{" "}
-                </p>
-                <button className="Reload-Btn" onClick={handleReload}>
-                  <IoReload />
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div>
-              {usersPosts?.length > 0 ? (
-                usersPosts?.map((feeds, index) => (
-                  <UserPosts
-                    key={index}
-                    postId={feeds._id}
-                    userId={feeds.userId}
-                    Username={username}
-                    Likes={feeds.Likes}
-                    Image={feeds.Image}
-                    feeds={feeds}
-                    Description={feeds.Description}
-                    Comments={feeds.Comments}
-                    Timestamp={feeds.createdAt}
-                  />
-                  // <Post key={feeds._id} {...feeds} feeds={feeds} />
-                ))
-              ) : (
-                <div className="Nopost">
-                  <div className="Reload">
-                    <p>No posts available. </p>
-                    <button className="Reload-Btn" onClick={handleReload}>
-                      <IoReload />
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+    
+          <TimeLine/>
         </div>
         <div className="accountuser-info">
           <MyProfile username={username} />

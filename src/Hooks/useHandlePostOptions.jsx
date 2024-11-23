@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useGlobalContext } from "../ContextApi/GlobalContext";
 
 const useHandlePostOptions = () => {
-  const { moreRef, editPostRef,} =
-    useGlobalContext();
+  const { moreRef, editPostRef } = useGlobalContext();
   const [more, setMore] = useState(false);
 
   const handleMoreOptions = () => {
@@ -11,19 +10,16 @@ const useHandlePostOptions = () => {
   };
 
   const closePotionOnmousedown = (event) => {
-    if (moreRef.current && !moreRef.current.contains(event.target)) {
-      setMore(false);
-    } else {
       event.stopPropagation();
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("mousedown", closePotionOnmousedown);
-    return () => {
-      document.removeEventListener("mousedown", closePotionOnmousedown);
+      if ( !moreRef.current.contains(event.target)) {
+        
+        setMore(false);
+      }
     };
-  }, []);
+ 
+  
 
+  
   return {
     more,
     setMore,

@@ -1,12 +1,12 @@
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
+import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
-import useHandleComments from "../../Hooks/useHandleComments";
+import useHandleCommentsLikes from "../../../Hooks/useHandleCommentsLikes";
 import { useEffect } from "react";
-import { useGlobalContext } from "../../ContextApi/GlobalContext";
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
 
 TimeAgo.addDefaultLocale(en);
 const Replies = ({
@@ -25,13 +25,8 @@ const Replies = ({
   // Format the date using TimeAgo
   const formattedDate = timeAgo.format(date);
 
-
-  const { isLikedComment, likedComment, commentLikeHandler } =
-    useHandleComments(comment, feeds);
-
-  const dispatch = useDispatch();
-
-
+  const { commentLikesCount, isCommentLiked, commentLikeHandler } =
+    useHandleCommentsLikes(comment, feeds);
 
   return (
     <>
@@ -64,13 +59,13 @@ const Replies = ({
         </div>
         <div className="impressions">
           <span onClick={commentLikeHandler}>
-            {isLikedComment ? (
+            {isCommentLiked ? (
               <AiFillHeart style={{ color: "rgb(165, 43, 43)" }} />
             ) : (
               <AiOutlineHeart />
             )}
           </span>
-          <p>{likedComment}</p>
+          <p>{commentLikesCount}</p>
         </div>
       </div>
     </>

@@ -10,7 +10,7 @@ TimeAgo.addLocale(en);
 const NotificationAside = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const Notification = currentUser?.notifications;
-  console.log(Notification);
+  // console.log(Notification);
 
   
 

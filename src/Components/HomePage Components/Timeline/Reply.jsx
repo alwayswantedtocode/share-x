@@ -1,18 +1,18 @@
 // import "./home.scss";
 import Replies from "./Replies";
-import Profileimage from "../../Assets/profile-gender-neutral.jpg";
-import { useRef, useState, useLayoutEffect, useEffect } from "react";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
-import { useSelector, useDispatch } from "react-redux";
-import { setComments } from "../../Reduxtoolkit/postSlice";
-import axios from "../../API/axios";
-import { useGlobalContext } from "../../ContextApi/GlobalContext";
-import useHandleComments from "../../Hooks/useHandleComments";
+import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
+import { useRef, useState, useLayoutEffect } from "react";
+import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
+import { useSelector } from "react-redux";
+import { setLoading } from "../../../Reduxtoolkit/postSlice";
+import { useGlobalContext } from "../../../ContextApi/GlobalContext";
+import useHandleCommentsLikes from "../../../Hooks/useHandleCommentsLikes";
+import useHandleAddComment from "../../../Hooks/useHandleAddComment";
 
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;
 
-const Reply = ({ postId, feeds, Comments, iscommentopen }) => {
+const Reply = ({ postId, feeds }) => {
   const textareaRef = useRef(null);
   const Comment = useRef("");
 
@@ -37,38 +37,15 @@ const Reply = ({ postId, feeds, Comments, iscommentopen }) => {
   const { user } = useAuthenticationContext();
   const { commentRef } = useGlobalContext();
   const { isCommentOpen, commentHandle, closeCommentOnMousedown } =
-    useHandleComments();
+    useHandleCommentsLikes();
   const { currentUser } = useSelector((state) => state.auth);
-  const { comments } = useSelector((state) => state.post);
-  const dispatch = useDispatch();
+  const { posts, loading } = useSelector((state) => state.post);
 
-  const handleComment = async (e) => {
-    e.preventDefault();
-    if (Comment.current.value !== "") {
-      try {
-        console.log("hello");
-        // Use Axios to send post data to your backend route
-        const form = {
-          userId: currentUser?._id,
-          username: currentUser?.username,
-          profilePicture: currentUser?.profilePicture,
-          comments: Comment.current.value,
-        };
-        console.log("form:", form);
-        const response = await axios.post(
-          `/api/posts/${postId}/comments`,
-          form
-        );
-        dispatch(setComments(response.data, ...Comments));
-        Comment.current.value = "";
-      } catch (error) {
-        alert(error.message);
-      }
-    } else {
-    }
-  };
+  const currentPost = posts.find((post) => post._id === postId);
+  const comments = currentPost?.Comments || [];
+  // console.log("comments in reply:",comments)
 
-
+  const { handleComment } = useHandleAddComment(Comment, postId, comments);
 
   return (
     <div className="comments" ref={commentRef}>
@@ -89,13 +66,19 @@ const Reply = ({ postId, feeds, Comments, iscommentopen }) => {
             }}
             ref={setRefs}
           />
-          <button type="submit">Reply</button>
+          <button
+            style={{ backgroundColor: !loading && "rgb(196, 181, 255)" }}
+            type="submit"
+            // disabled={loading}
+          >
+            Reply
+          </button>
         </form>
       </div>
 
-      {Comments?.length > 0 && (
+      {comments?.length > 0 && (
         <div>
-          {Comments?.map((comment) => {
+          {comments?.map((comment) => {
             return (
               <Replies
                 key={comment._id}

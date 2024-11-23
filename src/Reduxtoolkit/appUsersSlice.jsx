@@ -5,7 +5,7 @@ const initialState = {
   usersPosts: [],
   token: null,
   loading: false,
-  error: false,
+  usererror: false,
 };
 
 export const authSlice = createSlice({
@@ -23,7 +23,7 @@ export const authSlice = createSlice({
     setUsersPost: (state, action) => {
       state.usersPosts = action.payload;
     },
-    setError: (state,action) => {
+    setUsererror: (state,action) => {
      state.loading = false;
      state.error = action.payload && action.payload.length === 0;
     },
@@ -41,7 +41,7 @@ export const {
   setLoading,
   setUsers,
   setUsersPost,
-  setError,
+  setUsererror,
   removeUsers,
 
 } = authSlice.actions;
