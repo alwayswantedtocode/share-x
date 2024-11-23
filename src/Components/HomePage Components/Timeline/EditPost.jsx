@@ -6,21 +6,22 @@ import axios from "../../../API/axios";
 import useReload from "../../../Hooks/useReload";
 import { useGlobalContext } from "../../../ContextApi/GlobalContext";
 import { useEffect } from "react";
+import useHandleEdit from "../../../Hooks/useHandleEdit";
 
 const MIN_TEXTAREA_HEIGHT = 65;
-const EditPost = ({
-  description,
-  postId,
-  Image,
-  setIsEdit,
-}) => {
+const EditPost = ({ description, postId, Image, isEdit, setIsEdit }) => {
   const textareaRef = useRef(null);
   // const { closeEditTexRef } = useGlobalContext();
   const { handleReload } = useReload();
   const { currentUser } = useSelector((state) => state.auth);
   const [editPost, setEditPost] = useState(description);
   const [value, setValue] = useState("");
-  const dispatch = useDispatch();
+ const dispatch = useDispatch();
+  const { } = useHandleEdit(
+    editPost,
+    value,
+  );
+
 
   useLayoutEffect(() => {
     // Reset height - important to shrink on delete
@@ -55,15 +56,14 @@ const EditPost = ({
   };
 
   const handleCancelEdit = (e) => {
-    e.preventDefault()
-     setIsEdit(false);
-  }
+    e.preventDefault();
+    setIsEdit(false);
+  };
 
- 
   return (
     <aside
       className={`${
-        editPost ? "edit-post-wrapper active" : "edit-post-wrapper"
+        isEdit && editPost ? "edit-post-wrapper active" : "edit-post-wrapper"
       }`}
     >
       <form

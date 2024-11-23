@@ -67,9 +67,9 @@ const Reply = ({ postId, feeds }) => {
             ref={setRefs}
           />
           <button
-            style={{ backgroundColor: loading && "rgb(196, 181, 255)" }}
+            style={{ backgroundColor: !loading && "rgb(196, 181, 255)" }}
             type="submit"
-            disabled={loading}
+            // disabled={loading}
           >
             Reply
           </button>

@@ -13,13 +13,13 @@ const useHandleCommentsLikes = (comment, feeds) => {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  console.log("comments in use handle comment:", comment);
-  console.log("commentId in use handle comment:", comment?._id);
-  console.log("postId in use handle comments: ", feeds?._id);
-  console.log(
-    "coments like in use handle comments: ",
-    comment?.Likes, + comment?.Likes?.length
-  );
+  // console.log("comments in use handle comment:", comment);
+  // console.log("commentId in use handle comment:", comment?._id);
+  // console.log("postId in use handle comments: ", feeds?._id);
+  // console.log(
+  //   "coments like in use handle comments: ",
+  //   comment?.Likes, + comment?.Likes?.length
+  // );
 
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [commentLikesCount, setCommentLikesCount] = useState(

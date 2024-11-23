@@ -432,11 +432,6 @@
       @include web {
         width: 95%;
       }
-
-
-
-
-
     }
   }
 }
@@ -476,205 +471,206 @@
 }
 
 //post style
-      .post {
-         @include themify($themes) {
-        border-radius: 0.5rem;
-        background-color: themed("bg");
-        color: themed("textColor");
-        box-shadow: rgba(159, 159, 159, 0.3);
-        -webkit-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
-          rgba(159, 159, 159, 0.3);
-        -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
-          rgba(159, 159, 159, 0.3);
-        margin-bottom: 1.5rem;
+.post {
+  @include themify($themes) {
+    border-radius: 0.5rem;
+    background-color: themed("bg");
+    color: themed("textColor");
+    box-shadow: rgba(159, 159, 159, 0.3);
+    -webkit-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+      rgba(159, 159, 159, 0.3);
+    -moz-box-shadow: 0.0625rem 0.0625rem 0.25rem 0.0625rem
+      rgba(159, 159, 159, 0.3);
+    margin-bottom: 1.5rem;
 
-        .container {
-          padding: 1.25rem 1.25rem 1.25rem 1rem;
+    .container {
+      padding: 1.25rem 1.25rem 1.25rem 1rem;
 
-          .user {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-            .userInfo {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 1.25rem;
-              // border: 2px solid green;
-              padding: 0 0.3rem 0 0;
+        .userInfo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1.25rem;
+          // border: 2px solid green;
+          padding: 0 0.3rem 0 0;
 
-              img {
-                width: 2.2rem;
-                height: 2.2rem;
-                border-radius: 50%;
-                object-fit: cover;
-                @include tab {
-                  width: 3rem;
-                  height: 3rem;
-                }
-                @include surface-Pro {
-                  width: 3rem;
-                  height: 3rem;
-                }
-                @include web {
-                  width: 3rem;
-                  height: 3rem;
-                }
-                @include web-large {
-                  width: 3rem;
-                  height: 3rem;
-                }
-              }
-
-              .details {
-                display: flex;
-                flex-direction: column;
-
-                .name {
-                  font-weight: 500;
-                  text-transform: capitalize;
-                }
-
-                .date {
-                  font-size: 12px;
-                  font-weight: 500;
-                }
-              }
+          img {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            object-fit: cover;
+            @include tab {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include surface-Pro {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web {
+              width: 3rem;
+              height: 3rem;
+            }
+            @include web-large {
+              width: 3rem;
+              height: 3rem;
             }
           }
 
-          .content {
+          .details {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin: 1.25rem 0;
-            .desc-wrapper {
-              width: 100%;
-              height: max-content;
-              p {
-                width: 100%;
-                font-size: 1.1rem;
-              }
-            }
-            .Media-wrapper {
-              width: 100%;
-              height: auto;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              overflow: hidden;
-              img {
-                max-width: 100%;
-                height: auto;
-                object-fit: cover;
-              }
-              .Desc-video-container {
-                width: 100%;
-                position: relative;
-                video {
-                  max-width: 100%;
-                  height: auto;
-                  object-fit: cover;
-                }
-                .controllers {
-                  width: 100%;
-                  display: flex;
-                  gap: 5px;
-                  padding: 1px 5px;
-                  position: absolute;
-                  bottom: 2%;
-                  visibility: hidden;
-                  background-color: rgba(58, 57, 57, 0.5);
-                  transition: all 0.3s ease-in-out;
-                  .play-pause-container {
-                    width: 80%;
-                    display: flex;
-                    gap: 5px;
-                    .icon-btn {
-                      width: max-content;
-                      display: flex;
-                      align-items: center;
-                      border: none;
-                      background-color: transparent;
-                      .icon {
-                        font-size: 1rem;
-                        color: white;
-                      }
-                    }
-                    .progress-bar-container {
-                      width: 100%;
-                      display: flex;
-                      align-items: center;
-                      gap: 5px;
-                      .progress-bar {
-                        display: flex;
-                        width: 80%;
-                        height: 4px;
-                        border-radius: 2px;
-                        cursor: pointer;
-                      }
 
-                      .time-display {
-                        display: flex;
-                        align-items: center;
-                      }
-                    }
-                  }
-                  .volume-control-container {
-                    display: flex;
-                    align-items: center;
-                    width: 20%;
-                    display: flex;
-                    .icon-btn {
-                      width: max-content;
-                      display: flex;
-                      align-items: center;
-                      border: none;
-                      background-color: transparent;
-                      .icon {
-                        font-size: 1rem;
-                        color: white;
-                      }
-                    }
-                    .volume-slider {
-                      width: 80%;
-                      display: flex;
-                      align-items: center;
-                      height: 4px;
-                    }
-                  }
-                }
-              }
-              .Desc-video-container:hover {
-                .controllers {
-                  visibility: visible;
-                }
-              }
+            .name {
+              font-weight: 500;
+              text-transform: capitalize;
             }
-          }
-        }
-          .info {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
 
-            .item {
-              display: flex;
-              align-items: center;
-              gap: 0.625rem;
-              font-size: 1.1rem;
-              .icon {
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-              }
+            .date {
+              font-size: 12px;
+              font-weight: 500;
             }
           }
         }
       }
 
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 1.25rem 0;
+        .desc-wrapper {
+          width: 100%;
+          height: max-content;
+          p {
+            width: 100%;
+            font-size: 1.1rem;
+          }
+        }
+        .Media-wrapper {
+          width: 100%;
+          height: auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          img {
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+          }
+          .Desc-video-container {
+            width: 100%;
+            position: relative;
+            video {
+              max-width: 100%;
+              height: auto;
+              object-fit: cover;
+            }
+            .controllers {
+              width: 100%;
+              display: flex;
+              gap: 5px;
+              padding: 1px 5px;
+              position: absolute;
+              bottom: 2%;
+              visibility: hidden;
+              background-color: rgba(58, 57, 57, 0.5);
+              transition: all 0.3s ease-in-out;
+              .play-pause-container {
+                width: 80%;
+                display: flex;
+                gap: 5px;
+                .icon-btn {
+                  width: max-content;
+                  display: flex;
+                  align-items: center;
+                  border: none;
+                  background-color: transparent;
+                  .icon {
+                    font-size: 1rem;
+                    color: white;
+                  }
+                }
+                .progress-bar-container {
+                  width: 100%;
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                  .progress-bar {
+                    display: flex;
+                    width: 80%;
+                    height: 4px;
+                    border-radius: 2px;
+                    cursor: pointer;
+                  }
 
+                  .time-display {
+                    display: flex;
+                    align-items: center;
+                    p {
+                      color: white;
+                    }
+                  }
+                }
+              }
+              .volume-control-container {
+                display: flex;
+                align-items: center;
+                width: 20%;
+                display: flex;
+                .icon-btn {
+                  width: max-content;
+                  display: flex;
+                  align-items: center;
+                  border: none;
+                  background-color: transparent;
+                  .icon {
+                    font-size: 1rem;
+                    color: white;
+                  }
+                }
+                .volume-slider {
+                  width: 80%;
+                  display: flex;
+                  align-items: center;
+                  height: 4px;
+                }
+              }
+            }
+          }
+          .Desc-video-container:hover {
+            .controllers {
+              visibility: visible;
+            }
+          }
+        }
+      }
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        font-size: 1.1rem;
+        .icon {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
 
 //Edit post
 .edit-post-wrapper {
@@ -708,25 +704,25 @@
       -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
 
       @include surface-duo {
-        width: 80%;
+        width: 60%;
 
         border-radius: 0.5rem;
       }
       @include tab {
-        width: 70%;
+        width: 50%;
         border-radius: 0.5rem;
       }
       @include surface-Pro {
-        width: 60%;
+        width: 50%;
         border-radius: 0.5rem;
       }
 
       @include web {
-        width: 45%;
+        width: 40%;
         border-radius: 0.5rem;
       }
       @include web-medium {
-        width: 50%;
+        width: 45%;
         border-radius: 0.5rem;
       }
 
@@ -816,6 +812,99 @@
   }
 }
 .edit-post-wrapper.active {
+  visibility: visible;
+  z-index: 999;
+  transform: scale(1);
+}
+
+//Edit post
+.delete-post-wrapper {
+  @include themify($themes) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: themed("trans-background");
+    z-index: 999;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0);
+
+    .Delete-post-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      border-radius: 0.5rem;
+      width: 40%;
+      height: max-content;
+      background-color: themed("bg");
+      box-shadow: rgba(159, 159, 159, 0.3);
+      -webkit-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+      -moz-box-shadow: 0px 1px 4px 1px rgba(159, 159, 159, 0.3);
+
+      @include surface-duo {
+        width: 40%;
+      }
+      @include tab {
+        width: 40%;
+      }
+      @include surface-Pro {
+        width: 35%;
+      }
+      @include web {
+        width: 20%;
+      }
+      @include web-medium {
+        width: 30%;
+      }
+      .btns {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .SendButton {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 90%;
+          height: 2rem;
+          font-weight: 600;
+          border: none;
+          padding: 0.4375rem;
+          border-radius: 0.3rem;
+          background-color: themed("btnColor");
+          color: white;
+          cursor: pointer;
+          @include surface-duo {
+            width: 80%;
+          }
+          @include tab {
+            width: 60%;
+          }
+          @include surface-Pro {
+            width: 60%;
+          }
+          @include web {
+            width: 40%;
+          }
+          @include web-medium {
+            width: 40%;
+          }
+        }
+      }
+    }
+  }
+}
+.delete-post-wrapper.active {
   visibility: visible;
   z-index: 999;
   transform: scale(1);
