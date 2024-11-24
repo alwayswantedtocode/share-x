@@ -8,12 +8,8 @@ import { useSelector } from "react-redux";
 const UserProfile = ({ username }) => {
   const { currentUser } = useSelector((state) => state.auth);
   const { users } = useSelector((state) => state.Users);
-  const { openEditInfo } = useGlobalContext();
-  const [showEditbio, setShoweditbio] = useState(false);
-
-  const handleEditbio = () => {
-    setShoweditbio(true);
-  };
+  const { openEditInfo, handleOpenEditbio, showEditbio, setShoweditbio } =
+    useGlobalContext();
 
   return (
     <section className="InfoComponent">
@@ -60,7 +56,7 @@ const UserProfile = ({ username }) => {
                     </div>
                     {username === currentUser?.username && (
                       <div className="buttons">
-                        <button onClick={handleEditbio}>Edit Bio</button>
+                        <button onClick={handleOpenEditbio}>Edit Bio</button>
                         <button onClick={openEditInfo}>Edit Details</button>
                       </div>
                     )}
@@ -68,10 +64,7 @@ const UserProfile = ({ username }) => {
                 </div>
               </div>
             ) : (
-              <EditBio
-                showEditbio={showEditbio}
-                setShoweditbio={setShoweditbio}
-              />
+              <EditBio />
             )}
           </div>
         ) : (
