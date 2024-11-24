@@ -3,16 +3,20 @@ import React, { useRef, useState, useLayoutEffect } from "react";
 import axios from "../../API/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../../Reduxtoolkit/authSlice";
+import { useGlobalContext } from "../../ContextApi/GlobalContext";
 
 const MIN_TEXTAREA_HEIGHT = 95;
 
-const EditBio = ({ setShoweditbio }) => {
+const EditBio = () => {
+  const { handleCancelEditbio, setShoweditbio, openEditInfo } =
+    useGlobalContext();
+
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const textareaRef = useRef(null);
 
-const [editBio, setEditBio]=useState(currentUser?.Bio)
- 
+  const [editBio, setEditBio] = useState(currentUser?.Bio);
+
   //textarea auto adjust
   const [value, setValue] = useState("");
 
@@ -67,14 +71,14 @@ const [editBio, setEditBio]=useState(currentUser?.Bio)
           ref={textareaRef}
         />
         <div className="cancel-save-buttons">
-          <button type="button" onClick={handleCancelBtn}>
+          <button type="button" onClick={handleCancelEditbio}>
             Cancel
           </button>
           <button onClick={submitBio}>Save</button>
         </div>
       </form>
       <div className="Edit-details-buttons">
-        <button>Edit Details</button>
+        <button onClick={openEditInfo}>Edit Details</button>
       </div>
     </div>
   );
