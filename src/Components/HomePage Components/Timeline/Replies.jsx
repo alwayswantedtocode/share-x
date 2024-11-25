@@ -1,12 +1,11 @@
 import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import useHandleCommentsLikes from "../../../Hooks/useHandleCommentsLikes";
 import { useEffect } from "react";
-import { useGlobalContext } from "../../../ContextApi/GlobalContext";
+
 
 TimeAgo.addDefaultLocale(en);
 const Replies = ({
@@ -28,9 +27,11 @@ const Replies = ({
   const { commentLikesCount, isCommentLiked, commentLikeHandler } =
     useHandleCommentsLikes(comment, feeds);
 
+ 
+
   return (
     <>
-      <div className="comment-div">
+      <div className="comment-div" >
         <div className="CommenterInfo">
           <Link
             to={`/profilepage/${username}`}

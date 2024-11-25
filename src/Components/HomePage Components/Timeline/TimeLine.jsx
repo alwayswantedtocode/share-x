@@ -10,6 +10,7 @@ import {
 } from "../../../Reduxtoolkit/appUsersSlice";
 import axios from "../../../API/axios";
 import { useParams } from "react-router-dom";
+import { DropdownProvider } from "../../../ContextApi/DropdownContext";
 
 const TimeLine = () => {
   const { username } = useParams();
@@ -58,20 +59,22 @@ const TimeLine = () => {
   const renderPosts = (postList) => {
     return postList.length > 0 ? (
       postList.map((feeds) => (
-        <Post
-          key={feeds._id}
-          feeds={feeds}
-          postId={feeds._id}
-          userId={feeds.userId}
-          description={feeds.Description}
-          Likes={feeds.Likes}
-          Image={feeds.Image}
-          media={feeds.Media}
-          mediaType={feeds.MediaType}
-          Timestamp={feeds.createdAt}
-          Username={feeds.username}
-          Comments={feeds?.Comments}
-        />
+        <DropdownProvider key={feeds._id}>
+          {" "}
+          <Post
+            feeds={feeds}
+            postId={feeds._id}
+            userId={feeds.userId}
+            description={feeds.Description}
+            Likes={feeds.Likes}
+            Image={feeds.Image}
+            media={feeds.Media}
+            mediaType={feeds.MediaType}
+            Timestamp={feeds.createdAt}
+            Username={feeds.username}
+            Comments={feeds?.Comments}
+          />
+        </DropdownProvider>
       ))
     ) : (
       <div className="Nopost">

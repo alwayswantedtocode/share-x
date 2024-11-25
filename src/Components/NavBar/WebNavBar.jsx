@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useCallback } from "react";
 import "./nav.scss";
 // import "../Aside/Aside.scss";
 import { AiOutlineHome } from "react-icons/ai";
@@ -12,7 +11,6 @@ import {
 } from "react-icons/md";
 
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import { Link, NavLink } from "react-router-dom";
 import MessageAside from "../Aside/MessageAside";
 import NotificationAside from "../Aside/NotificationAside";
@@ -22,82 +20,49 @@ import { useSelector } from "react-redux";
 import axios from "../../API/axios";
 import SearchAside from "../Aside/SearchAside";
 import useSearch from "../../Hooks/useSearch";
+import { useDropdownContext } from "../../ContextApi/DropdownContext";
 
-const WebNavBar = (username) => {
-  const { isDarkMode, modeToggle, closeAsideRef, searchBarRef } =
+const WebNavBar = () => {
+  const { isDarkMode, modeToggle, searchBarRef } =
     useGlobalContext();
-
-  const { isSearchVisible, setIsSearchVisible, toggleSearchVisibility } =
-    useSearch();
-  const { AuthUser } = useAuthenticationContext();
-  const { currentUser } = useSelector((state) => state.auth);
-
-  // const closeAsideRef = useRef();
-
   //buttons dropdown states
-  const [onClickIcon, setOnClickIcon] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const {
+    rightButtonsRef,
+    messageRef,
+    profileRef,
+    notificationRef,
+    activeDropdown,
+    toggleDropdown,
+    closeDropdown,
+  } = useDropdownContext();
+
+  const { isSearchVisible, toggleSearchVisibility } = useSearch();
+  const { currentUser } = useSelector((state) => state.auth);
 
   const [search, setsearch] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
-  const handleShowResult = () => {
-    setShowResult(true);
-  };
-
-  const handleIcons = (index) => {
-    const updatedOnClickIcon = onClickIcon.map((clicked, i) =>
-      i === index ? !clicked : false
-    );
-    setOnClickIcon(updatedOnClickIcon);
-
-    if (updatedOnClickIcon[index]) {
-      const asideElement = document.getElementById(`aside-${index}`);
-      const iconElement = document.getElementById(`Icon-${index}`);
-
-      if (asideElement && iconElement) {
-        const iconRect = iconElement.getBoundingClientRect(`Icon-${index}`);
-        const asideRect = asideElement.getBoundingClientRect(`aside-${index}`);
-
-        const bottom = iconRect.buttom - asideRect.height;
-
-        asideElement.style.buttom = `${bottom}px`;
+  //close dropdown on mousedown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        messageRef.current &&
+        !messageRef.current.contains(event.target) &&
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target) &&
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
+        closeDropdown();
       }
-    }
-  };
-  // close the menu buttons dropdown
-  // const handleAside = (e) => {
-  //   if (!closeAsideRef.current.contains(e.target)) {
-  //     setOnClickIcon(onClickIcon);
-  //   }
-  // };
+    };
 
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleAside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleAside);
-  //   };
-  // }, []);
-
-  // close search result dorpdown onclicking the result.
-  // const closeSearchReault = (e) => {
-  //   if (searchResultRef.current.contains(e.target)) {
-  //     setShowResult(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", closeSearchReault);
-  //   return () => {
-  //     document.removeEventListener("mousedown", closeSearchReault);
-  //   };
-  // }, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeDropdown]);
 
   useEffect(() => {
     if (search.trim() === "") {
@@ -173,54 +138,58 @@ const WebNavBar = (username) => {
         </div>
 
         <div className="Right-buttons">
-          <div>
-            <div ref={closeAsideRef}>
+          <div ref={messageRef}>
+            <div>
               <button
                 className="right-btn"
                 id="Icon-0"
-                onClick={() => handleIcons(0)}
+                onClick={() => toggleDropdown(0)}
               >
                 <MdOutlineMail />
               </button>
               <aside
                 id="aside-0"
-                className={`${onClickIcon[0] ? "Aside active " : "Aside"}`}
+                className={`${
+                  activeDropdown === 0 ? "Aside active " : "Aside"
+                }`}
               >
                 <MessageAside />
               </aside>
             </div>
           </div>
 
-          <div>
-            <div ref={closeAsideRef}>
+          <div ref={notificationRef}>
+            <div>
               <button
                 className="right-btn"
                 id="Icon-1"
-                onClick={() => handleIcons(1)}
+                onClick={() => toggleDropdown(1)}
               >
                 <MdOutlineNotificationsNone />
               </button>
               <aside
                 id="aside-1"
-                className={`${onClickIcon[1] ? "Aside active " : "Aside"}`}
+                className={`${
+                  activeDropdown === 1 ? "Aside active " : "Aside"
+                }`}
               >
                 <NotificationAside />
               </aside>
             </div>
           </div>
         </div>
-        <div>
+
+        <div ref={profileRef}>
           <div
-            ref={closeAsideRef}
             id="Icon-2"
             className="user right-btn"
-            onClick={() => handleIcons(2)}
+            onClick={() => toggleDropdown(2)}
           >
             <img src={currentUser?.profilePicture || UserIcon} alt="" />
 
             <aside
               id="aside-2"
-              className={`${onClickIcon[2] ? "Aside active " : "Aside"}`}
+              className={`${activeDropdown === 2 ? "Aside active " : "Aside"}`}
             >
               <ProfileAside />
             </aside>

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { unfollowUser, followUser } from "../Reduxtoolkit/authSlice";
+import {
+  unfollowUser,
+  followUser,
+  setFriendUser,
+} from "../Reduxtoolkit/authSlice";
 import axios from "../API/axios";
 
 const useHandleFollowUnfollow = () => {
@@ -23,7 +27,8 @@ const useHandleFollowUnfollow = () => {
     if (users?.followers && currentUser?._id) {
       setFollowed(users.followers.includes(currentUser._id));
     }
-  }, [users?.followers, currentUser?._id]);
+    dispatch(setFriendUser(users));
+  }, [users, currentUser, dispatch]);
 
   // Handle follow/unfollow action
   const handleClick = async () => {

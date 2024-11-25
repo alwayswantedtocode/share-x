@@ -4,18 +4,18 @@ import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { useDropdownContext } from "../../ContextApi/DropdownContext";
 
 TimeAgo.addLocale(en);
 
 const NotificationAside = () => {
+  const { notificationRef } = useDropdownContext();
   const { currentUser } = useSelector((state) => state.auth);
   const Notification = currentUser?.notifications;
   // console.log(Notification);
 
-  
-
   return (
-    <article className="Notification">
+    <article className="Notification" ref={notificationRef}>
       <div className="container">
         <span className="heading">
           <h1>Notification</h1>
@@ -25,7 +25,6 @@ const NotificationAside = () => {
         <div className="items">
           <h4>Lastest</h4>
           {Notification.map((notification) => {
-
             const timeAgo = new TimeAgo("en-US");
             const formattedDate = notification.createdAt
               ? timeAgo.format(new Date(notification.createdAt))
