@@ -108,7 +108,6 @@ const WebNavBar = (username) => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(`/api/users/search?query=${search}`);
-        console.log(response.data);
         setSearchResult(response.data);
         setShowResult(true);
       } catch (error) {
