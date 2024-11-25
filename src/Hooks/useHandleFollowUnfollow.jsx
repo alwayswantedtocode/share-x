@@ -6,21 +6,22 @@ import {
   setFriendUser,
 } from "../Reduxtoolkit/authSlice";
 import axios from "../API/axios";
+import { setUsers } from "../Reduxtoolkit/appUsersSlice";
 
-const useHandleFollowUnfollow = () => {
+const useHandleFollowUnfollow = (username) => {
   const { currentUser } = useSelector((state) => state.auth);
-    const { users,} = useSelector((state) => state.Users);
-     const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.Users);
+  const dispatch = useDispatch();
 
-//   const following = users?.followings?.length;
+  //   const following = users?.followings?.length;
   const follower = users?.followers?.length;
 
-//   console.log("following in profile:", following);
-//   console.log("follower in profile:", follower);
+  //   console.log("following in profile:", following);
+  //   console.log("follower in profile:", follower);
 
-  const [followed, setFollowed] = useState(false); 
+  const [followed, setFollowed] = useState(false);
 
-  const [userFollowersCount, setUserFollowersCount] = useState(follower || 0); 
+  const [userFollowersCount, setUserFollowersCount] = useState(follower || 0);
 
   // Effect to check if the current user is already following the other user
   useEffect(() => {
@@ -52,6 +53,12 @@ const useHandleFollowUnfollow = () => {
       }
       setFollowed(!followed);
       setUserFollowersCount(updatedCounts.friendUser.followersCount);
+      
+      const userResponse = await axios.get(
+        `/api/users/profile?username=${username}`
+      );
+      dispatch(setUsers(userResponse.data));
+   
     } catch (error) {
       console.error("An error occurred:", error);
     }

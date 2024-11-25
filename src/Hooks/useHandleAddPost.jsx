@@ -66,7 +66,7 @@ const useHandleAddPost = (
 
     if (text.current.value.trim() || file) {
       try {
-        const mediaUrl = file ? await uploadMediaToStorage() : null;
+        const mediaUrl = await uploadMediaToStorage();
 
         const response = await axios.post("/api/posts", {
           userId: currentUser?._id,
@@ -74,8 +74,8 @@ const useHandleAddPost = (
           username: currentUser?.username,
           Fullname: currentUser?.Fullname,
           Description: text.current.value.trim(),
-          Media: mediaUrl,
-          MediaType: mediaType,
+          Media: mediaUrl || null,
+          MediaType: mediaType || null,
         });
 
         dispatch(setPosts([response.data, ...posts]));
@@ -95,3 +95,5 @@ const useHandleAddPost = (
 };
 
 export default useHandleAddPost;
+
+

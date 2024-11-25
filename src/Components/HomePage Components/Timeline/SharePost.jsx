@@ -110,10 +110,10 @@ const SharePost = () => {
               </div>
 
               <button
-                style={{ backgroundColor: !loading && "rgb(196, 181, 255)" }}
+                // style={{ backgroundColor: !loading ? "rgb(196, 181, 255)":"160, 136, 254" }}
                 className="SendButton"
                 type="submit"
-                disabled={!loading}
+                // disabled={loading}
               >
                 Share
               </button>
