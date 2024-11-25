@@ -1,11 +1,8 @@
 import React from "react";
 import "./Profile.scss";
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
-
 import {
   MdOutlineSettings,
   MdHelpCenter,
-  MdFeedback,
   MdLogout,
   MdShoppingCart,
   MdChevronRight,
@@ -19,9 +16,10 @@ import { setLogout } from "../../Reduxtoolkit/authSlice";
 import { removePost } from "../../Reduxtoolkit/postSlice";
 import { removeUsers } from "../../Reduxtoolkit/appUsersSlice";
 import axios from "../../API/axios";
+import { useDropdownContext } from "../../ContextApi/DropdownContext";
 
 const ProfileAside = () => {
-  const { SignOutUser } = useAuthenticationContext();
+  const { profileRef } = useDropdownContext();
   const { currentUser } = useSelector((state) => state.auth);
   const { post } = useSelector((state) => state.post);
   const dispatch = useDispatch();
@@ -40,7 +38,7 @@ const ProfileAside = () => {
     } catch (error) {}
   };
   return (
-    <article className="AsideProfile">
+    <article className="AsideProfile" ref={profileRef}>
       <div className="container">
         <div className="Account">
           <Link to={`/profilepage/${currentUser?.username}`}>

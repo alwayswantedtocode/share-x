@@ -2,12 +2,10 @@
 import Replies from "./Replies";
 import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import { useRef, useState, useLayoutEffect } from "react";
-import { useAuthenticationContext } from "../../../ContextApi/AuthenticationContext";
 import { useSelector } from "react-redux";
-import { setLoading } from "../../../Reduxtoolkit/postSlice";
-import { useGlobalContext } from "../../../ContextApi/GlobalContext";
-import useHandleCommentsLikes from "../../../Hooks/useHandleCommentsLikes";
 import useHandleAddComment from "../../../Hooks/useHandleAddComment";
+import { useDropdownContext } from "../../../ContextApi/DropdownContext";
+
 
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;
@@ -34,10 +32,7 @@ const Reply = ({ postId, feeds }) => {
     )}px`;
   }, [value]);
 
-  const { user } = useAuthenticationContext();
-  const { commentRef } = useGlobalContext();
-  const { isCommentOpen, commentHandle, closeCommentOnMousedown } =
-    useHandleCommentsLikes();
+  const { commentsRef, closeDropdown } = useDropdownContext();
   const { currentUser } = useSelector((state) => state.auth);
   const { posts, loading } = useSelector((state) => state.post);
 
@@ -48,9 +43,9 @@ const Reply = ({ postId, feeds }) => {
   const { handleComment } = useHandleAddComment(Comment, postId, comments);
 
   return (
-    <div className="comments" ref={commentRef}>
+    <div className="comments" ref={commentsRef}>
       <div className="write">
-        <img src={user?.photoURL || Profileimage} alt="userIcon" />
+        <img src={currentUser?.photoURL || Profileimage} alt="userIcon" />
         <form onSubmit={handleComment} className="form">
           <textarea
             type="text"
@@ -69,7 +64,7 @@ const Reply = ({ postId, feeds }) => {
           <button
             style={{ backgroundColor: !loading && "rgb(196, 181, 255)" }}
             type="submit"
-            // disabled={loading}
+            disabled={!loading}
           >
             Reply
           </button>

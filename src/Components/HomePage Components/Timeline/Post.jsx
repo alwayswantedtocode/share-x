@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Profileimage from "../../../Assets/profile-gender-neutral.jpg";
 import Reply from "./Reply";
 import OptionsAside from "../../Aside/OptionsAside";
@@ -19,6 +19,7 @@ import Video from "./video";
 import DeletePost from "./DeletePost";
 import useHandleDelete from "../../../Hooks/useHandleDelete";
 import useHandleEdit from "../../../Hooks/useHandleEdit";
+import { useDropdownContext } from "../../../ContextApi/DropdownContext";
 
 TimeAgo.addLocale(en);
 
@@ -37,14 +38,14 @@ const Post = ({
   profilePicture,
 }) => {
   const { moreRef } = useGlobalContext();
+  const { commentsRef, activeDropdown, toggleDropdown, closeDropdown } =
+    useDropdownContext();
+  // const dropDownRef = useRef(null);
   const { currentUser } = useSelector((state) => state.auth);
   const { likeCount, isLiked, likeHandler } = useHandPostleLike(Likes, feeds);
 
   const [isEdit, setIsEdit] = useState(false);
   const [isDeleteopen, setIsDeleteopen] = useState(false);
-
-  const { isCommentOpen, toggleComments } = useHandleCommentsLikes();
-  const { handleMoreOptions, more, setMore } = useHandlePostOptions();
 
   const { handleDeletePost } = useHandleDelete(postId);
   const { onSubmitEditPost } = useHandleEdit(setIsEdit, feeds);
@@ -54,15 +55,50 @@ const Post = ({
     ? timeAgo.format(new Date(Timestamp))
     : "Invalid Date";
 
+  //more option dropdown close on mousedown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        moreRef.current &&
+        !moreRef.current.contains(event.target) &&
+        commentsRef.current &&
+        !commentsRef.current.contains(event.target)
+      ) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeDropdown]);
+
+  // comments dropdown close on mousedown
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (commentsRef.current && !commentsRef.current.contains(event.target)) {
+  //       closeDropdown();
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [closeDropdown]);
+
+  //Open Edit option
   const handleEditPost = (event) => {
     event.stopPropagation();
     setIsEdit(true);
-    setMore(false);
+    closeDropdown();
+    console.log("its works edit");
   };
 
+  //Open delete option
   const handleOpenDeletePost = () => {
     setIsDeleteopen(true);
-    setMore(false);
+    closeDropdown();
+    console.log("its works delete");
   };
 
   return (
@@ -73,8 +109,8 @@ const Post = ({
         handleDeletePost={handleDeletePost}
       />
       <div className="post">
-        <div className="container">
-          <div className="user" ref={moreRef}>
+        <div className="container" ref={commentsRef}>
+          <div className="user">
             <div className="userInfo">
               <Link
                 to={`/profilepage/${Username}`}
@@ -92,18 +128,20 @@ const Post = ({
                 <span className="date">{formattedDate}</span>
               </div>
             </div>
-            <div className="More" style={moreClass}>
+            <div className="More" style={moreClass} ref={moreRef}>
               <MdOutlineMoreHoriz
                 style={{ cursor: "pointer" }}
-                onClick={handleMoreOptions}
+                onClick={() => toggleDropdown(0)}
               />
-              {more && (
+              {activeDropdown === 0 ? (
                 <OptionsAside
                   userId={userId}
                   postId={postId}
                   handleEditPost={handleEditPost}
                   handleOpenDeletePost={handleOpenDeletePost}
                 />
+              ) : (
+                ""
               )}
             </div>
           </div>
@@ -117,7 +155,6 @@ const Post = ({
                   Image={Image}
                   isEdit={isEdit}
                   setIsEdit={setIsEdit}
-                  
                 />
               ) : (
                 <p>{description}</p>
@@ -145,7 +182,7 @@ const Post = ({
               <p>{likeCount}</p>
             </div>
             <div className="item">
-              <span className="icon" onClick={toggleComments}>
+              <span className="icon" onClick={() => toggleDropdown(1)}>
                 <BiMessageAlt />
               </span>
               <p>{Comments?.length}</p>
@@ -155,7 +192,13 @@ const Post = ({
             </div>
           </div>
 
-          {isCommentOpen && <Reply postId={postId} feeds={feeds} />}
+          {activeDropdown === 1 ? (
+            <div>
+              <Reply postId={postId} feeds={feeds} />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

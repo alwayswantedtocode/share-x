@@ -2,8 +2,10 @@ import React from "react";
 import "./Message.scss";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
+import { useDropdownContext } from "../../ContextApi/DropdownContext";
 
 const MessageAside = () => {
+    const { messageRef } = useDropdownContext();
   const data = [
     {
       id: 1,
@@ -58,7 +60,7 @@ const MessageAside = () => {
   const latestFilter = data.filter((items) => items.id < 7);
 
   return (
-    <article className="Message">
+    <article className="Message" ref={messageRef}>
       <div className="container">
         <div className="Topheading">
           <span className="chat">

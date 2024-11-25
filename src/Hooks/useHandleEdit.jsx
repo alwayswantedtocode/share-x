@@ -6,10 +6,10 @@ import axios from "../API/axios";
 
 const useHandleEdit = (editPost, setIsEdit, feeds) => {
   const { handleReload } = useReload();
-    const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-//   console.log("postId in use edit:", feeds?._id);
+  //   console.log("postId in use edit:", feeds?._id);
 
   const onSubmitEditPost = async (e) => {
     e.preventDefault();

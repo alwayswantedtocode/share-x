@@ -10,16 +10,12 @@ const useHandlePostOptions = () => {
   };
 
   const closePotionOnmousedown = (event) => {
-      event.stopPropagation();
-      if ( !moreRef.current.contains(event.target)) {
-        
-        setMore(false);
-      }
-    };
- 
-  
+    event.stopPropagation();
+    if (!moreRef.current.contains(event.target)) {
+      setMore(false);
+    }
+  };
 
-  
   return {
     more,
     setMore,

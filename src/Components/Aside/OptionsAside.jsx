@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import "./Options.scss";
 import { useGlobalContext } from "../../ContextApi/GlobalContext";
-import useReload from "../../Hooks/useReload";
-import useHandleComments from "../../Hooks/useHandleCommentsLikes";
 import useHandlePostOptions from "../../Hooks/useHandlePostOptions";
 import { useSelector } from "react-redux";
-import axios from "../../API/axios";
-import useHandleDelete from "../../Hooks/useHandleDelete";
+
+
 
 const OptionsAside = ({ userId, handleOpenDeletePost, handleEditPost }) => {
   const { moreRef } = useGlobalContext();
