@@ -3,81 +3,39 @@ import ProfileInfoForm from "../../Components/ProfileInfo/My Profile/MyProfileFo
 import SharePost from "../../Components/HomePage Components/Timeline/SharePost";
 import CoverImage from "../../Assets/no-image.png";
 import Profileimage from "../../Assets/profile-gender-neutral.jpg";
-import { useEffect, useState } from "react";
-import { IoReload } from "react-icons/io5";
-import useReload from "../../Hooks/useReload";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { unfollowUser, followUser } from "../../Reduxtoolkit/authSlice";
-import {
-  setUsererror,
-  setUsers,
-  setUsersPost,
-} from "../../Reduxtoolkit/appUsersSlice";
+import { setUsererror, setUsers } from "../../Reduxtoolkit/appUsersSlice";
 import axios from "../../API/axios";
-import Post from "../../Components/HomePage Components/Timeline/Post";
 import TimeLine from "../../Components/HomePage Components/Timeline/TimeLine";
+import useHandleFollowUnfollow from "../../Hooks/useHandleFollowUnfollow";
 
 const ProfileInfo = () => {
   const username = useParams().username;
-  const { handleReload } = useReload();
 
   const { currentUser } = useSelector((state) => state.auth);
-  const { users, usersPosts, error } = useSelector((state) => state.Users);
+  const { users } = useSelector((state) => state.Users);
+
+  const { followed, userFollowersCount, handleClick } =
+    useHandleFollowUnfollow();
 
   const dispatch = useDispatch();
 
-  const [followed, setFollowed] = useState(false);
-
-   useEffect(() => {
-     const fetchProfile = async () => {
-       try {
-         const userResponse = await axios.get(
-           `/api/users/profile?username=${username}`
-         );
-         dispatch(setUsers(userResponse.data));
-
-         const postsResponse = await axios.get(
-           `/api/posts/profile/${username}`
-         );
-         dispatch(
-           setUsersPost(
-             postsResponse.data.sort(
-               (p1, p2) => new Date(p2.createdAt) - new Date(p1.createdAt)
-             )
-           )
-         );
-       } catch (error) {
-         dispatch(setUsererror());
-         console.error("Error fetching profile data:", error);
-       }
-     };
-     fetchProfile();
-   }, [username, dispatch]);
-
-  //Follow/Unfollow
   useEffect(() => {
-    setFollowed(users?.followers.includes(currentUser?._id));
-  }, [users?.followers, currentUser?._id]);
-
-  const handleClick = async () => {
-    try {
-      if (followed) {
-        await axios.put(`/api/users/${users?._id}/unfollow`, {
-          userId: currentUser?._id,
-        });
-        dispatch(unfollowUser(users?._id));
-
-        console.log("unfollowed yuser");
-      } else {
-        await axios.put(`/api/users/${users?._id}/follow`, {
-          userId: currentUser._id,
-        });
-        dispatch(followUser(users?._id));
-        console.log("followed user");
+    const fetchProfile = async () => {
+      try {
+        const userResponse = await axios.get(
+          `/api/users/profile?username=${username}`
+        );
+        dispatch(setUsers(userResponse.data));
+      } catch (error) {
+        dispatch(setUsererror());
+        console.error("Error fetching profile data:", error);
       }
-    } catch (error) {}
-  };
+    };
+    fetchProfile();
+  }, [username, dispatch]);
 
   return (
     <section className="profilePage">
@@ -101,10 +59,17 @@ const ProfileInfo = () => {
           <div className="displayName">
             <span>{users?.username}</span>
           </div>
-          <div className="follower-following">
-            <p>{users?.followings?.length} Followings</p>
-            <p>{users?.followers?.length} Followers</p>
-          </div>
+          {username === currentUser.username ? (
+            <div className="follower-following">
+              <p>{users?.followings?.length} Followings</p>
+              <p>{users?.followers?.length} Followers</p>
+            </div>
+          ) : (
+            <div className="follower-following">
+              <p>{users?.followings?.length} Followings</p>
+              <p>{userFollowersCount} Followers</p>
+            </div>
+          )}
 
           {username !== currentUser?.username && (
             <div className="button">
@@ -126,8 +91,8 @@ const ProfileInfo = () => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           {username === currentUser?.username ? <SharePost /> : ""}
-    
-          <TimeLine/>
+
+          <TimeLine />
         </div>
         <div className="accountuser-info">
           <MyProfile username={username} />

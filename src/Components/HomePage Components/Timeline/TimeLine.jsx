@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setError, setPosts } from "../../../Reduxtoolkit/postSlice";
 import {
   setUsererror,
-  setUsers,
   setUsersPost,
 } from "../../../Reduxtoolkit/appUsersSlice";
 import axios from "../../../API/axios";
@@ -19,7 +18,7 @@ const TimeLine = () => {
   const dispatch = useDispatch();
   const { posts, error } = useSelector((state) => state.post);
   const { currentUser } = useSelector((state) => state.auth);
-  const { usersPosts, } = useSelector((state) => state.Users);
+  const { usersPosts } = useSelector((state) => state.Users);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,11 +35,6 @@ const TimeLine = () => {
             )
           );
         } else {
-          const userResponse = await axios.get(
-            `/api/users/profile?username=${username}`
-          );
-          dispatch(setUsers(userResponse.data));
-
           const postsResponse = await axios.get(
             `/api/posts/profile/${username}`
           );
