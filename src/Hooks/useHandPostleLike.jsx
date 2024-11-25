@@ -1,71 +1,24 @@
-
-
-// import axios from "../API/axios";
-// import { useEffect, useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { setLikes, setLoading, setError } from "../Reduxtoolkit/postSlice";
-
-// const useHandleLike = (Likes, feeds) => {
-//   const { currentUser } = useSelector((state) => state.auth);
-//   const dispatch = useDispatch();
-
-//   const [likeCount, setLikeCount] = useState(Likes?.length || 0);
-//   const [isLiked, setIsLiked] = useState(false);
-
-//   useEffect(() => {
-//     // Check if the current user has already liked the post
-//     if (feeds && Array.isArray(feeds.Likes) && currentUser?._id) {
-//       setIsLiked(feeds.Likes.includes(currentUser?._id));
-//     }
-//   }, [currentUser?._id, feeds?.Likes]);
-
-//   const likeHandler = async () => {
-//     try {
-//       dispatch(setLoading());
-
-//       // Send like/unlike request to the server
-//       const response = await axios.put(`/api/posts/${feeds._id}/like`, {
-//         userId: currentUser?._id,
-//       });
-
-//       // Extract updated likes count from the response
-//       const updatedLikesCount = response.data.likes;
-
-//       // Update local state
-//       setIsLiked(!isLiked);
-//       setLikeCount(updatedLikesCount);
-
-//       // Update Redux store with the updated likes
-//       dispatch(setLikes({ post_id: feeds._id, likes: updatedLikesCount }));
-//     } catch (error) {
-//       dispatch(setError(error.message));
-//       console.error("Error liking post:", error);
-//     }
-//   };
-
-//   return {
-//     likeCount,
-//     isLiked,
-//     likeHandler,
-//   };
-// };
-
-// export default useHandleLike;
-
-
 import axios from "../API/axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPostLikes, setLoading, setError } from "../Reduxtoolkit/postSlice";
+import {
+  setPostLikes,
+  setLoading,
+  setError,
+  setPosts,
+} from "../Reduxtoolkit/postSlice";
+import { setUsersPost } from "../Reduxtoolkit/appUsersSlice";
+import { useParams } from "react-router-dom";
 
 const useHandPostleLike = (Likes, feeds) => {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { username } = useParams();
   // console.log("likes in use post likes:", Likes);
 
   const [likeCount, setLikeCount] = useState(Likes?.length || 0);
   const [isLiked, setIsLiked] = useState(false);
-  
+
   // Check if the current user has already liked the post
   useEffect(() => {
     if (feeds && Array.isArray(feeds.Likes) && currentUser?._id) {
@@ -86,6 +39,29 @@ const useHandPostleLike = (Likes, feeds) => {
       setLikeCount(updatedLikesCount);
 
       dispatch(setPostLikes({ post_id: feeds._id, likes: updatedLikesCount }));
+
+      // a fix recieve the length of likes in realtime
+      if (!username) {
+        const response = await axios.get(
+          `/api/posts/timeline/${currentUser._id}`
+        );
+        dispatch(
+          setPosts(
+            response.data.sort((p1, p2) => {
+              return new Date(p2.createdAt) - new Date(p1.createdAt);
+            })
+          )
+        );
+      } else {
+        const postsResponse = await axios.get(`/api/posts/profile/${username}`);
+        dispatch(
+          setUsersPost(
+            postsResponse.data.sort(
+              (p1, p2) => new Date(p2.createdAt) - new Date(p1.createdAt)
+            )
+          )
+        );
+      }
     } catch (error) {
       dispatch(setError(error.message));
       console.error("Error liking post:", error);

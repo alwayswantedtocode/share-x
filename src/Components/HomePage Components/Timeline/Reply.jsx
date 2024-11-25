@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import useHandleAddComment from "../../../Hooks/useHandleAddComment";
 import { useDropdownContext } from "../../../ContextApi/DropdownContext";
 
-
 //TEXT AREA HEIGHT
 const MIN_TEXTAREA_HEIGHT = 15;
 
@@ -62,9 +61,13 @@ const Reply = ({ postId, feeds }) => {
             ref={setRefs}
           />
           <button
-            style={{ backgroundColor: !loading && "rgb(196, 181, 255)" }}
+            // style={{
+            //   backgroundColor: !loading
+            //     ? "rgb(196, 181, 255)"
+            //     : "160, 136, 254",
+            // }}
             type="submit"
-            disabled={!loading}
+            // disabled={loading}
           >
             Reply
           </button>

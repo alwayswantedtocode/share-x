@@ -11,7 +11,7 @@ TimeAgo.addLocale(en);
 const NotificationAside = () => {
   const { notificationRef } = useDropdownContext();
   const { currentUser } = useSelector((state) => state.auth);
-  const Notification = currentUser?.notifications;
+  const Notification = currentUser?.notifications||[];
   // console.log(Notification);
 
   return (

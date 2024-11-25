@@ -6,7 +6,7 @@ import Profileimage from "../../Assets/profile-gender-neutral.jpg";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUsererror, setUsers } from "../../Reduxtoolkit/appUsersSlice";
+import { setLoading, setUsererror, setUsers } from "../../Reduxtoolkit/appUsersSlice";
 import axios from "../../API/axios";
 import TimeLine from "../../Components/HomePage Components/Timeline/TimeLine";
 import useHandleFollowUnfollow from "../../Hooks/useHandleFollowUnfollow";
@@ -18,17 +18,19 @@ const ProfileInfo = () => {
   const { users } = useSelector((state) => state.Users);
 
   const { followed, userFollowersCount, handleClick } =
-    useHandleFollowUnfollow();
+    useHandleFollowUnfollow(username);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        dispatch(setLoading(true))
         const userResponse = await axios.get(
           `/api/users/profile?username=${username}`
         );
         dispatch(setUsers(userResponse.data));
+         dispatch(setLoading(false));
       } catch (error) {
         dispatch(setUsererror());
         console.error("Error fetching profile data:", error);
@@ -67,7 +69,7 @@ const ProfileInfo = () => {
           ) : (
             <div className="follower-following">
               <p>{users?.followings?.length} Followings</p>
-              <p>{userFollowersCount} Followers</p>
+              <p>{users?.followers?.length} Followers</p>
             </div>
           )}
 
