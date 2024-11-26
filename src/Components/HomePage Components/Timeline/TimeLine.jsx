@@ -28,7 +28,6 @@ const TimeLine = () => {
           const response = await axios.get(
             `/api/posts/timeline/${currentUser._id}`
           );
-          console.log(JSON.stringify(response.data));
           dispatch(
             setPosts(
               response.data.sort((p1, p2) => {
@@ -40,7 +39,6 @@ const TimeLine = () => {
           const postsResponse = await axios.get(
             `/api/posts/profile/${username}`
           );
-          console.log(JSON.stringify(postsResponse.data));
            
           dispatch(
             setUsersPost(
