@@ -24,7 +24,7 @@ const SharePost = () => {
 
   const { currentUser } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.post);
-
+  const [isLoading, setIsloading] = useState(false);
   const [value, setValue] = useState("");
   const [viewMedia, setViewMedia] = useState(null);
   const [file, setFile] = useState("");
@@ -55,7 +55,8 @@ const SharePost = () => {
       setFile,
       mediaType,
       setMediaType,
-      text
+      text,
+      setIsloading
     );
   return (
     <div className="Sharepost-Wrapper">
@@ -110,12 +111,27 @@ const SharePost = () => {
               </div>
 
               <button
-                // style={{ backgroundColor: !loading ? "rgb(196, 181, 255)":"160, 136, 254" }}
-                className="SendButton"
+                className={isLoading ? "SendButton loading" : "SendButton "}
                 type="submit"
-                // disabled={loading}
               >
-                Share
+                {isLoading ? (
+                  <div className="loader">
+                    <span
+                      style={{ background: " rgb(254,254, 254)" }}
+                      className="dot"
+                    ></span>
+                    <span
+                      style={{ background: " rgb(254,254, 254)" }}
+                      className="dot"
+                    ></span>
+                    <span
+                      style={{ background: " rgb(254,254, 254)" }}
+                      className="dot"
+                    ></span>
+                  </div>
+                ) : (
+                  "Share"
+                )}
               </button>
             </div>
             {/* <span

@@ -77,7 +77,7 @@ const UserResgister = () => {
       showAlert(true, "danger", "Invalid Entry");
       return;
     }
-    // console.log(username, password, email);
+    setLoading(true);
     try {
       await axios.post(
         "api/usersauth/register",
@@ -92,7 +92,7 @@ const UserResgister = () => {
           withCrendentials: true,
         }
       );
-      setLoading(true);
+
       showAlert(true, "success", "Registered successfully");
       setFullname("");
       setUsername("");
@@ -101,177 +101,182 @@ const UserResgister = () => {
       navigate("/");
     } catch (error) {
       if (!error?.response) {
-        setLoading(false);
         showAlert(true, "danger", "No Server Response");
       } else if (error.response?.status === 409) {
         showAlert(true, "danger", "Username or Email is Taken");
       } else {
         showAlert(true, "danger", "Registration Failed");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <section className="Register-card">
-      {loading ? (
-        <div className="loading">
-          <h2>Loading...</h2>
-        </div>
-      ) : (
-        <article className="Card">
-          <div className="Left">
-            <h1 className="sharexMobile">Share X</h1>
-            {alert.show && (
-              <Alert
-                isVisible={alert}
-                Message={alert.message}
-                type={alert.type}
+      <article className="Card">
+        <div className="Left">
+          <h1 className="sharexMobile">Share X</h1>
+          {alert.show && (
+            <Alert
+              isVisible={alert}
+              Message={alert.message}
+              type={alert.type}
+            />
+          )}
+          <h1>Signup for Share X</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Fullname"
+                id="fullname"
+                name="fullname"
+                required
+                ref={focusRef}
+                autoComplete="off"
+                aria-describedby="uidnote"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
               />
-            )}
-            <h1>Signup for Share X</h1>
-            <form onSubmit={handleSubmit}>
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="Fullname"
-                  id="fullname"
-                  name="fullname"
-                  required
-                  ref={focusRef}
-                  autoComplete="off"
-                  aria-describedby="uidnote"
-                  value={fullname}
-                  onChange={(e) => setFullname(e.target.value)}
-                />
 
-                <span className={validFullname ? "valid" : "hide"}>
-                  <HiCheckCircle className="checkMark" />
-                </span>
-                <span
-                  className={validFullname || !fullname ? "hide" : "invalid"}
-                >
-                  <HiXCircle className="xMark" />
-                </span>
-              </div>
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="Username"
-                  id="username"
-                  name="username"
-                  required
-                  autoComplete="off"
-                  aria-describedby="uidnote"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-
-                <span className={validUsername ? "valid" : "hide"}>
-                  <HiCheckCircle className="checkMark" />
-                </span>
-                <span
-                  className={validUsername || !username ? "hide" : "invalid"}
-                >
-                  <HiXCircle className="xMark" />
-                </span>
-              </div>
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  id="email"
-                  name="email"
-                  required
-                  autoComplete="off"
-                  aria-describedby="uidnote"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <span className={validEmail ? "valid" : "hide"}>
-                  <HiCheckCircle className="checkMark" />
-                </span>
-                <span className={validEmail || !email ? "hide" : "invalid"}>
-                  <HiXCircle className="xMark" />
-                </span>
-              </div>
-              <div className="input-container">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  id="password"
-                  name="password"
-                  required
-                  autoComplete="off"
-                  aria-describedby="uidnote"
-                  value={password}
-                  onFocus={() => setPasswordFocus(true)}
-                  onBlur={() => setPasswordFocus(false)}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span className={validPassword ? "valid" : "hide"}>
-                  <HiCheckCircle className="checkMark" />
-                </span>
-                <span
-                  className={validPassword || !password ? "hide" : "invalid"}
-                >
-                  <HiXCircle className="xMark" />
-                </span>
-                <div
-                  className={
-                    passwordFocus && !validPassword
-                      ? "popup-alert"
-                      : "offscreen"
-                  }
-                  id="uidnote"
-                  style={{ fontSize: 0.8 + "rem", padding: 0.3 + "rem" }}
-                >
-                  <BiInfoCircle
-                    className="click-4-info"
-                    style={{ color: "3A6EA5" }}
-                  />
-                  <p>
-                    8 to 24 characters <br />
-                    Must include aleast one Uppercase,
-                    <br />
-                    Lowercase letters,
-                    <br /> Atleast one Uppercase, a number and a special
-                    charater. <br />
-                  </p>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={
-                  !validUsername || !validEmail || !validPassword ? true : false
-                }
-              >
-                Register
-              </button>
-            </form>
-            <div className="mobileView">
-              <span>Don't have an acount?</span>
-
-              <NavLink to="/Login">
-                <span>
-                  <p>Login</p>
-                </span>
-              </NavLink>
+              <span className={validFullname ? "valid" : "hide"}>
+                <HiCheckCircle className="checkMark" />
+              </span>
+              <span className={validFullname || !fullname ? "hide" : "invalid"}>
+                <HiXCircle className="xMark" />
+              </span>
             </div>
-          </div>
-          <div className="Right">
-            <h1>Share X</h1>
-            <p>
-              Sign up to connect and share forever memories with friends and
-              loved ones.
-            </p>
-            <span>Have an acount?</span>
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Username"
+                id="username"
+                name="username"
+                required
+                autoComplete="off"
+                aria-describedby="uidnote"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+
+              <span className={validUsername ? "valid" : "hide"}>
+                <HiCheckCircle className="checkMark" />
+              </span>
+              <span className={validUsername || !username ? "hide" : "invalid"}>
+                <HiXCircle className="xMark" />
+              </span>
+            </div>
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Email"
+                id="email"
+                name="email"
+                required
+                autoComplete="off"
+                aria-describedby="uidnote"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <span className={validEmail ? "valid" : "hide"}>
+                <HiCheckCircle className="checkMark" />
+              </span>
+              <span className={validEmail || !email ? "hide" : "invalid"}>
+                <HiXCircle className="xMark" />
+              </span>
+            </div>
+            <div className="input-container">
+              <input
+                type="password"
+                placeholder="Password"
+                id="password"
+                name="password"
+                required
+                autoComplete="off"
+                aria-describedby="uidnote"
+                value={password}
+                onFocus={() => setPasswordFocus(true)}
+                onBlur={() => setPasswordFocus(false)}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span className={validPassword ? "valid" : "hide"}>
+                <HiCheckCircle className="checkMark" />
+              </span>
+              <span className={validPassword || !password ? "hide" : "invalid"}>
+                <HiXCircle className="xMark" />
+              </span>
+              <div
+                className={
+                  passwordFocus && !validPassword ? "popup-alert" : "offscreen"
+                }
+                id="uidnote"
+                style={{ fontSize: 0.8 + "rem", padding: 0.3 + "rem" }}
+              >
+                <BiInfoCircle
+                  className="click-4-info"
+                  style={{ color: "3A6EA5" }}
+                />
+                <p>
+                  8 to 24 characters <br />
+                  Must include aleast one Uppercase,
+                  <br />
+                  Lowercase letters,
+                  <br /> Atleast one Uppercase, a number and a special charater.{" "}
+                  <br />
+                </p>
+              </div>
+            </div>
+
+            <button
+              className="button"
+              type="submit"
+              disabled={
+                !validUsername || !validEmail || !validPassword ? true : false
+              }
+            >
+              {loading ? (
+                <div className="loader">
+                  <span
+                    style={{ background: " rgb(254,254, 254)" }}
+                    className="dot"
+                  ></span>
+                  <span
+                    style={{ background: " rgb(254,254, 254)" }}
+                    className="dot"
+                  ></span>
+                  <span
+                    style={{ background: " rgb(254,254, 254)" }}
+                    className="dot"
+                  ></span>
+                </div>
+              ) : (
+                "Register"
+              )}
+            </button>
+          </form>
+          <div className="mobileView">
+            <span>Don't have an acount?</span>
+
             <NavLink to="/Login">
-              <button>Login</button>
+              <span>
+                <p>Login</p>
+              </span>
             </NavLink>
           </div>
-        </article>
-      )}
+        </div>
+        <div className="Right">
+          <h1>Share X</h1>
+          <p>
+            Sign up to connect and share forever memories with friends and loved
+            ones.
+          </p>
+          <span>Have an acount?</span>
+          <NavLink to="/Login">
+            <button>Login</button>
+          </NavLink>
+        </div>
+      </article>
     </section>
   );
 };

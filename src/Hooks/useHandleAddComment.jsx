@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setPostcomments } from "../Reduxtoolkit/postSlice";
 import axios from "../API/axios";
 
-const useHandleAddComment = (Comment, postId, comments) => {
+const useHandleAddComment = (Comment, postId, comments, setIsloading) => {
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   //   console.log("comments in use add comment", comments);
@@ -11,7 +11,7 @@ const useHandleAddComment = (Comment, postId, comments) => {
 
   const handleComment = async (e) => {
     e.preventDefault();
-    dispatch(setLoading(true));
+    setIsloading(true);
 
     if (Comment.current.value !== "") {
       try {
@@ -36,7 +36,7 @@ const useHandleAddComment = (Comment, postId, comments) => {
       } catch (error) {
         alert("Failed to add comment: " + error.message);
       } finally {
-        dispatch(setLoading(false));
+        setIsloading(false);
       }
     }
   };

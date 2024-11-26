@@ -33,13 +33,19 @@ const Reply = ({ postId, feeds }) => {
 
   const { commentsRef, closeDropdown } = useDropdownContext();
   const { currentUser } = useSelector((state) => state.auth);
-  const { posts, loading } = useSelector((state) => state.post);
+  const { posts } = useSelector((state) => state.post);
 
   const currentPost = posts.find((post) => post._id === postId);
   const comments = currentPost?.Comments || [];
   // console.log("comments in reply:",comments)
+  const [isLoading, setIsloading] = useState(false);
 
-  const { handleComment } = useHandleAddComment(Comment, postId, comments);
+  const { handleComment } = useHandleAddComment(
+    Comment,
+    postId,
+    comments,
+    setIsloading
+  );
 
   return (
     <div className="comments" ref={commentsRef}>
@@ -61,15 +67,27 @@ const Reply = ({ postId, feeds }) => {
             ref={setRefs}
           />
           <button
-            // style={{
-            //   backgroundColor: !loading
-            //     ? "rgb(196, 181, 255)"
-            //     : "160, 136, 254",
-            // }}
+            className={isLoading ? "button loading" : "button "}
             type="submit"
-            // disabled={loading}
           >
-            Reply
+            {isLoading ? (
+              <div className="loader">
+                <span
+                  style={{ background: " rgb(254,254, 254)" }}
+                  className="dot"
+                ></span>
+                <span
+                  style={{ background: " rgb(254,254, 254)" }}
+                  className="dot"
+                ></span>
+                <span
+                  style={{ background: " rgb(254,254, 254)" }}
+                  className="dot"
+                ></span>
+              </div>
+            ) : (
+              "Reply"
+            )}
           </button>
         </form>
       </div>
