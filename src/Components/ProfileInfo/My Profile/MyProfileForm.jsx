@@ -9,7 +9,7 @@ import useEditProfile from "../../../Hooks/useEditProfile";
 const ProfileInfoForm = () => {
   const {
     fullname,
-    username,
+    userName,
     currentCity,
     homeCity,
     School,
@@ -18,7 +18,7 @@ const ProfileInfoForm = () => {
     phoneNumber,
     selectedGenderOption,
     setFullname,
-    setUsername,
+    setUserName,
     setCurrentCity,
     setHomeCity,
     setSchool,
@@ -171,9 +171,9 @@ const ProfileInfoForm = () => {
               <input
                 type="text"
                 placeholder="Username"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                name="userName"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
             <div className="input-container">

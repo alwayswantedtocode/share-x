@@ -5,15 +5,19 @@ import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import axios from "../API/axios";
 import { useGlobalContext } from "../ContextApi/GlobalContext";
+import useReload from "./useReload";
+import { useNavigate, useParams } from "react-router-dom";
 
 const useEditProfile = () => {
-      const { editDetails, closeEditInfo, } = useGlobalContext();
+  const { editDetails, closeEditInfo } = useGlobalContext();
   const { currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  // const { username } = useParams();
+  const navigate = useNavigate();
 
   // form state
   const [fullname, setFullname] = useState(currentUser?.Fullname || "");
-  const [username, setUsername] = useState(currentUser?.username || "");
+  const [userName, setUserName] = useState(currentUser?.username || "");
   const [currentCity, setCurrentCity] = useState(
     currentUser?.CurrentCity || ""
   );
@@ -141,7 +145,7 @@ const useEditProfile = () => {
         `/api/users/${currentUser?._id}`,
         {
           Fullname: fullname,
-          username: username,
+          username: userName,
           From: homeCity,
           CurrentCity: currentCity,
           Workplace: Workplace,
@@ -158,6 +162,7 @@ const useEditProfile = () => {
       );
       dispatch(loginSuccess(response.data));
       closeEditInfo();
+      navigate("/");
     } catch (error) {
       alert(error.message || "An error occurred while updating profile.");
     }
@@ -165,7 +170,7 @@ const useEditProfile = () => {
 
   return {
     fullname,
-    username,
+    userName,
     currentCity,
     homeCity,
     School,
@@ -174,7 +179,7 @@ const useEditProfile = () => {
     phoneNumber,
     selectedGenderOption,
     setFullname,
-    setUsername,
+    setUserName,
     setCurrentCity,
     setHomeCity,
     setSchool,

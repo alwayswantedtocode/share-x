@@ -8,6 +8,7 @@ import Alert from "../../Components/Alert/Alert";
 import axios from "../../API/axios";
 
 //USER NAMES AND PASSWORD RULES
+const FULL_REGX = /^[a-zA-Z][A-Za-z0-9-_ ]{3,23}$/;
 const USER_REGX = /^[a-zA-Z][A-Za-z0-9-_]{3,23}$/;
 const PWD_REGX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{4,24}$/;
@@ -16,6 +17,9 @@ const EMAIL_REGX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const UserResgister = () => {
   const focusRef = useRef();
+
+  const [fullname, setFullname] = useState("");
+  const [validFullname, setValidFullname] = useState(false);
 
   const [username, setUsername] = useState("");
   const [validUsername, setValidUsername] = useState(false);
@@ -42,6 +46,11 @@ const UserResgister = () => {
   }, []);
 
   useEffect(() => {
+    const testFullName = FULL_REGX.test(fullname);
+    setValidFullname(testFullName);
+  }, [fullname]);
+
+  useEffect(() => {
     const testUserName = USER_REGX.test(username);
     setValidUsername(testUserName);
   }, [username]);
@@ -59,26 +68,33 @@ const UserResgister = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     //if button enabled with JS hack
-    const v1 = USER_REGX.test(username);
-    const v2 = EMAIL_REGX.test(email);
-    const v3 = PWD_REGX.test(password);
+    const v1 = FULL_REGX.test(fullname);
+    const v2 = USER_REGX.test(username);
+    const v3 = EMAIL_REGX.test(email);
+    const v4 = PWD_REGX.test(password);
 
-    if (!v1 || !v2 || !v3) {
+    if (!v1 || !v2 || !v3 || !v4) {
       showAlert(true, "danger", "Invalid Entry");
       return;
     }
-    console.log(username, password, email);
+    // console.log(username, password, email);
     try {
       await axios.post(
         "api/usersauth/register",
-        JSON.stringify({ username, email, password }),
+        JSON.stringify({
+          Fullname: fullname,
+          username: username,
+          email: email,
+          password: password,
+        }),
         {
           headers: { "Content-Type": "application/json" },
           withCrendentials: true,
         }
       );
-       setLoading(true);
+      setLoading(true);
       showAlert(true, "success", "Registered successfully");
+      setFullname("");
       setUsername("");
       setEmail("");
       setPassword("");
@@ -117,11 +133,33 @@ const UserResgister = () => {
               <div className="input-container">
                 <input
                   type="text"
+                  placeholder="Fullname"
+                  id="fullname"
+                  name="fullname"
+                  required
+                  ref={focusRef}
+                  autoComplete="off"
+                  aria-describedby="uidnote"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
+                />
+
+                <span className={validFullname ? "valid" : "hide"}>
+                  <HiCheckCircle className="checkMark" />
+                </span>
+                <span
+                  className={validFullname || !fullname ? "hide" : "invalid"}
+                >
+                  <HiXCircle className="xMark" />
+                </span>
+              </div>
+              <div className="input-container">
+                <input
+                  type="text"
                   placeholder="Username"
                   id="username"
                   name="username"
                   required
-                  ref={focusRef}
                   autoComplete="off"
                   aria-describedby="uidnote"
                   value={username}

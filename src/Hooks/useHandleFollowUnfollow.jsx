@@ -46,10 +46,10 @@ const useHandleFollowUnfollow = (username) => {
 
       if (followed) {
         dispatch(unfollowUser({ updatedCounts }));
-        console.log("Unfollowed user");
+        // console.log("Unfollowed user");
       } else {
         dispatch(followUser({ updatedCounts }));
-        console.log("Followed user");
+        // console.log("Followed user");
       }
       setFollowed(!followed);
       setUserFollowersCount(updatedCounts.friendUser.followersCount);
