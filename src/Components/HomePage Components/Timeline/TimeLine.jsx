@@ -39,6 +39,7 @@ const TimeLine = () => {
           const postsResponse = await axios.get(
             `/api/posts/profile/${username}`
           );
+           
           dispatch(
             setUsersPost(
               postsResponse.data.sort(
@@ -73,6 +74,7 @@ const TimeLine = () => {
             Timestamp={feeds.createdAt}
             Username={feeds.username}
             Comments={feeds?.Comments}
+            profilePicture={feeds?.userProfilePicture}
           />
         </DropdownProvider>
       ))

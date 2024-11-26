@@ -81,8 +81,7 @@ const UserLogin = () => {
       dispatch(loginSuccess(response.data));
 
       // showAlert(true, "Success", AuthUser?.username);
-      console.log(JSON.stringify(response));
-      console.log(response.user);
+
       setEmailOrUsername("");
       setPassword("");
       navigate("/");
