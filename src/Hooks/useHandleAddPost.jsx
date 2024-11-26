@@ -11,7 +11,8 @@ const useHandleAddPost = (
   setFile,
   mediaType,
   setMediaType,
-  text
+  text,
+  setIsloading
 ) => {
   const { currentUser } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.post);
@@ -62,7 +63,7 @@ const useHandleAddPost = (
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
-    dispatch(setLoading(true));
+    setIsloading(true)
 
     if (text.current.value.trim() || file) {
       try {
@@ -87,7 +88,7 @@ const useHandleAddPost = (
       } catch (error) {
         alert(error.message);
       } finally {
-        dispatch(setLoading(false));
+       setIsloading(false)
       }
     }
   };
@@ -95,5 +96,3 @@ const useHandleAddPost = (
 };
 
 export default useHandleAddPost;
-
-

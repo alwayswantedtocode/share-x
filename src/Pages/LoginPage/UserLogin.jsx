@@ -1,4 +1,3 @@
-import { useAuthenticationContext } from "../../ContextApi/AuthenticationContext";
 import "./Login.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
@@ -21,9 +20,6 @@ const USER_EMAIL_REGX =
   /^(?:[a-zA-Z][A-Za-z0-9-_]{3,23}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
 const UserLogin = () => {
-  const { SignInWithGoogle, AuthUser, setAuthUser } =
-    useAuthenticationContext();
-
   const focusRef = useRef();
 
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -32,7 +28,6 @@ const UserLogin = () => {
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [authToken, setAuthToken] = useState("");
   const dispatch = useDispatch();
 
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
@@ -64,7 +59,7 @@ const UserLogin = () => {
       showAlert(true, "danger", "Invalid Entry");
       return;
     }
-    dispatch(loginStart());
+    setLoading(true);
     try {
       const response = await axios.post(
         "api/usersauth/signIn",
@@ -89,11 +84,12 @@ const UserLogin = () => {
       if (!error?.response) {
         showAlert(true, "danger", "No Server Response");
       } else if (error.response?.status === 400) {
-       
-         showAlert(true, "danger", "Wrong email or password" );
+        showAlert(true, "danger", "Wrong email or password");
       } else {
-       showAlert(true, "danger", "Login failed")
+        showAlert(true, "danger", "Login failed");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,7 +97,18 @@ const UserLogin = () => {
     <section className="Login-card">
       {loading ? (
         <div className="loading">
-          <h2>Loading...</h2>
+          <span
+            style={{ background: " rgb(160, 136, 254)" }}
+            className="dot"
+          ></span>
+          <span
+            style={{ background: " rgb(160, 136, 254)" }}
+            className="dot"
+          ></span>
+          <span
+            style={{ background: " rgb(160, 136, 254)" }}
+            className="dot"
+          ></span>
         </div>
       ) : (
         <article className="Card">
@@ -188,7 +195,31 @@ const UserLogin = () => {
                   </p>
                 </div>
               </div>
-              <button type="submit">Login</button>
+              <button
+                className={loading ? "button loading" : "button "}
+                type="submit"
+                // disabled={!loading}
+              >
+                {" "}
+                {loading ? (
+                  <div className="loader">
+                    <span
+                      style={{ background: " rgb(254,254, 254)" }}
+                      className="dot"
+                    ></span>
+                    <span
+                      style={{ background: " rgb(254,254, 254)" }}
+                      className="dot"
+                    ></span>
+                    <span
+                      style={{ background: " rgb(254,254, 254)" }}
+                      className="dot"
+                    ></span>
+                  </div>
+                ) : (
+                  "Login"
+                )}
+              </button>
             </form>
             <div className="mobileView">
               <span>Don't have an acount?</span>
