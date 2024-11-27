@@ -31,14 +31,17 @@ const Replies = ({
 
   return (
     <>
-      <div className="comment-div" >
+      <div className="comment-div">
         <div className="CommenterInfo">
           <Link
             to={`/profilepage/${username}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className="userImage">
-              <img src={profilePicture || Profileimage} alt="" />
+              <img
+                src={profilePicture || Profileimage}
+                alt={`${username} ProfileImage`}
+              />
             </div>
           </Link>
         </div>

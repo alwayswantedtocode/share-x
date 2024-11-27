@@ -15,25 +15,39 @@ export const AppProvider = ({ children }) => {
 
   const [editDetails, setEditDetails] = useState(false);
   const [showEditbio, setShoweditbio] = useState(false);
+  const [showfollowlist, setShowfollowlist] = useState(false);
 
+  //Handle Open Bio text field
   const handleOpenEditbio = () => {
     setShoweditbio(true);
   };
 
+  //Handle close Bio text field
   const handleCancelEditbio = (e) => {
     e.preventDefault();
 
     setShoweditbio(false);
   };
-
+  //Handle Open edit/update user details text field
   const openEditInfo = () => {
     setEditDetails(true);
     if (showEditbio === true) {
       setShoweditbio(false);
     }
   };
+  //Handle Close edit/update user details text field
   const closeEditInfo = () => {
     setEditDetails(false);
+  };
+
+  //Handle Open users follow list
+  const openFollowsList = () => {
+    setShowfollowlist(true);
+  };
+
+  //Handle close users follow list
+  const closeFollowsList = () => {
+    setShowfollowlist(false);
   };
 
   useEffect(() => {
@@ -51,12 +65,15 @@ export const AppProvider = ({ children }) => {
         modeToggle,
         openEditInfo,
         closeEditInfo,
-        handleOpenEditbio,
-        handleCancelEditbio,
-        showEditbio,
-        setShoweditbio,
         editDetails,
         setEditDetails,
+        showEditbio,
+        setShoweditbio,
+        handleOpenEditbio,
+        handleCancelEditbio,
+        showfollowlist,
+        openFollowsList,
+        closeFollowsList,
         moreRef,
         commentRef,
         editPostRef,
