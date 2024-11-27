@@ -5,7 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { useDropdownContext } from "../../ContextApi/DropdownContext";
 
 const MessageAside = () => {
-    const { messageRef } = useDropdownContext();
+  const { messageRef } = useDropdownContext();
   const data = [
     {
       id: 1,
@@ -60,39 +60,42 @@ const MessageAside = () => {
   const latestFilter = data.filter((items) => items.id < 7);
 
   return (
-    <article className="Message" ref={messageRef}>
-      <div className="container">
-        <div className="Topheading">
-          <span className="chat">
-            <h1>Chat</h1>
-          </span>
-          <div className="btn">
-            <button>
-              <MdOutlineMoreHoriz />
-            </button>
-            <button>
-              <FiEdit />
-            </button>
+    <article className="MessageAside" ref={messageRef}>
+      <div className="message">
+        {" "}
+        <div className="container">
+          <div className="Topheading">
+            <span className="chat">
+              <h1>Chat</h1>
+            </span>
+            <div className="btn">
+              <button>
+                <MdOutlineMoreHoriz />
+              </button>
+              <button>
+                <FiEdit />
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="items">
-          <h4>Contact</h4>
-          {latestFilter.map((latest) => {
-            const { id, name, imageUrl, discription } = latest;
-            return (
-              <div className="user" key={id}>
-                <div className="userInfo">
-                  <div className="image">
-                    <img src={imageUrl} alt="" />
-                  </div>
-                  <div className="notice">
-                    <span>{name}</span>
-                    <p>{discription}</p>
+          <div className="items">
+            <h4>Contact</h4>
+            {latestFilter.map((latest) => {
+              const { id, name, imageUrl, discription } = latest;
+              return (
+                <div className="user" key={id}>
+                  <div className="userInfo">
+                    <div className="image">
+                      <img src={imageUrl} alt="" />
+                    </div>
+                    <div className="notice">
+                      <span>{name}</span>
+                      <p>{discription}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </article>
