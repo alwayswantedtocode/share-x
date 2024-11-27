@@ -29,11 +29,6 @@ const EditBio = () => {
     )}px`;
   }, [value]);
 
-  const handleCancelBtn = (e) => {
-    e.preventDefault();
-
-    setShoweditbio(false);
-  };
 
   const submitBio = async (e) => {
     e.preventDefault();

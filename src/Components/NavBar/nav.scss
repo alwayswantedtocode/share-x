@@ -145,7 +145,7 @@ $nav-padding: 0.5rem;
           .search {
             display: flex;
             align-items: center;
-             background-color: themed("bg");
+            background-color: themed("bg");
             padding: 10px;
             border-radius: 4px;
             width: 90%;
@@ -219,7 +219,7 @@ $nav-padding: 0.5rem;
           &::-webkit-scrollbar {
             display: none;
           }
-           @include tab {
+          @include tab {
             width: 100%;
           }
           @include web {
@@ -229,26 +229,56 @@ $nav-padding: 0.5rem;
             width: 100%;
           }
           .result-content {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             width: 100%;
             padding: 0.3rem 0.3rem;
             color: themed("textColor");
             background-color: themed("bg");
             font-size: 0.8rem;
-             @include tab {
-           font-size: 1rem;
+
+            @include tab {
+              font-size: 1rem;
+            }
+            @include web {
+              font-size: 1rem;
+            }
+            @include web-large {
+              font-size: 1rem;
+            }
+            img {
+              width: 2.2rem;
+              height: 2.2rem;
+              border-radius: 50%;
+              object-fit: cover;
+              @include tab {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
+            }
+            .details {
+              display: flex;
+              flex-direction: column;
+
+              p {
+                font-weight: 500;
+                text-transform: capitalize;
+              }
+            }
           }
-          @include web {
-           font-size: 1rem;
-          }
-          @include web-large {
-            font-size: 1rem;
-          }
-          }
-          p {
-            width: 100%;
-            // border:2px solid green;
-          }
-         
         }
       }
       // Right buttons and Features

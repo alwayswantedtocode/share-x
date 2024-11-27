@@ -13,8 +13,6 @@ import { useSelector } from "react-redux";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import { useGlobalContext } from "../../../ContextApi/GlobalContext";
-import useHandleCommentsLikes from "../../../Hooks/useHandleCommentsLikes";
-import useHandlePostOptions from "../../../Hooks/useHandlePostOptions";
 import Video from "./video";
 import DeletePost from "./DeletePost";
 import useHandleDelete from "../../../Hooks/useHandleDelete";
@@ -73,18 +71,6 @@ const Post = ({
     };
   }, [closeDropdown]);
 
-  // comments dropdown close on mousedown
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (commentsRef.current && !commentsRef.current.contains(event.target)) {
-  //       closeDropdown();
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [closeDropdown]);
 
   //Open Edit option
   const handleEditPost = (event) => {
@@ -116,7 +102,10 @@ const Post = ({
                 to={`/profilepage/${Username}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <img src={profilePicture || Profileimage} alt="Profile" />
+                <img
+                  src={profilePicture || Profileimage}
+                  alt={`${Username} CoverImage`}
+                />
               </Link>
               <div className="details">
                 <Link

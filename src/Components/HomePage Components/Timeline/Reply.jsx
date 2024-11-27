@@ -50,7 +50,10 @@ const Reply = ({ postId, feeds }) => {
   return (
     <div className="comments" ref={commentsRef}>
       <div className="write">
-        <img src={currentUser?.photoURL || Profileimage} alt="userIcon" />
+        <img
+          src={currentUser?.photoURL || Profileimage}
+          alt={`${currentUser?.username} ProfileImage`}
+        />
         <form onSubmit={handleComment} className="form">
           <textarea
             type="text"

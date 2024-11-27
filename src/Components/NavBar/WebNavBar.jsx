@@ -128,6 +128,7 @@ const WebNavBar = () => {
                         id={result._id}
                         fullname={result.Fullname}
                         username={result.username}
+                        image={result.profilePicture}
                       />
                     );
                   })}
