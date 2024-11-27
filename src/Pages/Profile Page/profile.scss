@@ -302,6 +302,7 @@
                 padding: 0.625rem;
                 background-color: themed("bgSoft");
                 color: themed("textColor");
+                overflow-y: auto;
                 @include surface-duo {
                   font-size: 1.1rem;
                 }
@@ -316,6 +317,9 @@
                 }
                 @include web-medium {
                   font-size: 1.1rem;
+                }
+                &::-webkit-scrollbar {
+                  display: none;
                 }
               }
               textarea:focus {
@@ -1253,7 +1257,7 @@
           .details {
             display: flex;
             flex-direction: column;
-              color: themed(textColor);
+            color: themed(textColor);
 
             .name {
               font-weight: 500;
