@@ -1253,6 +1253,7 @@
           .details {
             display: flex;
             flex-direction: column;
+              color: themed(textColor);
 
             .name {
               font-weight: 500;
