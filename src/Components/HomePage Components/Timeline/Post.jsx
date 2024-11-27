@@ -77,14 +77,14 @@ const Post = ({
     event.stopPropagation();
     setIsEdit(true);
     closeDropdown();
-    console.log("its works edit");
+    // console.log("its works edit");
   };
 
   //Open delete option
   const handleOpenDeletePost = () => {
     setIsDeleteopen(true);
     closeDropdown();
-    console.log("its works delete");
+    // console.log("its works delete");
   };
 
   return (
