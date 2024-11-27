@@ -135,7 +135,7 @@ const useEditProfile = () => {
   //Update Profile Info
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    console.log("I have updated my info");
+    // console.log("I have updated my info");
 
     try {
       const profileImageUrl = await uploadProfile();
