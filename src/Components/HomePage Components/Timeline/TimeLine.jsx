@@ -39,7 +39,7 @@ const TimeLine = () => {
           const postsResponse = await axios.get(
             `/api/posts/profile/${username}`
           );
-           
+
           dispatch(
             setUsersPost(
               postsResponse.data.sort(
@@ -57,8 +57,10 @@ const TimeLine = () => {
     fetchData();
   }, [currentUser._id, username, dispatch]);
 
+ 
+
   const renderPosts = (postList) => {
-    return postList.length > 0 ? (
+    return postList?.length > 0 ? (
       postList.map((feeds) => (
         <DropdownProvider key={feeds._id}>
           {" "}

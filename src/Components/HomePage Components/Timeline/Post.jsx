@@ -168,7 +168,7 @@ const Post = ({
               ) : (
                 <AiOutlineHeart className="icon" />
               )}
-              <p>{likeCount}</p>
+              <p>{Likes?.length}</p>
             </div>
             <div className="item">
               <span className="icon" onClick={() => toggleDropdown(1)}>
