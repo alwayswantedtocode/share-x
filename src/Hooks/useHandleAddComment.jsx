@@ -83,7 +83,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPostcomments } from "../Reduxtoolkit/postSlice";
 import axios from "../API/axios";
 import { useSocketContext } from "../ContextApi/SocketContext";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const useHandleAddComment = (Comment, postId, comments, setIsLoading) => {
   const { currentUser } = useSelector((state) => state.auth);
@@ -91,7 +91,7 @@ const useHandleAddComment = (Comment, postId, comments, setIsLoading) => {
   const dispatch = useDispatch();
   const { socket, listenToEvent, stopListeningToEvent, initialized } =
     useSocketContext();
-  
+
   console.log("comments in use add comment", comments);
   // Handle adding a comment
   const handleComment = async (e) => {
@@ -135,68 +135,61 @@ const useHandleAddComment = (Comment, postId, comments, setIsLoading) => {
     }
   };
 
+  //  useEffect(() => {
+  //    if (!initialized || !postId) return;
 
-//  useEffect(() => {
-//    if (!initialized || !postId) return;
+  //    // Handle new comments received via socket
+  //    const handleNewComment = ({ postId: receivedPostId, comment }) => {
+  //      if (receivedPostId === postId) {
+  //        const updatedComments = [comment, ...comments];
+  //        dispatch(
+  //          setPostcomments({
+  //            post_id: postId,
+  //            comments: updatedComments,
+  //          })
+  //        );
+  //      }
+  //    };
 
-//    // Handle new comments received via socket
-//    const handleNewComment = ({ postId: receivedPostId, comment }) => {
-//      if (receivedPostId === postId) {
-//        const updatedComments = [comment, ...comments];
-//        dispatch(
-//          setPostcomments({
-//            post_id: postId,
-//            comments: updatedComments,
-//          })
-//        );
-//      }
-//    };
+  //    // Listen to the "newComment" event
+  //    listenToEvent("newComment", handleNewComment);
 
-//    // Listen to the "newComment" event
-//    listenToEvent("newComment", handleNewComment);
+  //    // Clean up listener when the component unmounts or dependencies change
+  //    return () => {
+  //      stopListeningToEvent("newComment", handleNewComment);
+  //    };
+  //  }, [
+  //    initialized,
+  //    postId,
+  //    comments,
+  //    listenToEvent,
+  //    stopListeningToEvent,
+  //    dispatch,
+  //  ]);
 
-//    // Clean up listener when the component unmounts or dependencies change
-//    return () => {
-//      stopListeningToEvent("newComment", handleNewComment);
-//    };
-//  }, [
-//    initialized,
-//    postId,
-//    comments,
-//    listenToEvent,
-//    stopListeningToEvent,
-//    dispatch,
-//  ]);
+  // Real-time updates for comments
+  const handleIncomingComment = useCallback(
+    ({ postId: incomingPostId, commentData }) => {
+      if (incomingPostId === postId) {
+        const updatedComments = [commentData, ...comments];
+        dispatch(
+          setPostcomments({ post_id: postId, comments: updatedComments })
+        );
+      }
+    },
+    [comments, dispatch, postId]
+  );
 
   useEffect(() => {
-   
-     const handleNewComment = ({ postId: receivedPostId, comment }) => {
-       if (receivedPostId === postId) {
-         dispatch(
-           setPostcomments((prevState) => ({
-             post_id: postId,
-             comments: [
-               comment,
-               ...prevState.posts.find((post) => post._id === postId).Comments,
-             ],
-           }))
-         );
-       }
-     };
-    // Listen to the "newComment" event
-    listenToEvent("newComment", handleNewComment);
-    // Clean up listener when the component unmounts or dependencies change
+    if (!socket || !initialized) return;
+
+    socket.on(`newComment-${postId}`, handleIncomingComment);
+
     return () => {
-      stopListeningToEvent("newComment", handleNewComment);
+      socket.off(`newComment-${postId}`, handleIncomingComment);
     };
-  }, [
-    initialized,
-    postId,
-    comments,
-    listenToEvent,
-    stopListeningToEvent,
-    dispatch,
-  ]);
+  }, [socket, initialized, handleIncomingComment, postId]);
+
   return { handleComment };
 };
 

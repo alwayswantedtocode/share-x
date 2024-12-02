@@ -31,7 +31,8 @@ const Replies = ({
 
   return (
     <>
-      <div className="comment-div">
+      <div className="comment-div-wrap">
+        <div className="comment-div">
         <div className="CommenterInfo">
           <Link
             to={`/profilepage/${username}`}
@@ -72,6 +73,8 @@ const Replies = ({
           <p>{commentLikesCount}</p>
         </div>
       </div>
+      </div>
+      
     </>
   );
 };

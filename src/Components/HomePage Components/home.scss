@@ -993,6 +993,18 @@
         align-items: center;
         justify-content: center;
         justify-content: space-between;
+        @include surface-duo {
+          width: 70%;
+          gap: 20px;
+        }
+        @include tab {
+          width: 70%;
+          gap: 20px;
+        }
+        @include web {
+          width: 70%;
+          gap: 30px;
+        }
         textarea {
           width: 80%;
           height: 2.5rem;
@@ -1088,82 +1100,112 @@
       }
     }
 
-    .comment-div {
-      margin: 1.875rem 0;
-      height: max-content;
-      display: flex;
-      justify-items: center;
-      gap: 10px;
-
-      .CommenterInfo {
-        display: flex;
-        gap: 15px;
-
-        .userImage {
-          width: max-content;
-          height: 100%;
-          display: flex;
-          align-items: center;
-
-          img {
-            width: 2.2rem;
-            height: 2.2rem;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-            @include tab {
-              width: 3rem;
-              height: 3rem;
-            }
-            @include surface-Pro {
-              width: 3rem;
-              height: 3rem;
-            }
-            @include web {
-              width: 3rem;
-              height: 3rem;
-            }
-            @include web-large {
-              width: 3rem;
-              height: 3rem;
-            }
-          }
-        }
-      }
-      .description {
-        width: 50%;
-        height: 100%;
-        flex-wrap: wrap;
+    .comment-div-wrap {
+      width: 82%;
+      .comment-div {
+        width: 100%;
+        margin: 1.875rem 0;
         height: max-content;
-        border-radius: 1rem;
-        border: 2px solid rgb(160, 136, 254);
-        padding: 0.5rem;
-        .Name-timeStamp {
+        display: flex;
+        justify-items: center;
+        gap: 10px;
+        @include surface-duo {
+          width: 77%;
+        }
+        @include tab {
+          width: 77%;
+        }
+        @include web {
+          width: 77%;
+        }
+        .CommenterInfo {
           display: flex;
-          font-weight: 500;
-          align-items: center;
-          .name {
-            padding: 0 4px;
+          gap: 15px;
+
+          .userImage {
+            width: max-content;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            img {
+              width: 2.2rem;
+              height: 2.2rem;
+              border-radius: 50%;
+              object-fit: cover;
+              cursor: pointer;
+              @include tab {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include surface-Pro {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web {
+                width: 3rem;
+                height: 3rem;
+              }
+              @include web-large {
+                width: 3rem;
+                height: 3rem;
+              }
+            }
           }
         }
-        .text {
-          padding: 0 4px;
+        .description {
+          display: flex;
+          flex-direction: column;
+          width: 70%;
+          height: 100%;
+          overflow-wrap: break-word;
+          border-radius: 1rem;
+          border: 2px solid rgb(160, 136, 254);
+          padding: 0.5rem;
+          @include tab {
+            width: 70%;
+          }
+          @include surface-Pro {
+            width: 68%;
+          }
+          @include web {
+            width: 67%;
+          }
+          @include web-large {
+            width: 50%;
+          }
+          .Name-timeStamp {
+            display: flex;
+            font-weight: 500;
+            align-items: center;
+            .name {
+              padding: 0 4px;
+            }
+          }
+          .text {
+             width: 100%;
+            height: max-content;
+            p {
+              width: 100%;
+              font-size: 1.1rem;
+            }
+          }
         }
-      }
-      .impressions {
-        display: flex;
-        align-items: center;
-        gap: 0.625rem;
-        font-size: 1rem;
-        span {
-          cursor: pointer;
+        .impressions {
           display: flex;
           align-items: center;
+          gap: 0.625rem;
+          font-size: 1rem;
+          span {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+          }
         }
-      }
-      .time {
-        flex: 1;
-        font-size: 0.7rem;
+        .time {
+          flex: 1;
+          font-size: 0.7rem;
+        }
       }
     }
   }
