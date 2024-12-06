@@ -116,6 +116,12 @@ $themes: (
     @content;
   }
 }
+@mixin Zenbook-Fold{
+  @media (min-width: 853px) and (max-width: 912px) {
+    @content;
+  }
+}
+
 @mixin web {
   @media (min-width: 1024px) {
     @content;
