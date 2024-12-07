@@ -7,6 +7,8 @@ const initialState = {
   loading: false,
   error: false,
   follow: [],
+  unreadNotice: [],
+  readNotice:[]
 };
 
 export const authSlice = createSlice({
@@ -76,6 +78,21 @@ export const authSlice = createSlice({
     setFriendUser: (state, action) => {
       state.friendUser = action.payload;
     },
+
+    setUnreadNotice: (state, action) => {
+      state.unreadNotice = action.payload;
+    },
+    setreadNotice: (state, action) => {
+      state.readNotice = action.payload;
+    },
+    // setUpdateNotification:(state,action)=>{
+    // const updateNotification = state.notification.map((alert)=>{
+    // if(alert._id=== action.payload.alert_id) return action.payload.alert;
+    // return post;
+    // }
+    // state.notification= updateNotification;
+    // }
+
     setError: (state) => {
       state.loading = false;
       state.error = true;
@@ -95,6 +112,10 @@ export const {
   loginSuccess,
   setUsers,
   setFriendUser,
+  unreadNotice,
+  readNotice,
+  setUnreadNotice,
+  setreadNotice,
   loginFailure,
   setError,
   setLogout,

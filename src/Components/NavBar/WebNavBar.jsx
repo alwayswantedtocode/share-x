@@ -23,8 +23,7 @@ import useSearch from "../../Hooks/useSearch";
 import { useDropdownContext } from "../../ContextApi/DropdownContext";
 
 const WebNavBar = () => {
-  const { isDarkMode, modeToggle, searchBarRef } =
-    useGlobalContext();
+  const { isDarkMode, modeToggle, searchBarRef } = useGlobalContext();
   //buttons dropdown states
   const {
     rightButtonsRef,
@@ -37,7 +36,7 @@ const WebNavBar = () => {
   } = useDropdownContext();
 
   const { isSearchVisible, toggleSearchVisibility } = useSearch();
-  const { currentUser } = useSelector((state) => state.auth);
+  const { unreadNotice, currentUser } = useSelector((state) => state.auth);
 
   const [search, setsearch] = useState("");
   const [showResult, setShowResult] = useState(false);
@@ -64,6 +63,7 @@ const WebNavBar = () => {
     };
   }, [closeDropdown]);
 
+  // Fetch user with keywords
   useEffect(() => {
     if (search.trim() === "") {
       setSearchResult([]);
@@ -81,6 +81,11 @@ const WebNavBar = () => {
     };
     fetchUser();
   }, [search]);
+
+  
+  // Notification count
+  const NotificationLength =
+    unreadNotice?.length > 99 ? "99+ " : unreadNotice?.length;
 
   return (
     <header className="header ">
@@ -140,7 +145,7 @@ const WebNavBar = () => {
 
         <div className="Right-buttons">
           <div ref={messageRef}>
-            <div>
+            <div className="button-component-wrapper">
               <button
                 className="right-btn"
                 id="Icon-0"
@@ -160,7 +165,10 @@ const WebNavBar = () => {
           </div>
 
           <div ref={notificationRef}>
-            <div>
+            <div className="button-component-wrapper">
+              {unreadNotice?.length !== 0 && (
+                <span className="Notice-counter">{NotificationLength}</span>
+              )}
               <button
                 className="right-btn"
                 id="Icon-1"

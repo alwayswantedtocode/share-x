@@ -4,6 +4,7 @@ import "./index.scss";
 import "./Components/HomePage Components/home.scss";
 import App from "./App/App";
 import { AppProvider } from "./ContextApi/GlobalContext";
+import {SocketProvider} from "./ContextApi/SocketContext"
 import { store, persistor } from "./Reduxtoolkit/store";
 import "./Components/HomePage Components/home.scss";
 import "./Pages/Profile Page/profile.scss";
@@ -15,12 +16,14 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <AppProvider>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    </AppProvider>
+    <SocketProvider>
+      <AppProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+        </Provider>
+      </AppProvider>
+    </SocketProvider>
   </React.StrictMode>
 );

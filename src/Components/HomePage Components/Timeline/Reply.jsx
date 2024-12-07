@@ -51,7 +51,7 @@ const Reply = ({ postId, feeds }) => {
     <div className="comments" ref={commentsRef}>
       <div className="write">
         <img
-          src={currentUser?.photoURL || Profileimage}
+          src={currentUser?.profilePicture || Profileimage}
           alt={`${currentUser?.username} ProfileImage`}
         />
         <form onSubmit={handleComment} className="form">

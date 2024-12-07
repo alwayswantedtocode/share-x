@@ -4,6 +4,9 @@ import { setLoading, setPosts } from "../Reduxtoolkit/postSlice";
 import axios from "../API/axios";
 import { setUsersPost } from "../Reduxtoolkit/appUsersSlice";
 import { v4 } from "uuid";
+import { useSocketContext } from "../ContextApi/SocketContext";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const useHandleAddPost = (
   setViewMedia,
@@ -19,6 +22,9 @@ const useHandleAddPost = (
   const { usersPosts } = useSelector((state) => state.Users);
   const dispatch = useDispatch();
   const storage = getStorage();
+  const { socket,listenToEvent, stopListeningToEvent, initialized } =
+    useSocketContext();
+  const { username } = useParams();
 
   // Media handler
   const handleUpload = (e) => {
@@ -63,7 +69,7 @@ const useHandleAddPost = (
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
-    setIsloading(true)
+    setIsloading(true);
 
     if (text.current.value.trim() || file) {
       try {
@@ -71,7 +77,7 @@ const useHandleAddPost = (
 
         const response = await axios.post("/api/posts", {
           userId: currentUser?._id,
-          profilePicture: currentUser?.profilePicture,
+          // profilePicture: currentUser?.profilePicture,
           username: currentUser?.username,
           Fullname: currentUser?.Fullname,
           Description: text.current.value.trim(),
@@ -79,19 +85,52 @@ const useHandleAddPost = (
           MediaType: mediaType || null,
         });
 
-        dispatch(setPosts([response.data, ...posts]));
-        dispatch(setUsersPost([response.data, ...usersPosts]));
         text.current.value = "";
         setFile(null);
         setViewMedia(null);
         setMediaType("");
+
+        // Emit a 'newPost' event via socket
+        if (initialized) {
+          socket.emit("newPost", response.data);
+        }
       } catch (error) {
         alert(error.message);
       } finally {
-       setIsloading(false)
+        setIsloading(false);
       }
     }
   };
+
+  useEffect(() => {
+    if (!initialized) return;
+
+    const handleNewPost = (newPostData) => {
+      console.log("New post received via socket:", newPostData);
+
+      if (!username) {
+        dispatch(setPosts([newPostData, ...posts]));
+      } else {
+        dispatch(setUsersPost([newPostData, ...usersPosts]));
+      }
+    };
+
+    listenToEvent("newPost", handleNewPost);
+
+    return () => {
+      stopListeningToEvent("newPost", handleNewPost); // Clean up event listener
+    };
+  }, [
+    initialized,
+    dispatch,
+    posts,
+    usersPosts,
+    currentUser._id,
+    username,
+    listenToEvent,
+    stopListeningToEvent,
+  ]);
+
   return { handleUpload, handleReomveMediaPreview, handleSubmitPost };
 };
 

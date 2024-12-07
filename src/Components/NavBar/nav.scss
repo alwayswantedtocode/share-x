@@ -99,7 +99,7 @@ $nav-padding: 0.5rem;
           width: 2rem;
           padding: 0.3rem;
           border-radius: 0.4375rem;
-          font-size: 1rem;
+          font-size: 1.2rem;
           border: none;
           background-color: transparent;
           cursor: pointer;
@@ -109,15 +109,15 @@ $nav-padding: 0.5rem;
             width: 3rem;
           }
           @include tab {
-            font-size: 2rem;
+            font-size: 2.3rem;
             width: 3rem;
           }
           @include web {
-            font-size: 2rem;
+            font-size: 2.3rem;
             width: 3rem;
           }
           @include web-large {
-            font-size: 2rem;
+            font-size: 2.3rem;
             width: 3rem;
           }
         }
@@ -306,39 +306,91 @@ $nav-padding: 0.5rem;
         div {
           display: flex;
           flex-direction: column;
-          button {
+
+          .button-component-wrapper {
+            width: max-content;
+            height: max-content;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2rem;
-            padding: 0.3rem;
-            border-radius: 0.4375rem;
-            font-size: 1rem;
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            color: themed("textColor");
 
-            @include surface-duo {
-              font-size: 2rem;
-              width: 3rem;
+            .Notice-counter {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: max-content;
+              height: max-content;
+              background-color: rgb(195, 1, 1);
+              border-radius: 50%;
+              color: white;
+              font-size: 7px;
+              padding: 3px;
+              position: absolute;
+              top: 32%;
+              right: 13%;
+              margin: auto;
+              z-index: 9;
+              @include surface-duo {
+                font-size: 10px;
+                top: 30%;
+                right: 11%;
+              }
+              @include tab {
+                font-size: 10px;
+                top: 30%;
+                right: 12.3%;
+              }
+               @include surface-Pro  {
+                font-size: 10px;
+                top: 30%;
+                right: 12.5%;
+              }
+              @include web {
+                font-size: 10px;
+                top: 30%;
+                right: 12.7%;
+              }
+              @include web-medium {
+                font-size: 10px;
+                top: 30%;
+                right: 12.9%;
+              }
             }
-            @include tab {
-              font-size: 2rem;
-              width: 3rem;
-            }
-            @include web {
-              font-size: 2rem;
-              width: 3rem;
-            }
-            @include web-large {
-              font-size: 2rem;
-              width: 3rem;
-            }
-          }
 
-          button:hover {
-            background-color: rgb(187, 187, 187);
+            button {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 2rem;
+              padding: 0.3rem;
+              border-radius: 0.4375rem;
+              font-size: 1.2rem;
+              border: none;
+              background-color: transparent;
+              cursor: pointer;
+              color: themed("textColor");
+
+              @include surface-duo {
+                font-size: 2rem;
+                width: 3rem;
+              }
+              @include tab {
+                font-size: 2.3rem;
+                width: 3rem;
+              }
+              @include web {
+                font-size: 2.3rem;
+                width: 3rem;
+              }
+              @include web-large {
+                font-size: 2.3rem;
+                width: 3rem;
+              }
+            }
+
+            button:hover {
+              background-color: rgb(187, 187, 187);
+            }
           }
 
           .Aside {
